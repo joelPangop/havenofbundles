@@ -1,0 +1,7 @@
+{
+  "name": "havenofbundles",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
