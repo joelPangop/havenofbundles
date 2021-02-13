@@ -1,0 +1,22 @@
+<ion-header [translucent]="true" *ngIf="platform_view !== 'browser'">
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-menu-button>
+        <ion-icon src="assets/icon/menu.svg"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Tab 1
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+<!--  <ion-header>-->
+<!--    <ion-toolbar>-->
+<!--      <ion-title size="medium">Tab 1</ion-title>-->
+<!--    </ion-toolbar>-->
+<!--  </ion-header>-->
+
+  <app-explore-container name="Tab 1 page"></app-explore-container>
+</ion-content>

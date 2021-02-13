@@ -1,0 +1,20 @@
+<ion-header *ngIf="platform_view !== 'browser'">
+  <ion-toolbar>
+    <ion-buttons *ngIf="platform.is('ios') || platform.is('android')">
+      <ion-menu-button>
+        <ion-icon src="assets/icon/menu.svg"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="ion-padding" lines="none">
+    <div *ngFor="let page of pages">
+      <ion-item [routerDirection]="'root'" [routerLink]="[page.url]" >
+        <p>{{page.name}}</p>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
