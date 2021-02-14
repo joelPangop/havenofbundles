@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Platform} from '@ionic/angular';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPage implements OnInit {
 
-  constructor() { }
+  public view;
+
+  constructor(public platform: Platform, private storage: StorageService) {
+
+  }
 
   ngOnInit() {
+    this.storage.getObject('tab').then((res) => {
+      if(res){
+        this.view = res;
+        let tablinks = document.getElementsByClassName('tablinks');
+        for (let i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(' active', '');
+          if(tablinks[i].textContent.toUpperCase() === this.view.toUpperCase()){
+            tablinks[i].className = 'active'
+          }
+        }
+      } else {
+        this.view = 'tab1';
+        let tablinks = document.getElementsByClassName('tablinks');
+        for (let i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(' active', '');
+        }
+      }
+    });
+  }
+
+  public async changeView(event, page): Promise<void> {
+    let i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName('tabcontent');
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none';
+    }
+    tablinks = document.getElementsByClassName('tablinks');
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+    // document.getElementById(cityName).style.display = "block";
+    this.view = page;
+    await this.storage.setObject('tab', this.view);
+    event.currentTarget.className += ' active';
   }
 
 }

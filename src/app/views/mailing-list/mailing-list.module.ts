@@ -9,12 +9,15 @@ import { MailingListPageRoutingModule } from './mailing-list-routing.module';
 import { MailingListPage } from './mailing-list.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MailingListPageRoutingModule
-  ],
-  declarations: [MailingListPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        MailingListPageRoutingModule
+    ],
+    exports: [
+        MailingListPage
+    ],
+    declarations: [MailingListPage]
 })
 export class MailingListPageModule {}

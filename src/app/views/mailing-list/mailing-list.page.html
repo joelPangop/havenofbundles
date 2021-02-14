@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/dashboard">
+      <ion-back-button defaultHref="tabs/dashboard" *ngIf="platform.is('ios') || platform.is('android')">
       </ion-back-button>
     </ion-buttons>
     <ion-title>Mailing List</ion-title>
@@ -9,5 +9,76 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-grid fixed>
+    <ion-row class="table-header">
+      <ion-col size="4" size-md="4" size-lg="4" tappable (click)="sortBy('email')">
+        Email
+        <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
+        <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
+      </ion-col>
+      <ion-col size="3">
+        Firstname
+      </ion-col>
+      <ion-col size="3">
+        Lastname
+      </ion-col>
+      <ion-col size="2">
+        Sent
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let mailInfos of data; let i = index" class="table-body" [ngClass]="mailInfos.isSent ? '': 'notSent'">
+      <ion-col size="4" size-md="4" size-lg="4">
+        {{mailInfos.email}}
+      </ion-col>
+      <ion-col size="3">
+        {{mailInfos.firstname}}
+      </ion-col>
+      <ion-col size="3">
+        {{mailInfos.lastname}}
+      </ion-col>
+      <ion-col size="2">
+        <a *ngIf="!mailInfos.isSent" style="text-decoration: underline; color: #1e1e1e; font-size: medium" (click)="sendMail(i)">Resend</a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        {{page + 1}} of {{totalPages}}
+      </ion-col>
+    </ion-row>
+    <ion-row align="canter" style="align-items: center; color: #ab924d">
+      <ion-col size="1">
+      </ion-col>
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="goFirst()">
+          <ion-icon name="play-back"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="previousPage()">
+          <ion-icon name="chevron-back"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <select *ngIf="!platform.is('ios') && !platform.is('android')" [(ngModel)]="resultsCount" (change)="loadData()">
+          <option *ngFor="let n of nb" [value]=n>{{n}}</option>
+        </select>
+        <ion-select *ngIf="platform.is('ios') || platform.is('android')" interface="popover" [(ngModel)]="resultsCount"
+                    (ionChange)="loadData()">
+          <ion-select-option *ngFor="let n of nb" [value]=n>{{n}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="nextPage()">
+          <ion-icon name="chevron-forward"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button fill="clear" (click)="goLast()">
+          <ion-icon name="play-forward"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="1">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

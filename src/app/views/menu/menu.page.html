@@ -1,4 +1,4 @@
-<ion-split-pane contentId="content">
+<ion-split-pane contentId="content" *ngIf="platform.is('ios') || platform.is('android')">
   <ion-menu side="start" menuId="pages" type="overlay" contentId="content">
     <!-- Header -->
     <ion-header>
@@ -41,3 +41,17 @@
 
   <ion-router-outlet id="content"></ion-router-outlet>
 </ion-split-pane>
+<ion-toolbar *ngIf="!platform.is('ios') && !platform.is('android')">
+  <div class="tab" style="width:80%; margin:0 auto; position: relative;">
+    <button class="tablinks" (click)="changeView($event, 'tab1')">Tab 1</button>
+    <button class="tablinks" (click)="changeView($event, 'tab2')">Tab 2</button>
+    <button class="tablinks" (click)="changeView($event, 'tab3')">Tab 3</button>
+    <button class="tablinks" (click)="changeView($event, 'dashboard')">Dashboard</button>
+  </div>
+</ion-toolbar>
+<ion-content [fullscreen]="true" *ngIf="!platform.is('ios') && !platform.is('android')">
+  <app-tab1 *ngIf="view === 'tab1'" platform_view="browser"></app-tab1>
+  <app-tab2 *ngIf="view === 'tab2'" platform_view="browser"></app-tab2>
+  <app-tab3 *ngIf="view === 'tab3'" platform_view="browser"></app-tab3>
+  <app-dashboard *ngIf="view === 'dashboard'" platform_view="browser"></app-dashboard>
+</ion-content>

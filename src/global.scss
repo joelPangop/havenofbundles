@@ -1876,6 +1876,21 @@ input {
   font-size: 17px;
 }
 
+.table-header {
+  color: #dbdbdb;
+  font-weight: 500;
+  border-bottom: 3px solid #cf3c4f;
+}
+
+.table-body {
+  border-bottom: 1px solid #ab924d;
+  color: #ab924d;
+}
+
+ion-icon{
+  color: #dbdbdb;
+}
+
 /* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
@@ -1884,6 +1899,7 @@ input {
 /* Create an active/current tablink class */
 .tab button.active {
   background-color: #7d7d7d;
+  color: #1c1c1d;
 }
 
 /* Style the tab content */

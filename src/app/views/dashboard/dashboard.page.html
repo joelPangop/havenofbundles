@@ -9,12 +9,37 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="platform.is('ios') || platform.is('android')">
   <ion-list class="ion-padding" lines="none">
     <div *ngFor="let page of pages">
-      <ion-item [routerDirection]="'root'" [routerLink]="[page.url]" >
+      <ion-item [routerDirection]="'root'" [routerLink]="[page.url]" [routerLinkActive]="'active'">
         <p>{{page.name}}</p>
       </ion-item>
     </div>
   </ion-list>
+</ion-content>
+<ion-content *ngIf="!platform.is('ios') && !platform.is('android')">
+
+  <ion-grid  fixed style="height: 100%">
+    <ion-row style="height: 100%">
+      <ion-col size="3" style="height: 100%">
+        <ion-list class="ion-padding" lines="none">
+          <div class="sidetab">
+            <button class="sidetablinks" (click)="changeView($event, 'mailing List')">
+              Mailing List
+            </button>
+          </div>
+          <div class="sidetab">
+            <button class="sidetablinks" (click)="changeView($event, 'profile')">
+              Profile
+            </button>
+          </div>
+        </ion-list>
+      </ion-col>
+      <ion-col size="9" style="height: 100%">
+        <app-mailing-list name="browser" *ngIf="view === 'mailing List'"></app-mailing-list>
+        <app-profile name="browser" *ngIf="view === 'profile'"></app-profile>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

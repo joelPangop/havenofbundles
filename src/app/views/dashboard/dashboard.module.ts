@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
+import {DashboardViewPageModule} from '../dashboard-view/dashboard-view.module';
+import {MailingListPageModule} from '../mailing-list/mailing-list.module';
+import {ProfilePageModule} from '../profile/profile.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardPageRoutingModule
+    DashboardPageRoutingModule,
+    DashboardViewPageModule,
+    MailingListPageModule,
+    ProfilePageModule
   ],
   exports: [
     DashboardPage
