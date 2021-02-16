@@ -26,7 +26,8 @@
         Sent
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let mailInfos of data; let i = index" class="table-body" [ngClass]="mailInfos.isSent ? '': 'notSent'">
+    <ion-row *ngFor="let mailInfos of data; let i = index" class="table-body"
+             [ngClass]="mailInfos.isSent ? '': 'notSent'">
       <ion-col size="4" size-md="4" size-lg="4">
         {{mailInfos.email}}
       </ion-col>
@@ -37,7 +38,14 @@
         {{mailInfos.lastname}}
       </ion-col>
       <ion-col size="2">
-        <a *ngIf="!mailInfos.isSent" style="text-decoration: underline; color: #1e1e1e; font-size: medium" (click)="sendMail(i)">Resend</a>
+        <ion-button fill="clear">
+<!--          <ion-icon *ngIf="mailInfos.isSent" name="md-checkmark-circle-outline"-->
+<!--                    color="success"></ion-icon>-->
+          <ion-icon *ngIf="mailInfos.isSent" slot="icon-only"
+                    name="checkmark-circle-outline" color="success"></ion-icon>
+        </ion-button>
+        <a *ngIf="!mailInfos.isSent" style="text-decoration: underline; color: #1e1e1e; font-size: medium"
+           (click)="sendMail(i)">Resend</a>
       </ion-col>
     </ion-row>
     <ion-row>

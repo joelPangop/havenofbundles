@@ -10,7 +10,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./views/menu/menu.module').then( m => m.MenuPageModule)
-  },  {
+  },
+  {
     path: 'dashboard-view',
     loadChildren: () => import('./views/dashboard-view/dashboard-view.module').then( m => m.DashboardViewPageModule)
   },

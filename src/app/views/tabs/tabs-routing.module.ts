@@ -44,6 +44,22 @@ const routes: Routes = [
         loadChildren: () => import('../landing/landing.module').then( m => m.LandingPageModule)
       },
       {
+        path: 'summary',
+        loadChildren: () => import('../summary/summary.module').then( m => m.SummaryPageModule)
+      },
+      {
+        path: 'sold',
+        loadChildren: () => import('../sold/sold.module').then( m => m.SoldPageModule)
+      },
+      {
+        path: 'profile-products',
+        loadChildren: () => import('../profile-products/profile-products.module').then( m => m.ProfileProductsPageModule)
+      },
+      {
+        path: 'available',
+        loadChildren: () => import('../available/available.module').then( m => m.AvailablePageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

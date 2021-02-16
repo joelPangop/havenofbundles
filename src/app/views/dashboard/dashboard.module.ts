@@ -10,6 +10,10 @@ import { DashboardPage } from './dashboard.page';
 import {DashboardViewPageModule} from '../dashboard-view/dashboard-view.module';
 import {MailingListPageModule} from '../mailing-list/mailing-list.module';
 import {ProfilePageModule} from '../profile/profile.module';
+import {AvailablePageModule} from '../available/available.module';
+import {ProfileProductsPageModule} from '../profile-products/profile-products.module';
+import {SoldPageModule} from '../sold/sold.module';
+import {SummaryPageModule} from '../summary/summary.module';
 
 @NgModule({
   imports: [
@@ -19,7 +23,11 @@ import {ProfilePageModule} from '../profile/profile.module';
     DashboardPageRoutingModule,
     DashboardViewPageModule,
     MailingListPageModule,
-    ProfilePageModule
+    ProfilePageModule,
+    AvailablePageModule,
+    ProfileProductsPageModule,
+    SoldPageModule,
+    SummaryPageModule
   ],
   exports: [
     DashboardPage

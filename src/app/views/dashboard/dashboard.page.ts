@@ -16,25 +16,58 @@ export class DashboardPage implements OnInit {
   constructor(public platform: Platform, private storage: StorageService) {}
 
   ngOnInit() {
-    if (this.platform_view === "browser") {
+    if (this.platform.is('ios') || this.platform.is('android')) {
       this.pages = [
         {
-          name: "Mailing List",
-          url: "/home/mailing-list"
+          name: "Summary",
+          url: "/tabs/summary"
         },
         {
-          name: "Profile",
-          url: "/home/profile"
-        }]
-    } else if (this.platform.is('ios') || this.platform.is('android')){
-      this.pages = [
+          name: "Sold",
+          url: "/tabs/sold"
+        },
         {
-          name: "Mailing List",
-          url: "/tabs/mailing-list"
+          name: "Products",
+          url: "/tabs/profile-products"
         },
         {
           name: "Profile",
           url: "/tabs/profile"
+        },
+        {
+          name: "Available",
+          url: "/tabs/available"
+        },
+        {
+          name: "Mailing List",
+          url: "/tabs/mailing-list"
+        }]
+
+    } else {
+      this.pages = [
+        {
+          name: "Summary",
+          url: "summary"
+        },
+        {
+          name: "Sold",
+          url: "sold"
+        },
+        {
+          name: "Products",
+          url: "profile products"
+        },
+        {
+          name: "Profile",
+          url: "profile"
+        },
+        {
+          name: "Available",
+          url: "available"
+        },
+        {
+          name: "Mailing List",
+          url: "mailing List"
         }]
     }
     this.storage.getObject('dashboard_view').then((res) => {
