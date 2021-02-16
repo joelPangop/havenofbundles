@@ -9,8 +9,12 @@
 </ion-header>
 
 <ion-content>
-  
-  <ion-button class="add_button">
+
+  <ion-button class="add_button" (click)="goToAdd()">
 
   </ion-button>
+  <app-add-edit-product *ngIf="isDetail && isAdd" name=""></app-add-edit-product>
+  <ion-grid *ngIf="isList">
+
+  </ion-grid>
 </ion-content>

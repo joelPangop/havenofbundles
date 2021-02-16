@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ProfileProductsPageRoutingModule } from './profile-products-routing.module';
 
 import { ProfileProductsPage } from './profile-products.page';
+import {AddEditProductPageModule} from '../add-edit-product/add-edit-product.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        ProfileProductsPageRoutingModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ProfileProductsPageRoutingModule,
+    AddEditProductPageModule
+  ],
     exports: [
         ProfileProductsPage
     ],

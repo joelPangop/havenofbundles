@@ -9,9 +9,9 @@ import {Mailing} from '../models/Mailing-interface';
 export class MailingService {
 
   mailingList: Mailing[];
-  // url = 'http://localhost:4000';
+  url = 'http://localhost:4000';
 
-  url = "https://havenofbundleservices.herokuapp.com";
+  // url = "https://havenofbundleservices.herokuapp.com";
 
   constructor(private http: HttpClient) {
     this.mailingList = [];

@@ -8,9 +8,20 @@ import {Platform} from '@ionic/angular';
 })
 export class ProfileProductsPage implements OnInit {
 
+  isDetail: boolean = false;
+  isAdd: boolean = false;
+  isList: boolean = true;
+  action = "";
+
   constructor(public platform: Platform) { }
 
   ngOnInit() {
+  }
+
+  goToAdd(){
+    this.isAdd = true;
+    this.isList = false;
+    this.action = "add";
   }
 
 }
