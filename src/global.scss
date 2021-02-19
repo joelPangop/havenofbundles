@@ -25,6 +25,12 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@font-face {
+  font-family: 'Berlin Sans FB';
+  font-weight: normal;
+  font-style: normal;
+}
+
 /****************************/
 /** Reset **/
 /****************************/
@@ -32,13 +38,14 @@ html, body, div, span, applet, object, iframe, h1, h3, .side-right #countdown sp
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-family: "Berlin Sans FB" !important;
   vertical-align: baseline;
 }
 
 body {
   background-color: #222222;
+  font-family: "Berlin Sans FB" !important;
 }
 
 app-root {
@@ -62,6 +69,30 @@ ion-content {
 ion-header {
   color: #ab924d;
   background-color: #0d0d0d;
+}
+
+ion-input {
+  color: #ab924d;
+  font-family: "Berlin Sans FB";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+ion-label {
+  ion-input {
+    color: #ab924d;
+    font-family: "Berlin Sans FB";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
+
+ion-input:hover {
+  --ion-background-color: #fff;
 }
 
 ion-back-button {
@@ -1908,4 +1939,18 @@ ion-icon{
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
+}
+
+ion-item {
+  color: #c4c4c4;
+}
+
+ion-icon {
+  color: #ab924d;
+}
+
+.card-img {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }

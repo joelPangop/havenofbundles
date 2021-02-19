@@ -56,6 +56,10 @@ const routes: Routes = [
         loadChildren: () => import('../profile-products/profile-products.module').then( m => m.ProfileProductsPageModule)
       },
       {
+        path: 'add-edit-product/:action/:id',
+        loadChildren: () => import('../add-edit-product/add-edit-product.module').then( m => m.AddEditProductPageModule)
+      },
+      {
         path: 'available',
         loadChildren: () => import('../available/available.module').then( m => m.AvailablePageModule)
       },

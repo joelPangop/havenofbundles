@@ -11,15 +11,6 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./views/menu/menu.module').then( m => m.MenuPageModule)
   },
-  {
-    path: 'dashboard-view',
-    loadChildren: () => import('./views/dashboard-view/dashboard-view.module').then( m => m.DashboardViewPageModule)
-  },  {
-    path: 'add-edit-product',
-    loadChildren: () => import('./views/add-edit-product/add-edit-product.module').then( m => m.AddEditProductPageModule)
-  },
-
-
   // {
   //   path: 'home',
   //   loadChildren: () => import('./views/home/home.module').then( m => m.HomePageModule)

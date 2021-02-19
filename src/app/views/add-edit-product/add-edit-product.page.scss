@@ -1,14 +1,117 @@
-#nameId {
-  /* Personnal Info */
+#name_label_id {
+  color: #ab924d;
+}
+
+ion-icon {
+  color: #ab924d;
+}
+
+ion-input {
+  color: #ab924d;
+  font-size: small;
+  font-family: Berlin Sans FB;
+}
+
+ion-input:hover {
+  --ion-background-color: #ab924d;
+}
+
+#name_input_id {
+  --placeholder-color:  rgba(171, 146, 77, 0.5);
+  --placeholder-opacity: 2;
+}
+
+ion-grid {
+  min-height: 12vh !important;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: #3880ff;
+}
+
+.card-img {
+  height: 150px;
+  width: 150px;
+}
+
+.swiper-container {
+  width: 600px;
+  height: 300px;
+}
+#top-slider {
+  ion-slides {
+    --bullet-background: var(--ion-color-light);
+    --bullet-background-active: var(--ion-color-white);
+  }
+}
+
+#detail {
+  /* Detail */
 
   position: absolute;
-  left: 12.27%;
-  right: 57.33%;
-  top: 57.5%;
-  bottom: 12.5%;
+  width: 50px;
+  height: 24px;
+  left: 15px;
 
   /* S1 Halyard */
-  font-family: Halyard Micro;
+  font-family: "Berlin Sans FB";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  /* identical to box height, or 160% */
+
+  /* Secondary */
+  color: #ab924d;
+}
+
+#sold {
+  /* Sold */
+
+
+  position: absolute;
+  width: 37px;
+  height: 24px;
+  left: 85px;
+
+  /* S1 Halyard */
+
+  font-family: Berlin Sans FB;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  /* identical to box height, or 160% */
+
+
+  /* Basic 600 */
+
+  color: #ab924d;
+  opacity: 0.6;
+}
+
+#issue {
+  /* Issue */
+  position: relative;
+  width: 45px;
+  height: 24px;
+  left: 142px;
+
+  /* S1 Halyard */
+  font-family: Berlin Sans FB;
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
@@ -16,6 +119,100 @@
   /* identical to box height, or 160% */
 
   /* Basic 600 */
-  color: #010D13;
 
+  color: #ab924d;
+  opacity: 0.6;
+}
+
+#prod_cat_sel {
+  /* Price */
+
+  position: absolute;
+  width: 33px;
+  height: 16px;
+  left: 16px;
+  top: 376px;
+
+  /* Caption1 Halyard */
+  font-family: Halyard Micro;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 16px;
+  /* identical to box height, or 133% */
+
+  /* Basic 600 */
+  color: #010D13;
+  opacity: 0.6;
+}
+
+ion-select-option {
+  color: #010D13;
+}
+
+ion-select {
+  color: #ab924d;
+  font-family: "Berlin Sans FB"
+}
+
+ion-input{
+  --placeholder-color:  rgba(171, 146, 77, 0.2);
+  --placeholder-opacity: 2;
+  --placeholder-font-size: 12px;
+  --placeholder-font-weight: 600;
+}
+
+ion-item-divider {
+  font-weight: 600;
+  font-family: "Berlin Sans FB"
+  //font-size: 12px;
+}
+
+.button {
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+span {
+  color: #ab924d;
+  font-size: small;
+  text-align: center
+}
+
+.thead {
+  font-size: small;
+}
+.tbody {
+  font-size: small;
+}
+.box:checked {
+  background-color: #e9ecee;
+  border: 1px solid #adb8c0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+  color: #99a1a7
 }

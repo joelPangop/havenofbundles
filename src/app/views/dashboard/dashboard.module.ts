@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
-import {DashboardViewPageModule} from '../dashboard-view/dashboard-view.module';
 import {MailingListPageModule} from '../mailing-list/mailing-list.module';
 import {ProfilePageModule} from '../profile/profile.module';
 import {AvailablePageModule} from '../available/available.module';
@@ -21,7 +20,6 @@ import {SummaryPageModule} from '../summary/summary.module';
     FormsModule,
     IonicModule,
     DashboardPageRoutingModule,
-    DashboardViewPageModule,
     MailingListPageModule,
     ProfilePageModule,
     AvailablePageModule,
