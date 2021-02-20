@@ -30,6 +30,7 @@
   font-weight: normal;
   font-style: normal;
 }
+ion-content { --overflow: hidden; }
 
 /****************************/
 /** Reset **/
@@ -1953,4 +1954,23 @@ ion-icon {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Mobile */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

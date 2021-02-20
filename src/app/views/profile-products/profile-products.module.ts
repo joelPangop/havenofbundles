@@ -8,6 +8,8 @@ import { ProfileProductsPageRoutingModule } from './profile-products-routing.mod
 
 import { ProfileProductsPage } from './profile-products.page';
 import {AddEditProductPageModule} from '../add-edit-product/add-edit-product.module';
+import {MobileProductsManagementPageModule} from "../mobile-products-management/mobile-products-management.module";
+import {ProductsManagementPageModule} from "../products-management/products-management.module";
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import {AddEditProductPageModule} from '../add-edit-product/add-edit-product.mod
     FormsModule,
     IonicModule,
     ProfileProductsPageRoutingModule,
-    AddEditProductPageModule
+    AddEditProductPageModule,
+    MobileProductsManagementPageModule,
+    ProductsManagementPageModule
   ],
     exports: [
         ProfileProductsPage

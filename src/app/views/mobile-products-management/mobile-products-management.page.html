@@ -1,0 +1,42 @@
+<ion-grid id="grid">
+  <p>Recently added</p>
+  <ion-row>
+    <ion-col size="2" class="ion-text-center">
+      <ion-button fill="outline" (click)="goToAdd()"
+                  style="--border-radius: 3px; --border-color: #ab924d; height: 70px;">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3"
+                   *ngFor="let item of (productService.profile_products ? productService.profile_products.slice(0,2): []); let i=index">
+            <ion-card class="ion-no-margin" routerDirection="root">
+              <div class="head-card-img"
+                   [style.background-image]="'url('+ip+'/file/image/'+item.pictures[0]+')'"></div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+  <ion-item-divider>
+    <ion-icon name="list-outline"></ion-icon>&#160;&#160;&#160;
+    <span>LIST</span>
+  </ion-item-divider>
+  <ion-row>
+    <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of productService.profile_products">
+      <ion-card class="ion-no-margin" (click)="goToDetail(item._id)">
+        <!-- Product Image -->
+        <div class="card-img"
+             [style.background-image]="'url('+ip+'/file/image/'+item.pictures[0]+')'"></div>
+        <ion-card-header color="medium">
+          <span style="color: #1e2023">{{item.name}}</span>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>

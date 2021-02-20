@@ -1,17 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Platform} from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import {Platform} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {ProductsService} from "../../services/products.service";
 import {environment} from "../../models/environments";
-import {Product} from "../../models/Product-interface";
-import { ScrollDetail } from '@ionic/core';
 
 @Component({
-  selector: 'app-profile-products',
-  templateUrl: './profile-products.page.html',
-  styleUrls: ['./profile-products.page.scss'],
+  selector: 'app-mobile-products-management',
+  templateUrl: './mobile-products-management.page.html',
+  styleUrls: ['./mobile-products-management.page.scss'],
 })
-export class ProfileProductsPage implements OnInit {
+export class MobileProductsManagementPage implements OnInit {
 
   isDetail: boolean = false;
   isAdd: boolean = false;
@@ -20,7 +18,6 @@ export class ProfileProductsPage implements OnInit {
   ip = '';
   lastItem1: string = "";
   lastItem2: string = "";
-  showToolbar = false;
 
   constructor(public platform: Platform, private router: Router, public productService: ProductsService) {
 
@@ -54,14 +51,9 @@ export class ProfileProductsPage implements OnInit {
   load() {
     this.productService.loadAll().subscribe((products) => {
       this.productService.profile_products = products;
+      this.lastItem1 = this.productService.profile_products[this.productService.profile_products.length - 1].pictures[0];
+      // this.lastItem2 = this.productService.profile_products[this.productService.profile_products.length - 2].pictures[0];
     })
-  }
-
-  onScroll($event: CustomEvent<ScrollDetail>) {
-    if ($event && $event.detail && $event.detail.scrollTop) {
-      const scrollTop = $event.detail.scrollTop;
-      this.showToolbar = scrollTop >= 225;
-    }
   }
 
 }

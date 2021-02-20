@@ -11,6 +11,15 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./views/menu/menu.module').then( m => m.MenuPageModule)
   },
+  {
+    path: 'products-management',
+    loadChildren: () => import('./views/products-management/products-management.module').then( m => m.ProductsManagementPageModule)
+  },  {
+    path: 'mobile-products-management',
+    loadChildren: () => import('./views/mobile-products-management/mobile-products-management.module').then( m => m.MobileProductsManagementPageModule)
+  }
+
+
   // {
   //   path: 'home',
   //   loadChildren: () => import('./views/home/home.module').then( m => m.HomePageModule)
