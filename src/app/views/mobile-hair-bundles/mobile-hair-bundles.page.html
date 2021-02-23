@@ -1,0 +1,81 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <ion-icon src="assets/icon/menu.svg"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-buttons>
+      <span><h2>Hair Bundles</h2></span>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="cart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="products" fullscreen>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Loading...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid id="grid">
+    <ion-item-group>
+      <ion-row>
+        <ion-col size="12" style="background-color: #414141; color: #ab924d; padding: 10px">
+          <br/>
+          <ion-text>
+            Have a hairstyle in mind and want more volume, length, and texture? Add our 100% Virgin hair bundles.
+            Purchase
+            three high-quality human hair bundles and the install is free.
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-item-group>
+    <hr style="list-style: url('src/assets/images/separated.jpeg') inside">
+    <ion-row>
+      <ion-grid style="background-color: #414141">
+        <h2>Textures</h2>
+        <ion-row>
+          <ion-col size="4" *ngFor="let item of typeImages" class="ion-padding">
+            <ion-card class="ion-no-margin pin">
+              <!--            <div class="card-img"-->
+              <!--                 [style.background-image]="'url('+ item + ')'"></div>-->
+              <img src="{{item.src}}" style="width:100%"/>
+              <ion-card-header>
+                <span>{{item.name}}</span>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+    <hr style="list-style: url('src/assets/images/separated.jpeg') inside">
+    <h3>All categories</h3>
+
+    <ion-row>
+      <!--      <div class="pins">-->
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of products">
+        <ion-card class="ion-no-margin pin">
+          <!--            <ion-fab vertical="top" horizontal="end">-->
+          <!--              <ion-fab-button>-->
+          <!--                <ion-icon color="color1" name="heart-outline"></ion-icon>-->
+          <!--              </ion-fab-button>-->
+          <!--            </ion-fab>-->
+          <!-- Product Image -->
+          <div class="card-img"
+               [style.background-image]="'url('+url+'/file/image/' + item.pictures[0] + ')'"></div>
+          <ion-card-header color="medium">
+            <span style="color: #1e2023">{{item.name}}</span>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
