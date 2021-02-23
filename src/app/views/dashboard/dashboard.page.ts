@@ -28,7 +28,7 @@ export class DashboardPage implements OnInit {
         },
         {
           name: "Products",
-          url: "/tabs/profile-products"
+          url: "/tabs/mobile-products-management"
         },
         {
           name: "Profile",

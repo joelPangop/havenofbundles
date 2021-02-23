@@ -14,11 +14,15 @@ const routes: Routes = [
   {
     path: 'products-management',
     loadChildren: () => import('./views/products-management/products-management.module').then( m => m.ProductsManagementPageModule)
-  },  {
-    path: 'mobile-products-management',
-    loadChildren: () => import('./views/mobile-products-management/mobile-products-management.module').then( m => m.MobileProductsManagementPageModule)
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./views/products/products.module').then( m => m.ProductsPageModule)
+  },
+  {
+    path: 'hair-bundles',
+    loadChildren: () => import('./views/hair-bundles/hair-bundles.module').then( m => m.HairBundlesPageModule)
   }
-
 
   // {
   //   path: 'home',

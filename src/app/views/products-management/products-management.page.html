@@ -65,7 +65,7 @@
 <div *ngIf="view === 'add' || view === 'detail' || view === 'edit'">
   <ion-item-divider>
     <ion-icon name="list-outline"></ion-icon>
-    <p style="text-decoration: underline;"><a href="/" (click)="goToList()">
+    <p style="text-decoration: underline;"><a (click)="goToList()">
       LIST
     </a></p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
     <ion-icon name="add-circle-outline"></ion-icon>&#160;&#160;&#160;
@@ -478,7 +478,7 @@
               <ion-item>
                 <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Maintenance Level"
                               [(ngModel)]="productService.profile_product.care.maintenance_level"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
+                <ion-label *ngIf="productService.profile_product.care && view === 'detail'" slot="start">
                   Maintenance Level
                 </ion-label>
                 <span slot="end"
@@ -486,7 +486,7 @@
               </ion-item>
               <ion-item>
                 <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Can it be dyed?"
-                              [(ngModel)]="productService.profile_product.care.can_it_be_dyed"></ion-textarea>
+                              [(ngModel)]="productService.profile_product.care && productService.profile_product.care.can_it_be_dyed"></ion-textarea>
                 <ion-label *ngIf="view === 'detail'" slot="start">
                   Can it be dyed?
                 </ion-label>

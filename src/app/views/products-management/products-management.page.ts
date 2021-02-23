@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {AlertController, LoadingController, Platform, ToastController} from "@ionic/angular";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ProductsService} from "../../services/products.service";
-import {environment} from "../../models/environments";
-import {Care, Description, Extra, HairInfo, Product, Rate} from "../../models/Product-interface";
-import {BundleCategories} from "../../models/bundleCategories";
-import {Colors} from "../../models/colors";
-import {ProductCategories} from "../../models/productCategories";
-import {Styles} from "../../models/styles";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ImageService} from "../../services/image.service";
+import {Component, OnInit} from '@angular/core';
+import {AlertController, LoadingController, Platform, ToastController} from '@ionic/angular';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProductsService} from '../../services/products.service';
+import {environment} from '../../models/environments';
+import {Care, Description, Extra, HairInfo, Product, Rate} from '../../models/Product-interface';
+import {BundleCategories} from '../../models/bundleCategories';
+import {Colors} from '../../models/colors';
+import {ProductCategories} from '../../models/productCategories';
+import {Styles} from '../../models/styles';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ImageService} from '../../services/image.service';
 
 @Component({
   selector: 'app-products-management',
@@ -21,10 +21,10 @@ export class ProductsManagementPage implements OnInit {
   isDetail: boolean = false;
   isAdd: boolean = false;
   isList: boolean = true;
-  action = "";
+  action = '';
   ip = '';
-  lastItem1: string = "";
-  lastItem2: string = "";
+  lastItem1: string = '';
+  lastItem2: string = '';
   view = 'list';
   uploadForm: FormGroup;
   public imagePath;
@@ -53,8 +53,8 @@ export class ProductsManagementPage implements OnInit {
   file_disposition: string = 'slide';
 
   constructor(public platform: Platform, private router: Router, public productService: ProductsService, private activatedRoute: ActivatedRoute,
-  private toastCtrl: ToastController, private formBuilder: FormBuilder, private imageService: ImageService,
-  public loadingCtrl: LoadingController, private alertController: AlertController) {
+              private toastCtrl: ToastController, private formBuilder: FormBuilder, private imageService: ImageService,
+              public loadingCtrl: LoadingController, private alertController: AlertController) {
     this.uploadForm = this.formBuilder.group({
       image: ['']
     });
@@ -68,7 +68,7 @@ export class ProductsManagementPage implements OnInit {
   }
 
   async goToAdd() {
-    this.view = "add";
+    this.view = 'add';
     this.productService.profile_product.rates = [];
     this.productService.profile_product.pictures = [];
     this.productService.profile_product.description = new Description();
@@ -80,24 +80,24 @@ export class ProductsManagementPage implements OnInit {
   }
 
   async goToDetail(id) {
-      console.log("ID non null");
-      this.productService.loadById(id).subscribe( async(product) => {
-        this.productService.profile_product = product;
-        if (!this.productService.profile_product.rates) {
-          this.productService.profile_product.rates = [];
-        }
-        if (!this.productService.profile_product.description) {
-          this.productService.profile_product.description = new Description()
-        }
-        if (!this.productService.profile_product.hairInfo) {
-          this.productService.profile_product.hairInfo = new HairInfo();
-        }
-        if (!this.productService.profile_product.care) {
-          this.productService.profile_product.care = new Care();
-        }
-        this.view = "detail";
+    console.log('ID non null');
+    this.productService.loadById(id).subscribe(async (product) => {
+      this.productService.profile_product = product;
+      if (!this.productService.profile_product.rates) {
+        this.productService.profile_product.rates = [];
+      }
+      if (!this.productService.profile_product.description) {
+        this.productService.profile_product.description = new Description();
+      }
+      if (!this.productService.profile_product.hairInfo) {
+        this.productService.profile_product.hairInfo = new HairInfo();
+      }
+      if (!this.productService.profile_product.care) {
+        this.productService.profile_product.care = new Care();
+      }
+      this.view = 'detail';
 
-      })
+    });
   }
 
   goToList() {
@@ -107,7 +107,7 @@ export class ProductsManagementPage implements OnInit {
   load() {
     this.productService.loadAll().subscribe((products) => {
       this.productService.profile_products = products;
-    })
+    });
 
     this.myPictures = [];
     this.bundlesCategories = Object.values(BundleCategories);
@@ -156,13 +156,13 @@ export class ProductsManagementPage implements OnInit {
       reader.onload = (_event) => {
         this.imgURL.set(reader.result, files);
       };
-      console.log("test");
+      console.log('test');
       // };
     }
     if (mimeType.match(/video\/*/) !== null) {
       const self = this;
       reader.onload = async (_event) => {
-        const snapImage = function () {
+        const snapImage = function() {
           const canvas = document.createElement('canvas');
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
@@ -185,13 +185,13 @@ export class ProductsManagementPage implements OnInit {
         const url = URL.createObjectURL(files);
         const video: any = document.createElement('video');
 
-        const timeupdate = function () {
+        const timeupdate = function() {
           if (snapImage()) {
             video.removeEventListener('timeupdate', timeupdate);
             video.pause();
           }
         };
-        video.addEventListener('loadeddata', function () {
+        video.addEventListener('loadeddata', function() {
           if (snapImage()) {
             video.removeEventListener('timeupdate', timeupdate);
           }
@@ -263,7 +263,7 @@ export class ProductsManagementPage implements OnInit {
   addRate() {
     let rate = new Rate();
     if (this.productService.profile_product.rates.length > 0 && Object.keys(this.productService.profile_product.rates[this.productService.profile_product.rates.length - 1]).length === 0) {
-      console.log("No properties")
+      console.log('No properties');
     } else {
       if (this.productService.profile_product.colors && this.productService.profile_product.colors.includes('gold')) {
         let extra = new Extra();
@@ -277,10 +277,10 @@ export class ProductsManagementPage implements OnInit {
   }
 
   async save() {
-    // const loading = await this.loadingCtrl.create({
-    //   message: 'Chargement...'
-    // });
-    // await loading.present();
+    const loading = await this.loadingCtrl.create({
+      message: 'Chargement...'
+    });
+    await loading.present();
     if (!this.productService.profile_product._id) {
       try {
         this.imgURL.forEach((key: any, value: any) => {
@@ -296,10 +296,10 @@ export class ProductsManagementPage implements OnInit {
               this.productService.profile_product = {} as Product;
               this.myPictures = [];
               this.imgURL = new Map<any, any>();
-              // loading.dismiss();
+              loading.dismiss();
               this.router.navigate(['tabs/profile-products']);
               this.presentToast('Product successfully created', 1500);
-            })
+            });
           });
       } catch (e) {
         console.log(e);
@@ -322,19 +322,19 @@ export class ProductsManagementPage implements OnInit {
             this.myPictures = [];
             this.view = 'detail';
             this.imgURL = new Map<any, any>();
-            // loading.dismiss();
+            loading.dismiss();
             this.presentToast('Product successfully updated', 1500);
-          })
+          });
         });
     }
   }
 
-  array = []
+  array = [];
 
   enableChangeImagePosition() {
     this.change_position_view = !this.change_position_view;
     if (this.change_position_view) {
-      this.array = Array.from(this.imgURL, ([key, value]) => ({key, value}))
+      this.array = Array.from(this.imgURL, ([key, value]) => ({key, value}));
     }
   }
 
@@ -356,7 +356,7 @@ export class ProductsManagementPage implements OnInit {
       this.imgURL.set(arr.key, arr.value);
     }
     for (let arr of this.imgURL.entries()) {
-      console.log('key', arr)
+      console.log('key', arr);
     }
   }
 
@@ -366,9 +366,9 @@ export class ProductsManagementPage implements OnInit {
       this.imgURL = new Map<any, any>();
       this.productService.loadById(this.productService.profile_product._id).subscribe((product) => {
         this.productService.profile_product = product;
-      })
+      });
     } else {
-      this.view = 'edit'
+      this.view = 'edit';
     }
   }
 
@@ -436,11 +436,11 @@ export class ProductsManagementPage implements OnInit {
     });
   }
 
-  toggle_disposition(){
-    if(this.file_disposition === 'slide'){
-      this.file_disposition = 'grid'
+  toggle_disposition() {
+    if (this.file_disposition === 'slide') {
+      this.file_disposition = 'grid';
     } else {
-      this.file_disposition = 'slide'
+      this.file_disposition = 'slide';
     }
   }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import {StorageService} from '../../services/storage.service';
+import {PageService} from '../../services/page.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,20 +11,21 @@ import {StorageService} from '../../services/storage.service';
 export class MenuPage implements OnInit {
 
   public view;
+  appPages: any[];
 
-  constructor(public platform: Platform, private storage: StorageService) {
-
+  constructor(public platform: Platform, private storage: StorageService, private pageService: PageService) {
+    this.appPages = this.pageService.getPages();
   }
 
   ngOnInit() {
     this.storage.getObject('tab').then((res) => {
-      if(res){
+      if (res) {
         this.view = res;
         let tablinks = document.getElementsByClassName('tablinks');
         for (let i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(' active', '');
-          if(tablinks[i].textContent.toUpperCase() === this.view.toUpperCase()){
-            tablinks[i].className = 'active'
+          if (tablinks[i].textContent.toUpperCase() === this.view.toUpperCase()) {
+            tablinks[i].className = 'active';
           }
         }
       } else {

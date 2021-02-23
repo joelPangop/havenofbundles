@@ -26,7 +26,18 @@
     <!-- Content Options -->
     <!-- Menus -->
     <ion-content>
-
+      <ion-item-divider>
+        <ion-label text-center>Categories</ion-label>
+      </ion-item-divider>
+      <div *ngFor="let p of appPages">
+        <ion-menu-toggle auto-hide="false" *ngIf="p.url">
+          <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" [routerLinkActive]="'active'">
+            <p>
+              {{p.title}}
+            </p>
+          </ion-item>
+        </ion-menu-toggle>
+      </div>
     </ion-content>
 
     <!-- Footer -->

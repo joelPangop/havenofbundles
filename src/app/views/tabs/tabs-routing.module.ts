@@ -64,6 +64,22 @@ const routes: Routes = [
         loadChildren: () => import('../available/available.module').then( m => m.AvailablePageModule)
       },
       {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
+      },
+      {
+        path: 'mobile-products-management',
+        loadChildren: () => import('../mobile-products-management/mobile-products-management.module').then( m => m.MobileProductsManagementPageModule)
+      },
+      {
+        path: 'mobile-home',
+        loadChildren: () => import('../mobile-home/mobile-home.module').then( m => m.MobileHomePageModule)
+      },
+      {
+        path: 'mobile-hair-bundles',
+        loadChildren: () => import('../mobile-hair-bundles/mobile-hair-bundles.module').then( m => m.MobileHairBundlesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

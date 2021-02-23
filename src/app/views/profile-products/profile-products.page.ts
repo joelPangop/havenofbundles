@@ -3,8 +3,6 @@ import {Platform} from '@ionic/angular';
 import {Router} from "@angular/router";
 import {ProductsService} from "../../services/products.service";
 import {environment} from "../../models/environments";
-import {Product} from "../../models/Product-interface";
-import { ScrollDetail } from '@ionic/core';
 
 @Component({
   selector: 'app-profile-products',
@@ -13,14 +11,10 @@ import { ScrollDetail } from '@ionic/core';
 })
 export class ProfileProductsPage implements OnInit {
 
-  isDetail: boolean = false;
   isAdd: boolean = false;
   isList: boolean = true;
   action = "";
   ip = '';
-  lastItem1: string = "";
-  lastItem2: string = "";
-  showToolbar = false;
 
   constructor(public platform: Platform, private router: Router, public productService: ProductsService) {
 
@@ -55,13 +49,6 @@ export class ProfileProductsPage implements OnInit {
     this.productService.loadAll().subscribe((products) => {
       this.productService.profile_products = products;
     })
-  }
-
-  onScroll($event: CustomEvent<ScrollDetail>) {
-    if ($event && $event.detail && $event.detail.scrollTop) {
-      const scrollTop = $event.detail.scrollTop;
-      this.showToolbar = scrollTop >= 225;
-    }
   }
 
 }

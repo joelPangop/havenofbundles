@@ -86,7 +86,7 @@ export class AddEditProductPage implements OnInit {
           this.productService.profile_product.rates = [];
         }
         if (!this.productService.profile_product.description) {
-          this.productService.profile_product.description = new Description()
+          this.productService.profile_product.description = new Description();
         }
         if (!this.productService.profile_product.hairInfo) {
           this.productService.profile_product.hairInfo = new HairInfo();

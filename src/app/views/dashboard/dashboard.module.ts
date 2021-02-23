@@ -13,20 +13,22 @@ import {AvailablePageModule} from '../available/available.module';
 import {ProfileProductsPageModule} from '../profile-products/profile-products.module';
 import {SoldPageModule} from '../sold/sold.module';
 import {SummaryPageModule} from '../summary/summary.module';
+import {MobileProductsManagementPageModule} from '../mobile-products-management/mobile-products-management.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    DashboardPageRoutingModule,
-    MailingListPageModule,
-    ProfilePageModule,
-    AvailablePageModule,
-    ProfileProductsPageModule,
-    SoldPageModule,
-    SummaryPageModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        DashboardPageRoutingModule,
+        MailingListPageModule,
+        ProfilePageModule,
+        AvailablePageModule,
+        ProfileProductsPageModule,
+        SoldPageModule,
+        SummaryPageModule,
+        MobileProductsManagementPageModule
+    ],
   exports: [
     DashboardPage
   ],

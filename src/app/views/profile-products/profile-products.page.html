@@ -1,14 +1,6 @@
-<ion-header *ngIf="platform.is('ios') || platform.is('android')">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/dashboard">
-      </ion-back-button>
-    </ion-buttons>
-    <ion-title>Products</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content fullscreen [scrollEvents]="true" (ionScroll)="onScroll($event)">
-  <app-mobile-products-management *ngIf="platform.is('ios') || platform.is('android')"></app-mobile-products-management>
+<ion-content [scrollEvents]="true">
+<!--  <app-mobile-products-management-->
+<!--    *ngIf="platform.is('ios') || platform.is('android')"></app-mobile-products-management>-->
   <app-products-management *ngIf="!platform.is('ios') && !platform.is('android')"></app-products-management>
 </ion-content>

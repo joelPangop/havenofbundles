@@ -1,7 +1,7 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/profile-products" *ngIf="platform.is('ios') || platform.is('android')">
+      <ion-back-button defaultHref="tabs/mobile-products-management" *ngIf="platform.is('ios') || platform.is('android')">
       </ion-back-button>
     </ion-buttons>
     <ion-buttons class="ion-align-items-center">
@@ -36,7 +36,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [scrollY]="contentScrollActive">
+<ion-content [scrollEvents]="contentScrollActive">
   <!--<ion-content fullscreen>-->
   <ion-grid fixed>
     <ion-row *ngIf="action === 'add' || action === 'edit'">
