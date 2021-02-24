@@ -287,9 +287,12 @@ export class AddEditProductPage implements OnInit {
               this.productService.profile_product = {} as Product;
               this.myPictures = [];
               this.imgURL = new Map<any, any>();
-              loading.dismiss();
-              this.router.navigate(['tabs/profile-products']);
-              this.presentToast('Product successfully created', 1500);
+              this.productService.loadAll().subscribe((res) => {
+                this.productService.profile_products = res;
+                loading.dismiss();
+                this.router.navigate(['tabs/mobile-products-management']);
+                this.presentToast('Product successfully created', 1500);
+              })
             })
           });
       } catch (e) {
@@ -310,11 +313,14 @@ export class AddEditProductPage implements OnInit {
           this.productService.update(this.id).subscribe((res) => {
             console.log(res);
             this.productService.profile_product = res;
-            this.myPictures = [];
-            this.action = 'detail';
-            this.imgURL = new Map<any, any>();
-            loading.dismiss();
-            this.presentToast('Product successfully updated', 1500);
+            this.productService.loadAll().subscribe((res) => {
+              this.productService.profile_products = res;
+              this.myPictures = [];
+              this.action = 'detail';
+              this.imgURL = new Map<any, any>();
+              loading.dismiss();
+              this.presentToast('Product successfully updated', 1500);
+            })
           })
         });
     }

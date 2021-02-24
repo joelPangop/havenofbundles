@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'hair-bundles',
     loadChildren: () => import('./views/hair-bundles/hair-bundles.module').then( m => m.HairBundlesPageModule)
+  },  {
+    path: 'filter-view',
+    loadChildren: () => import('./views/filter-view/filter-view.module').then( m => m.FilterViewPageModule)
   }
+
 
   // {
   //   path: 'home',

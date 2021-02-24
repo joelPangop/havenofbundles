@@ -80,6 +80,10 @@ const routes: Routes = [
         loadChildren: () => import('../mobile-hair-bundles/mobile-hair-bundles.module').then( m => m.MobileHairBundlesPageModule)
       },
       {
+        path: 'mobile-product-view',
+        loadChildren: () => import('../mobile-product-view/mobile-product-view.module').then( m => m.MobileProductViewPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
