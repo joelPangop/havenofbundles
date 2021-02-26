@@ -3,9 +3,10 @@ import {Product} from '../../models/Product-interface';
 import {ProductsService} from '../../services/products.service';
 import {ProductCategories} from '../../models/productCategories';
 import {environment} from '../../models/environments';
-import {ModalController} from "@ionic/angular";
+import {ModalController, Platform} from "@ionic/angular";
 import {FilterViewPage} from "../filter-view/filter-view.page";
 import {BehaviorSubject} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-mobile-hair-bundles',
@@ -18,9 +19,11 @@ export class MobileHairBundlesPage implements OnInit {
   url = '';
   typeImages: any[] = [];
   filterObject: BehaviorSubject<any>;
+  public filterNumber: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  constructor(private productsService: ProductsService, private modalController: ModalController) {
+  constructor(private productsService: ProductsService, private modalController: ModalController, private router: Router) {
     this.filterObject = new BehaviorSubject({});
+    this.filterNumber = new BehaviorSubject(0);
     this.products = [];
     this.typeImages = [
       {
@@ -71,13 +74,15 @@ export class MobileHairBundlesPage implements OnInit {
       component: FilterViewPage,
       componentProps: {
         filterObject: this.filterObject,
-        category: ProductCategories.BUNDLES
+        category: ProductCategories.BUNDLES,
+        filterNumber: this.filterNumber
       }
     });
     modal.onDidDismiss()
       .then(async (data) => {
         console.log(data.data);
         console.log(this.filterObject);
+        console.log(this.filterNumber);
         if (this.filterObject.value) {
           if (this.filterObject.value.choosenColors.length > 0) {
             this.products = this.products.filter((prod) => {
@@ -125,5 +130,9 @@ export class MobileHairBundlesPage implements OnInit {
     return subset.every(function (value) {
       return (superset.indexOf(value) >= 0);
     });
+  }
+
+  async goToDetail(id) {
+    await this.router.navigateByUrl('tabs/mobile-product-view/' + id);
   }
 }

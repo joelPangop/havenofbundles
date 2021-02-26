@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-item button *ngFor="let r of rates" (click)="getPrice(r)" detail="false">
+    <ion-label slot="start" text-wrap>{{r.length}}</ion-label>
+    <ion-icon slot="end" name="checkmark" *ngIf="r == rate"></ion-icon>
+  </ion-item>
+</ion-list>

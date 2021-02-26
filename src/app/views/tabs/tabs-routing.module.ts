@@ -80,7 +80,7 @@ const routes: Routes = [
         loadChildren: () => import('../mobile-hair-bundles/mobile-hair-bundles.module').then( m => m.MobileHairBundlesPageModule)
       },
       {
-        path: 'mobile-product-view',
+        path: 'mobile-product-view/:id',
         loadChildren: () => import('../mobile-product-view/mobile-product-view.module').then( m => m.MobileProductViewPageModule)
       },
       {

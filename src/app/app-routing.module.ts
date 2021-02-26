@@ -22,16 +22,19 @@ const routes: Routes = [
   {
     path: 'hair-bundles',
     loadChildren: () => import('./views/hair-bundles/hair-bundles.module').then( m => m.HairBundlesPageModule)
-  },  {
+  },
+  {
     path: 'filter-view',
     loadChildren: () => import('./views/filter-view/filter-view.module').then( m => m.FilterViewPageModule)
+  },  {
+    path: 'rate-view',
+    loadChildren: () => import('./views/rate-view/rate-view.module').then( m => m.RateViewPageModule)
+  },
+  {
+    path: 'color-view',
+    loadChildren: () => import('./views/color-view/color-view.module').then( m => m.ColorViewPageModule)
   }
 
-
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('./views/home/home.module').then( m => m.HomePageModule)
-  // }
 ];
 @NgModule({
   imports: [

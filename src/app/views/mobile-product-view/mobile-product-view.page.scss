@@ -1,0 +1,158 @@
+//.swiper-container {
+//  width: 600px;
+//  height: 300px;
+//}
+//#top-slider {
+//  ion-slides {
+//    --bullet-background: var(--ion-color-light);
+//    --bullet-background-active: var(--ion-color-white);
+//  }
+//}
+
+// Slider Style START
+.custon-nav{
+  height: 48px;
+  width: 20px;
+  cursor: pointer;
+
+  vertical-align: middle;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.prev-icon-custom{
+  background: url(https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png) no-repeat scroll 0px 0px;
+}
+.prev-icon-custom.disabled{
+  opacity: 0.4;
+  cursor: default;
+}
+.next-icon-custom{
+  background: url(https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png) no-repeat scroll -32px 0px;
+}
+.next-icon-custom.disabled{
+  opacity: 0.4;
+  cursor: default;
+}
+.slider-nav{
+  ion-icon{
+    height: 100%;
+  }
+}
+
+.slide-text{
+  position: absolute;
+  color: white;
+  bottom: 30px;
+}
+
+span {
+  color: #ab924d;
+  text-align: center
+}
+
+#detail {
+  /* Detail */
+
+  position: absolute;
+  width: 50px;
+  height: 24px;
+  left: 15px;
+
+  /* S1 Halyard */
+  font-family: "Berlin Sans FB";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  /* identical to box height, or 160% */
+
+  /* Secondary */
+  color: #ab924d;
+}
+
+#sold {
+  /* Sold */
+
+
+  position: absolute;
+  width: 37px;
+  height: 24px;
+  left: 85px;
+
+  /* S1 Halyard */
+
+  font-family: Berlin Sans FB;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  /* identical to box height, or 160% */
+
+
+  /* Basic 600 */
+
+  color: #ab924d;
+  opacity: 0.6;
+}
+
+#issue {
+  /* Issue */
+  position: relative;
+  width: 45px;
+  height: 24px;
+  left: 142px;
+
+  /* S1 Halyard */
+  font-family: Berlin Sans FB;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  /* identical to box height, or 160% */
+
+  /* Basic 600 */
+
+  color: #ab924d;
+  opacity: 0.6;
+}
+
+/* Change background color of buttons on hover */
+.sidetab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.sidetab ion-button.active {
+  border: 3px solid #ab924d;
+  span {
+    font-size: large;
+  }
+}
+
+.sidetab {
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, .0001) !important;
+  border: 1px solid rgba(0, 0, 0, .0001) !important;
+  //background-color: #f1f1f1;
+}
+
+.sidetab button {
+  color: #ab924d;
+}
+
+/* Style the buttons inside the tab */
+.sidetab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.label {
+  font-size: small;
+}

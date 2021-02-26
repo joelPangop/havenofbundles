@@ -16,6 +16,8 @@ import {ProductCategories} from "../../models/productCategories";
 export class FilterViewPage implements OnInit {
 
   filterObject: BehaviorSubject<any>;
+  filterNumber: BehaviorSubject<number>;
+  number: number;
   category: string;
   colors: string[];
   bundle_categories: string[];
@@ -31,22 +33,24 @@ export class FilterViewPage implements OnInit {
 
   ngOnInit() {
     this.filterObject = this.navParams.get('filterObject');
+    this.filterNumber = this.navParams.get('filterNumber');
+    this.number = 0;
     this.category = this.navParams.get('category');
 
-    if(this.filterObject.value.choosenColors) {
-      this.choosenColors = this.filterObject.value.choosenColors
+    if (this.filterObject.value.choosenColors) {
+      this.choosenColors = this.filterObject.value.choosenColors;
     }
 
-    if(this.filterObject.value.choosenOrigins) {
-      this.choosenOrigins = this.filterObject.value.choosenOrigins
+    if (this.filterObject.value.choosenOrigins) {
+      this.choosenOrigins = this.filterObject.value.choosenOrigins;
     }
 
-    if(this.filterObject.value.choosenCategories) {
-      this.choosenCategories = this.filterObject.value.choosenCategories
+    if (this.filterObject.value.choosenCategories) {
+      this.choosenCategories = this.filterObject.value.choosenCategories;
     }
 
-    if(this.filterObject.value.choosenStyles) {
-      this.choosenStyles = this.filterObject.value.choosenStyles
+    if (this.filterObject.value.choosenStyles) {
+      this.choosenStyles = this.filterObject.value.choosenStyles;
     }
 
     this.colors = Object.values(Colors);
@@ -56,7 +60,12 @@ export class FilterViewPage implements OnInit {
       this.bundle_categories = Object.values(BundleCategories);
   }
 
-  apply(){
+  apply() {
+    this.number += this.choosenStyles.length;
+    this.number += this.choosenCategories.length;
+    this.number += this.choosenOrigins.length;
+    this.number += this.choosenColors.length;
+    this.filterNumber.next(this.number);
     this.submitFilter();
     this.dismiss();
   }
@@ -78,6 +87,7 @@ export class FilterViewPage implements OnInit {
   }
 
   clear() {
+    this.number = 0;
     this.choosenColors = [];
     this.choosenOrigins = [];
     this.choosenCategories = [];

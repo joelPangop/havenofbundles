@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-item button *ngFor="let c of colors" (click)="getColor(c)" detail="false">
+    <ion-label slot="start" text-wrap>{{c}}</ion-label>
+    <ion-icon slot="end" name="checkmark" *ngIf="c == color"></ion-icon>
+  </ion-item>
+</ion-list>

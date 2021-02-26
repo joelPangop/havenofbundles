@@ -1,9 +1,226 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>mobileProductView</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/mobile-hair-bundles">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-buttons class="ion-align-items-center">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="1"></ion-col>
+        <ion-col size="9">
+          <ion-item lines="none">
+            <span>{{product.name}}</span>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="cart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
+  <ion-row>
+    <ion-col size="1">
+        <span class="slider-nav arrow-prev" (click)="slidePrev(slideOpts, slideWithNav)">
+          <div class="prev-icon-custom custon-nav" [class.disabled]="slideOpts.isBeginningSlide"></div>
+        </span>
+    </ion-col>
+    <ion-col size="10">
+      <ion-slides [options]="slideOpts"
+                  class="ion-padding-top" #slideWithNav>
+        <ion-slide *ngFor="let img of product.pictures; let i = index">
+          <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+    <ion-col>
+      <span class="slider-nav arrow-next" (click)="slideNext(slideOpts, slideWithNav)">
+          <div class="next-icon-custom custon-nav" [class.disabled]="slideOpts.isEndSlide"></div>
+        </span>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="5">
+      <ion-item lines="none">
+        <ion-label>Length</ion-label>
+        <ion-button fill="outline" color="color1" (click)="showOptions($event)" expand="block">
+          <ion-icon slot="icon-only" name="arrow-down"></ion-icon>
+          <span>{{rate.length}}</span>
+        </ion-button>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2"></ion-col>
+    <ion-col size="5">
+      <ion-item lines="none">
+        <ion-label>Color</ion-label>
+        <ion-button fill="outline" color="color1" (click)="showColors($event)" expand="block">
+          <ion-icon slot="icon-only" name="arrow-down"></ion-icon>
+          <span>{{color}}</span>
+        </ion-button>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="4">
+      <ion-item lines="none">
+        <ion-label>Price</ion-label>
+        <span>{{price | currency}}</span>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="sidetab">
+          <ion-button (click)="changeView($event, 'description')" fill="outline" color="medium" class="sidetablinks"
+                      expand="full">
+            <span>Description</span>
+          </ion-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="sidetab">
+          <ion-button (click)="changeView($event, 'hairInfos')" fill="outline" color="medium" class="sidetablinks"
+                      expand="full">
+            <span>Hair Infos</span>
+          </ion-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="sidetab">
+          <ion-button (click)="changeView($event, 'care')" fill="outline" color="medium" class="sidetablinks"
+                      expand="full">
+            <span>Care</span>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-item-group *ngIf="detailView === 'description'">
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Description
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span size="8" *ngIf="product.description">{{product.description.description}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Hair type
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.description">{{product.description.hair_type}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Model Wearing
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.description">{{product.description.model_wearing}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Available Services
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.description">{{product.description.available_service}}</span>
+        </ion-col>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group *ngIf="detailView === 'hairInfos'">
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Unit Weight
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.hairInfo">{{product.hairInfo.unit_weight}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Hair Quality
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.hairInfo">{{product.hairInfo.hair_quality}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Hair Origin
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.hairInfo">{{product.hairInfo.hair_origin}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Hair Weft Type
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.hairInfo">{{product.hairInfo.hair_weft_type}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Features
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.hairInfo">{{product.hairInfo.features}}</span>
+        </ion-col>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group *ngIf="detailView === 'care'">
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Maintenance Level
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.care">{{product.care.maintenance_level}}</span>
+        </ion-col>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-col size="4">
+          <ion-label class="label">
+            Can it be dyed?
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <span *ngIf="product.care">{{product.care.can_it_be_dyed}}</span>
+        </ion-col>
+      </ion-item>
+    </ion-item-group>
+  </ion-grid>
 
 </ion-content>
+<ion-footer>
+  <ion-button fill="outline" (click)="addToCart()"
+              style="--ion-background-color: #222222; color: #ab924d; --border-color: #ab924d" expand="block">Add to Bag
+  </ion-button>
+</ion-footer>

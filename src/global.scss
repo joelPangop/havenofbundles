@@ -1986,3 +1986,13 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.my-custom-dialog .modal-wrapper{
+  width: 5%;
+}
+
+span {
+  color: #ab924d;
+  font-size: small;
+  text-align: center
+}
