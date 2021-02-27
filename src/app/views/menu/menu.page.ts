@@ -29,7 +29,7 @@ export class MenuPage implements OnInit {
           }
         }
       } else {
-        this.view = 'tab1';
+        this.view = 'home';
         let tablinks = document.getElementsByClassName('tablinks');
         for (let i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(' active', '');

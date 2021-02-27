@@ -16,17 +16,14 @@ const routes: Routes = [
     loadChildren: () => import('./views/products-management/products-management.module').then( m => m.ProductsManagementPageModule)
   },
   {
-    path: 'products',
-    loadChildren: () => import('./views/products/products.module').then( m => m.ProductsPageModule)
-  },
-  {
     path: 'hair-bundles',
     loadChildren: () => import('./views/hair-bundles/hair-bundles.module').then( m => m.HairBundlesPageModule)
   },
   {
     path: 'filter-view',
     loadChildren: () => import('./views/filter-view/filter-view.module').then( m => m.FilterViewPageModule)
-  },  {
+  },
+  {
     path: 'rate-view',
     loadChildren: () => import('./views/rate-view/rate-view.module').then( m => m.RateViewPageModule)
   },

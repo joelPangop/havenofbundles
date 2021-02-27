@@ -1,54 +1,48 @@
-<div class="grid-container">
-  <!--  <div>-->
-  <ion-toolbar>
-    <ion-buttons slot="start" *ngIf="view === 'list'">
-      <ion-button fill="outline" (click)="goToAdd()"
-                  style="--border-radius: 3px; --border-color: #ab924d; color: #ab924d">
-        <span>Add</span>
-        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <div slot="end">
-      <ion-card class="ion-no-margin" (click)="goToDetail(item._id)"
-                *ngFor="let item of (productService.profile_products ? productService.profile_products.slice(0,4): []); let i=index">
-        <div class="head-card-img"
-             [style.background-image]="'url('+ip+'/file/image/'+item.pictures[0]+')'"></div>
-      </ion-card>
-    </div>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-button fill="outline" *ngIf="view === 'detail'" (click)="changeView()"
-                  style="--border-radius: 3px; --border-color: #ab924d; color: #ab924d">
-        <ion-label style="color: #ab924d">Edit</ion-label>
-        <ion-icon name="pencil-outline"></ion-icon>
-      </ion-button>&#160;&#160;&#160;
-      <ion-button *ngIf="view === 'edit'" fill="outline" (click)="changeView()"
-                  style="--border-radius: 3px; --border-color: #ab924d">
-        <ion-label style="color: #ab924d">Cancel</ion-label>
-      </ion-button>&#160;&#160;&#160;
 
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-button fill="outline" (click)="save()" *ngIf="view === 'add' || view === 'edit'"
-                  style="--ion-background-color: #222222; color: #ab924d; --border-color: #ab924d" expand="block">Save
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</div>
-<div *ngIf="view === 'list'">
-  <ion-item-divider>
-    <ion-icon name="list-outline"></ion-icon>&#160;&#160;&#160;
-    <span>LIST</span>
-  </ion-item-divider>
-</div>
+<ion-content [fullscreen]="true">
 
-<div *ngIf="view === 'list'">
-  <ion-row>
-    <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of productService.profile_products; let i = index">
-      <div *ngFor="let item of productService.profile_products" class="grid">
+  <ion-header>
+    <ion-toolbar *ngIf="view === 'list'">
+      <ion-buttons slot="start">
+        <ion-button fill="outline" (click)="goToAdd()"
+                    style="--border-radius: 3px; --border-color: #ab924d; color: #ab924d">
+          <span>Add</span>
+          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="view !== 'list'">
+      <ion-buttons slot="start">
+        <ion-button fill="outline" *ngIf="view === 'detail'" (click)="changeView()"
+                    style="--border-radius: 3px; --border-color: #ab924d; color: #ab924d">
+          <ion-label style="color: #ab924d">Edit</ion-label>
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-button>&#160;&#160;&#160;
+        <ion-button *ngIf="view === 'edit'" fill="outline" (click)="changeView()"
+                    style="--border-radius: 3px; --border-color: #ab924d">
+          <ion-label style="color: #ab924d">Cancel</ion-label>
+        </ion-button>&#160;&#160;&#160;
+
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button fill="outline" (click)="save()" *ngIf="view === 'add' || view === 'edit'"
+                    style="--ion-background-color: #222222; color: #ab924d; --border-color: #ab924d" expand="block">Save
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="view === 'list'">
+    <ion-item-divider>
+      <ion-icon name="list-outline"></ion-icon>&#160;&#160;&#160;
+      <span>LIST</span>
+    </ion-item-divider>
+  </div>
+
+  <div *ngIf="view === 'list'">
+    <ion-row>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of productService.profile_products; let i = index"
+               class="grid">
         <ion-card class="ion-no-margin" (click)="goToDetail(item._id)">
           <!-- Product Image -->
           <div class="card-img"
@@ -57,446 +51,453 @@
             <span style="color: #1e2023">{{item.name}}</span>
           </ion-card-header>
         </ion-card>
-      </div>
-    </ion-col>
-  </ion-row>
-</div>
-
-<div *ngIf="view === 'add' || view === 'detail' || view === 'edit'">
-  <ion-item-divider>
-    <ion-icon name="list-outline"></ion-icon>
-    <p style="text-decoration: underline;"><a (click)="goToList()">
-      LIST
-    </a></p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-    <ion-icon name="add-circle-outline"></ion-icon>&#160;&#160;&#160;
-    <span>Create Product</span>
-  </ion-item-divider>
-</div>
-
-<div *ngIf="view === 'add' || view === 'detail' || view === 'edit'" class="ex3" scrollY="true" id="myScrollDiv">
-  <ion-grid>
-    <ion-row *ngIf="view === 'add' || view === 'edit'">
-      <ion-col>
-        <form id="capture-form"
-              enctype="multipart/form-data" [formGroup]="uploadForm">
-          <ion-row>
-            <ion-col size="2"></ion-col>
-            <ion-col size="8">
-              <ion-buttons>
-                <input type="file" name="file" id="fileId" (change)="onFileSelect($event)"
-                       class="inputfile" multiple/>
-                <label button for='fileId' fill="clear" id="lbl_file">
-                  <!--                                   *ngIf="(platform.is('hybrid') || platform.is('desktop')) && (!platform.is('android') && !platform.is('ios'))">-->
-                  <ion-icon name="camera" slot="icon-only"></ion-icon>
-                </label>
-              </ion-buttons>
-              <p style="font-style: italic; font-size: xx-small">It is better to upload images from your Gallery</p>
-              <!--        <p style="font-style: italic; font-size: xx-small">It is better to use images or videos of your Gallery</p>-->
-            </ion-col>
-            <ion-col size="2"></ion-col>
-          </ion-row>
-        </form>
       </ion-col>
     </ion-row>
-    <div class="ion-text-end">
-      <!-- One Column Option -->
-      <ion-button fill="clear" style="color: #ab924d" class="ion-no-padding"
-                  (click)="toggle_disposition()">
-        <ion-icon *ngIf="file_disposition === 'slide'" slot="icon-only" name="grid-outline"></ion-icon>
-        <ion-icon *ngIf="file_disposition === 'grid'" slot="icon-only" name="albums-outline"></ion-icon>
-      </ion-button>
-    </div>
-    <ion-row>
-      <div style=" text-align: center; margin: auto" *ngIf="file_disposition === 'slide'">
-        <ion-slides *ngIf="imgURL.size > 0 && !change_position_view" pager="true" [options]="slideOpts"
-                    class="ion-padding-top" #slideWithNav>
-          <ion-slide *ngFor="let img of  imgURL | keyvalue; let i = index">
-            <img [src]="img.key" style="height:100%"/>
-            <ion-fab horizontal="right" vertical="top">
-              <ion-button fill="clear" (click)="deleteImage(img.key)">
-                <ion-icon slot="icon-only" name="close-circle"></ion-icon>
-              </ion-button>
-            </ion-fab>
-          </ion-slide>
-        </ion-slides>
-        <ion-slides
-          *ngIf="imgURL.size === 0 && this.view === 'add'"
-          [options]="slideOpts"
-          class="ion-padding-top" #slideWithNav>
-          <ion-slide>
-            <img src="assets/images/No_Image_Available.png"/>
-          </ion-slide>
-        </ion-slides>
-        <ion-slides
-          *ngIf="productService.profile_product.pictures.length === 0 && (this.view === 'detail' || this.view === 'edit')"
-          [options]="slideOpts"
-          class="ion-padding-top" #slideWithNav>
-          <ion-slide>
-            <img src="assets/images/No_Image_Available.png"/>
-          </ion-slide>
-        </ion-slides>
-        <ion-slides *ngIf="view === 'detail'" [options]="slideOpts"
-                    class="ion-padding-top" #slideWithNav>
-          <ion-slide *ngFor="let img of productService.profile_product.pictures; let i = index">
-            <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
-          </ion-slide>
-        </ion-slides>
-        <ion-slides *ngIf="view === 'edit'" [options]="slideOpts"
-                    class="ion-padding-top" #slideWithNav>
-          <ion-slide *ngFor="let img of productService.profile_product.pictures; let i = index">
-            <ion-fab vertical="top" horizontal="end">
+  </div>
+
+  <div *ngIf="view === 'add' || view === 'detail' || view === 'edit'">
+    <ion-item-divider>
+      <ion-icon name="list-outline"></ion-icon>
+      <p style="text-decoration: underline;"><a (click)="goToList()">
+        LIST
+      </a></p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      <ion-icon name="add-circle-outline"></ion-icon>&#160;&#160;&#160;
+      <span>Create Product</span>
+    </ion-item-divider>
+  </div>
+
+  <div *ngIf="view === 'add' || view === 'detail' || view === 'edit'" class="ex3" id="myScrollDiv">
+    <ion-grid>
+      <ion-row *ngIf="view === 'add' || view === 'edit'">
+        <ion-col>
+          <form id="capture-form"
+                enctype="multipart/form-data" [formGroup]="uploadForm">
+            <ion-row>
+              <ion-col size="2"></ion-col>
+              <ion-col size="8">
+                <ion-buttons>
+                  <input type="file" name="file" id="fileId" (change)="onFileSelect($event)"
+                         class="inputfile" multiple/>
+                  <label button for='fileId' fill="clear" id="lbl_file">
+                    <!--                                   *ngIf="(platform.is('hybrid') || platform.is('desktop')) && (!platform.is('android') && !platform.is('ios'))">-->
+                    <ion-icon name="camera" slot="icon-only"></ion-icon>
+                  </label>
+                </ion-buttons>
+                <p style="font-style: italic; font-size: xx-small">It is better to upload images from your Gallery</p>
+                <!--        <p style="font-style: italic; font-size: xx-small">It is better to use images or videos of your Gallery</p>-->
+              </ion-col>
+              <ion-col size="2"></ion-col>
+            </ion-row>
+          </form>
+        </ion-col>
+      </ion-row>
+      <div class="ion-text-end">
+        <!-- One Column Option -->
+        <ion-button fill="clear" style="color: #ab924d" class="ion-no-padding"
+                    (click)="toggle_disposition()">
+          <ion-icon *ngIf="file_disposition === 'slide'" slot="icon-only" name="grid-outline"></ion-icon>
+          <ion-icon *ngIf="file_disposition === 'grid'" slot="icon-only" name="albums-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <ion-row>
+        <div style=" text-align: center; margin: auto" *ngIf="file_disposition === 'slide'">
+          <ion-slides *ngIf="imgURL.size > 0 && !change_position_view" pager="true" [options]="slideOpts"
+                      class="ion-padding-top" #slideWithNav>
+            <ion-slide *ngFor="let img of  imgURL | keyvalue; let i = index">
+              <img [src]="img.key" style="height:100%"/>
+              <ion-fab horizontal="right" vertical="top">
+                <ion-button fill="clear" (click)="deleteImage(img.key)">
+                  <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+                </ion-button>
+              </ion-fab>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides
+            *ngIf="imgURL.size === 0 && this.view === 'add'"
+            [options]="slideOpts"
+            class="ion-padding-top" #slideWithNav>
+            <ion-slide>
+              <img src="assets/images/No_Image_Available.png"/>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides
+            *ngIf="productService.profile_product.pictures.length === 0 && (this.view === 'detail' || this.view === 'edit')"
+            [options]="slideOpts"
+            class="ion-padding-top" #slideWithNav>
+            <ion-slide>
+              <img src="assets/images/No_Image_Available.png"/>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides *ngIf="view === 'detail'" [options]="slideOpts"
+                      class="ion-padding-top" #slideWithNav>
+            <ion-slide *ngFor="let img of productService.profile_product.pictures; let i = index">
+              <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides *ngIf="view === 'edit'" [options]="slideOpts"
+                      class="ion-padding-top" #slideWithNav>
+            <ion-slide *ngFor="let img of productService.profile_product.pictures; let i = index">
+              <ion-fab vertical="top" horizontal="end">
+                <button class="button" style="background-color: #222222; color: #ab924d;
+               border: 2px solid #ab924d; border-radius: 3px;" (click)="presentAlertConfirm(img, i)">
+                  <span>Remove</span>
+                </button>
+              </ion-fab>
+              <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
+            </ion-slide>
+          </ion-slides>
+        </div>
+        <div style="text-align: center; margin: auto" *ngIf="file_disposition === 'grid'">
+          <!--        <div class="file-grid-container" *ngIf="imgURL.size > 0">-->
+          <!--          <div *ngFor="let img of  imgURL | keyvalue; let i = index">-->
+          <!--            <div fill="clear" (click)="deleteImage(img.key)" class="fab">-->
+          <!--              <ion-icon slot="icon-only" name="close-circle"></ion-icon>-->
+          <!--            </div>-->
+          <!--            <img [src]="img.key"/>-->
+          <!--          </div>-->
+          <!--        </div>-->
+          <div class="file-grid-container" *ngIf="view === 'detail'">
+            <div *ngFor="let img of productService.profile_product.pictures; let i = index">
+              <img [src]="ip + '/file/image/'+ img"/>
+            </div>
+          </div>
+          <div class="file-grid-container" *ngIf="view === 'edit'">
+            <div *ngFor="let img of productService.profile_product.pictures; let i = index">
               <button class="button" style="background-color: #222222; color: #ab924d;
                border: 2px solid #ab924d; border-radius: 3px;" (click)="presentAlertConfirm(img, i)">
                 <span>Remove</span>
               </button>
-            </ion-fab>
-            <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
-          </ion-slide>
-        </ion-slides>
-      </div>
-      <div style="text-align: center; margin: auto" *ngIf="file_disposition === 'grid'">
-        <div>
-          <ion-slides *ngIf="imgURL.size > 0" [options]="slideOpts" style="padding-bottom: 20px"
-                      class="ion-padding-top" #slideWithNav>
-            <ion-slide *ngFor="let img of  imgURL | keyvalue; let i = index">
-              <img [src]="img.key"/>
-            </ion-slide>
-          </ion-slides>
-        </div>
-        <!--        <div class="file-grid-container" *ngIf="imgURL.size > 0">-->
-        <!--          <div *ngFor="let img of  imgURL | keyvalue; let i = index">-->
-        <!--            <div fill="clear" (click)="deleteImage(img.key)" class="fab">-->
-        <!--              <ion-icon slot="icon-only" name="close-circle"></ion-icon>-->
-        <!--            </div>-->
-        <!--            <img [src]="img.key"/>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <div class="file-grid-container" *ngIf="view === 'detail'">
-          <div *ngFor="let img of productService.profile_product.pictures; let i = index">
-            <img [src]="ip + '/file/image/'+ img"/>
+              <img [src]="ip + '/file/image/'+ img"/>
+            </div>
+          </div>
+          <div class="file-grid-container" *ngIf="view === 'add'">
+            <div *ngFor="let img of imgURL | keyvalue; let i = index">
+              <ion-card>
+                <img [src]="img.key"/>
+                <ion-card-content>
+                  <button class="button" style="background-color: #222222; color: #ab924d;
+               border: 2px solid #ab924d; border-radius: 3px;" (click)="deleteImage(img.key)">
+                    <span>Remove</span>
+                  </button>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </div>
+          <div style="width: 200px; height: 200px;" class="file-grid-container"
+               *ngIf="imgURL.size === 0 && view === 'add'">
+            <img src="assets/images/No_Image_Available.png"/>
+          </div>
+          <div *ngIf="productService.profile_product.pictures.length === 0 && (view === 'detail' || view === 'edit')">
+            <img style="width: 200px; height: 200px;" src="assets/images/No_Image_Available.png"/>
           </div>
         </div>
-        <div class="file-grid-container" *ngIf="view === 'edit'">
-          <div *ngFor="let img of productService.profile_product.pictures; let i = index">
-            <button class="button" style="background-color: #222222; color: #ab924d;
-               border: 2px solid #ab924d; border-radius: 3px;" (click)="presentAlertConfirm(img, i)">
-              <span>Remove</span>
-            </button>
-            <img [src]="ip + '/file/image/'+ img"/>
-          </div>
-        </div>
-        <div style="width: 200px; height: 200px;" class="file-grid-container"
-             *ngIf="imgURL.size === 0 && view === 'add'">
-          <img src="assets/images/No_Image_Available.png"/>
-        </div>
-        <div *ngIf="productService.profile_product.pictures.length === 0 && (view === 'detail' || view === 'edit')">
-          <img style="width: 200px; height: 200px;" src="assets/images/No_Image_Available.png"/>
-        </div>
-      </div>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-item-divider>
-          <ion-col size="2"></ion-col>
-          <ion-col size="10">
-            <ion-label id="detail">Details</ion-label>
-            <ion-label id="sold">Sold</ion-label>
-            <ion-label id="issue">Issue</ion-label>
-          </ion-col>
-        </ion-item-divider>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item-divider>
+            <ion-col size="2"></ion-col>
+            <ion-col size="10">
+              <ion-label id="detail">Details</ion-label>
+              <ion-label id="sold">Sold</ion-label>
+              <ion-label id="issue">Issue</ion-label>
+            </ion-col>
+          </ion-item-divider>
 
-        <ion-row>
-          <ion-col size="5">
-            <ion-item>
-              <ion-input type="text" placeholder="name" [ngModel]="productService.profile_product.name" id="fname"
-                         *ngIf="view === 'add' || view === 'edit'" name="fname"></ion-input>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.name}}</span>
-            </ion-item>
-            <ion-item>
-              <ion-label class="label">
-                Product Category
-              </ion-label>
-              <ion-select *ngIf="view === 'add' || view === 'edit'"
-                          [(ngModel)]="productService.profile_product.category"
-                          [ngModelOptions]="{standalone: true}"
-                          mode="md"
-                          interface="popover" placeholder="Category">
-                <ion-select-option [value]="cat" *ngFor="let cat of productCategories">
-                  {{cat}}
-                </ion-select-option>
-              </ion-select>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.category}}</span>
-            </ion-item>
-            <ion-item *ngIf="productService.profile_product.category === 'Bundles'">
-              <ion-label class="label">
-                Bundle Category
-              </ion-label>
-              <ion-select *ngIf="view === 'add' || view === 'edit'"
-                          [(ngModel)]="productService.profile_product.bundle_category"
-                          [ngModelOptions]="{standalone: true}"
-                          mode="md"
-                          interface="popover" placeholder="Category">
-                <ion-select-option [value]="cat" *ngFor="let cat of bundlesCategories">
-                  {{cat}}
-                </ion-select-option>
-              </ion-select>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.bundle_category}}</span>
-            </ion-item>
-            <ion-item *ngIf="productService.profile_product.category === 'Closure'">
-              <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Closure Category" type="text"
-                         [(ngModel)]="productService.profile_product.clos_front_category"></ion-input>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.bundle_category}}</span>
-            </ion-item>
-            <ion-item *ngIf="productService.profile_product.category === 'Frontal'">
-              <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Frontal Category" type="text"
-                         [(ngModel)]="productService.profile_product.clos_front_category"></ion-input>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.bundle_category}}</span>
-            </ion-item>
-            <ion-item>
-              <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Origin" type="text"
-                         [(ngModel)]="productService.profile_product.origin"></ion-input>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.origin}}</span>
-            </ion-item>
-            <ion-item>
-              <ion-label class="label">
-                Style
-              </ion-label>
-              <ion-select *ngIf="view === 'add' || view === 'edit'"
-                          [(ngModel)]="productService.profile_product.style" [ngModelOptions]="{standalone: true}"
-                          mode="md"
-                          interface="popover" placeholder="Style">
-                <ion-select-option [value]="style" *ngFor="let style of styles">
-                  {{style}}
-                </ion-select-option>
-              </ion-select>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.style}}</span>
-            </ion-item>
-            <ion-item>
-              <ion-label class="label">
-                Color
-              </ion-label>
-              <ion-select *ngIf="view === 'add' || view === 'edit'"
-                          [(ngModel)]="productService.profile_product.colors" [ngModelOptions]="{standalone: true}"
-                          mode="md" multiple
-                          interface="popover" placeholder="Color" (ionChange)="onChange($event)">
-                <ion-select-option [value]="color" *ngFor="let color of colors">
-                  {{color}}
-                </ion-select-option>
-              </ion-select>
-              <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.colors}}</span>
-            </ion-item>
-          </ion-col>
-          <ion-col size="7">
-            <ion-item lines="none">
-              <ion-grid fixed>
-                <ion-row class="ion-align-items-center">
-                  <ion-col size="9" class="ion-align-items-center" style="color: #ab924d">
-                    <ion-text>PRICE FEATURES</ion-text>
-                  </ion-col>
-                  <ion-col size="3" class="ion-text-center" style="color: #ab924d">
-                    <ion-button fill="outline" (click)="addRate()" *ngIf="view === 'add' || view === 'edit'"
-                                style="--border-radius: 3px; --border-color: #ab924d">
-                      <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-                <ion-row class="thead">
-                  <ion-col>
-                    <ion-label>
-                      Length
-                    </ion-label>
-                  </ion-col>
-                  <ion-col>
-                    <ion-label>
-                      Price
-                    </ion-label>
-                  </ion-col>
-                  <ion-col>
-                    <ion-label>
-                      Discount Price
-                    </ion-label>
-                  </ion-col>
-                  <ion-col
-                    *ngIf="productService.profile_product.colors && productService.profile_product.colors.includes('gold')">
-                    <ion-label>
-                      Extra
-                    </ion-label>
-                  </ion-col>
-                  <ion-col>
-                    <ion-label>
-                      Quantity
-                    </ion-label>
-                  </ion-col>
-                  <ion-col *ngIf="view === 'add' || view === 'edit'">
-                    <ion-label>
-                      Remove
-                    </ion-label>
-                  </ion-col>
-                </ion-row>
-                <ion-row *ngFor="let rate of productService.profile_product.rates; let i = index" class="tbody">
-                  <ion-col>
-                    <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Length" type="number"
-                               [(ngModel)]="rate.length"></ion-input>
-                    <span *ngIf="view === 'detail'">{{rate.length}}</span>
-                  </ion-col>
-                  <ion-col>
-                    <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Price" type="number"
-                               [(ngModel)]="rate.price"></ion-input>
-                    <span *ngIf="view === 'detail'">{{rate.price | currency}}</span>
-                  </ion-col>
-                  <ion-col>
-                    <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Discount Price" type="number"
-                               [(ngModel)]="rate.discountPrice" style="color: #FF8080;"></ion-input>
-                    <span *ngIf="view === 'detail'">{{rate.discountPrice | currency}}</span>
-                  </ion-col>
-                  <ion-col
-                    *ngIf="productService.profile_product.colors && productService.profile_product.colors.includes('gold')">
-                    <div *ngIf="view === 'add' || view === 'edit'" style="text-align: center">
-                      <input [(ngModel)]="rate.can_extra" type="checkbox" class="box"/>
-                      <!--                      <checkbox color="color2" fill="outline" [(ngModel)]="rate.can_extra"></checkbox>-->
-                      <ion-input placeholder="Extra" type="number" *ngIf="rate.can_extra"
-                                 [(ngModel)]="rate.extra.price"></ion-input>
-                    </div>
-                    <span *ngIf="view === 'detail' && rate.extra">{{rate.extra.price | currency}}</span>
-                  </ion-col>
-                  <ion-col>
-                    <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Quantity" type="number"
-                               [(ngModel)]="rate.quantity"></ion-input>
-                    <span *ngIf="view === 'detail'">{{rate.quantity}}</span>
-                  </ion-col>
-                  <ion-col *ngIf="view === 'add' || view === 'edit'">
-                    <ion-button fill="clear" (click)="removeItem(i)">
-                      <ion-icon slot="icon-only" name="remove-circle-outline"></ion-icon>
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="infos">
-          <ion-col size="4">
-            <ion-item-divider class="divider">
-              DESCRIPTION
-            </ion-item-divider>
-            <ion-item-group>
+          <ion-row>
+            <ion-col size="5">
               <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Description" rows="10" cols="20" style="overflow:hidden;"
-                              [(ngModel)]="productService.profile_product.description.description"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Description
-                </ion-label>
-                <span
-                  *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.description}}</span>
+                <ion-input type="text" placeholder="name" [ngModel]="productService.profile_product.name" id="fname"
+                           *ngIf="view === 'add' || view === 'edit'" name="fname"></ion-input>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.name}}</span>
               </ion-item>
               <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair type"
-                              [(ngModel)]="productService.profile_product.description.hair_type"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Hair type
+                <ion-label class="label">
+                  Product Category
                 </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.hair_type}}</span>
+                <ion-select *ngIf="view === 'add' || view === 'edit'"
+                            [(ngModel)]="productService.profile_product.category"
+                            [ngModelOptions]="{standalone: true}"
+                            mode="md"
+                            interface="popover" placeholder="Category">
+                  <ion-select-option [value]="cat" *ngFor="let cat of productCategories">
+                    {{cat}}
+                  </ion-select-option>
+                </ion-select>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.category}}</span>
+              </ion-item>
+              <ion-item *ngIf="productService.profile_product.category === 'Bundles'">
+                <ion-label class="label">
+                  Bundle Category
+                </ion-label>
+                <ion-select *ngIf="view === 'add' || view === 'edit'"
+                            [(ngModel)]="productService.profile_product.bundle_category"
+                            [ngModelOptions]="{standalone: true}"
+                            mode="md"
+                            interface="popover" placeholder="Category">
+                  <ion-select-option [value]="cat" *ngFor="let cat of bundlesCategories">
+                    {{cat}}
+                  </ion-select-option>
+                </ion-select>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.bundle_category}}</span>
+              </ion-item>
+              <ion-item *ngIf="productService.profile_product.category === 'Closure'">
+                <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Closure Category" type="text"
+                           [(ngModel)]="productService.profile_product.clos_front_category"></ion-input>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.bundle_category}}</span>
+              </ion-item>
+              <ion-item *ngIf="productService.profile_product.category === 'Frontal'">
+                <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Frontal Category" type="text"
+                           [(ngModel)]="productService.profile_product.clos_front_category"></ion-input>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.bundle_category}}</span>
               </ion-item>
               <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Model Wearing"
-                              [(ngModel)]="productService.profile_product.description.model_wearing"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Model Wearing
-                </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.model_wearing}}</span>
+                <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Origin" type="text"
+                           [(ngModel)]="productService.profile_product.origin"></ion-input>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.origin}}</span>
               </ion-item>
               <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Available Services"
-                              [(ngModel)]="productService.profile_product.description.available_service"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Available Services
+                <ion-label class="label">
+                  Style
                 </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.available_service}}</span>
-              </ion-item>
-            </ion-item-group>
-          </ion-col>
-          <ion-col size="4">
-            <ion-item-divider class="divider">
-              HAIR INFOS
-            </ion-item-divider>
-            <ion-item-group>
-              <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Unit Weight"
-                              [(ngModel)]="productService.profile_product.hairInfo.unit_weight"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Unit Weight
-                </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.unit_weight}}</span>
+                <ion-select *ngIf="view === 'add' || view === 'edit'"
+                            [(ngModel)]="productService.profile_product.style" [ngModelOptions]="{standalone: true}"
+                            mode="md"
+                            interface="popover" placeholder="Style">
+                  <ion-select-option [value]="style" *ngFor="let style of styles">
+                    {{style}}
+                  </ion-select-option>
+                </ion-select>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.style}}</span>
               </ion-item>
               <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair Quality" rows="5" cols="20" style="overflow:hidden;"
-                              [(ngModel)]="productService.profile_product.hairInfo.hair_quality"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Hair Quality
+                <ion-label class="label">
+                  Color
                 </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.hair_quality}}</span>
+                <ion-select *ngIf="view === 'add' || view === 'edit'"
+                            [(ngModel)]="productService.profile_product.colors" [ngModelOptions]="{standalone: true}"
+                            mode="md" multiple
+                            interface="popover" placeholder="Color" (ionChange)="onChange($event)">
+                  <ion-select-option [value]="color" *ngFor="let color of colors">
+                    {{color}}
+                  </ion-select-option>
+                </ion-select>
+                <span slot="end" *ngIf="view === 'detail'">{{productService.profile_product.colors}}</span>
               </ion-item>
-              <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair Origin"
-                              [(ngModel)]="productService.profile_product.hairInfo.hair_origin"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Hair Origin
-                </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.hair_origin}}</span>
+            </ion-col>
+            <ion-col size="7">
+              <ion-item lines="none">
+                <ion-grid fixed>
+                  <ion-row class="ion-align-items-center">
+                    <ion-col size="9" class="ion-align-items-center" style="color: #ab924d">
+                      <ion-text>PRICE FEATURES</ion-text>
+                    </ion-col>
+                    <ion-col size="3" class="ion-text-center" style="color: #ab924d">
+                      <ion-button fill="outline" (click)="addRate()" *ngIf="view === 'add' || view === 'edit'"
+                                  style="--border-radius: 3px; --border-color: #ab924d">
+                        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="thead">
+                    <ion-col>
+                      <ion-label>
+                        Length
+                      </ion-label>
+                    </ion-col>
+                    <ion-col>
+                      <ion-label>
+                        Price
+                      </ion-label>
+                    </ion-col>
+                    <ion-col>
+                      <ion-label>
+                        Discount Price
+                      </ion-label>
+                    </ion-col>
+                    <ion-col
+                      *ngIf="productService.profile_product.colors && productService.profile_product.colors.includes('gold')">
+                      <ion-label>
+                        Extra
+                      </ion-label>
+                    </ion-col>
+                    <ion-col>
+                      <ion-label>
+                        Quantity
+                      </ion-label>
+                    </ion-col>
+                    <ion-col *ngIf="view === 'add' || view === 'edit'">
+                      <ion-label>
+                        Remove
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngFor="let rate of productService.profile_product.rates; let i = index" class="tbody" style="overflow: auto;">
+                    <ion-col>
+                      <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Length" type="number"
+                                 [(ngModel)]="rate.length"></ion-input>
+                      <span *ngIf="view === 'detail'">{{rate.length}}</span>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Price" type="number"
+                                 [(ngModel)]="rate.price"></ion-input>
+                      <span *ngIf="view === 'detail'">{{rate.price | currency}}</span>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Discount Price" type="number"
+                                 [(ngModel)]="rate.discountPrice" style="color: #FF8080;"></ion-input>
+                      <span *ngIf="view === 'detail'">{{rate.discountPrice | currency}}</span>
+                    </ion-col>
+                    <ion-col
+                      *ngIf="productService.profile_product.colors && productService.profile_product.colors.includes('gold')">
+                      <div *ngIf="view === 'add' || view === 'edit'" style="text-align: center">
+                        <input [(ngModel)]="rate.can_extra" type="checkbox" class="box"/>
+                        <!--                      <checkbox color="color2" fill="outline" [(ngModel)]="rate.can_extra"></checkbox>-->
+                        <ion-input placeholder="Extra" type="number" *ngIf="rate.can_extra"
+                                   [(ngModel)]="rate.extra.price"></ion-input>
+                      </div>
+                      <span *ngIf="view === 'detail' && rate.extra">{{rate.extra.price | currency}}</span>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input *ngIf="view === 'add' || view === 'edit'" placeholder="Quantity" type="number"
+                                 [(ngModel)]="rate.quantity"></ion-input>
+                      <span *ngIf="view === 'detail'">{{rate.quantity}}</span>
+                    </ion-col>
+                    <ion-col *ngIf="view === 'add' || view === 'edit'">
+                      <ion-button fill="clear" (click)="removeItem(i)">
+                        <ion-icon slot="icon-only" name="remove-circle-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
               </ion-item>
-              <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair Weft Type"
-                              [(ngModel)]="productService.profile_product.hairInfo.hair_weft_type"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Hair Weft Type
-                </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.hair_weft_type}}</span>
-              </ion-item>
-              <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Features"
-                              [(ngModel)]="productService.profile_product.hairInfo.features"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Features
-                </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.features}}</span>
-              </ion-item>
-            </ion-item-group>
-          </ion-col>
-          <ion-col size="4">
-            <ion-item-divider class="divider">
-              CARE
-            </ion-item-divider>
-            <ion-item-group>
-              <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Maintenance Level"
-                              [(ngModel)]="productService.profile_product.care.maintenance_level"></ion-textarea>
-                <ion-label *ngIf="productService.profile_product.care && view === 'detail'" slot="start">
-                  Maintenance Level
-                </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.care && view === 'detail'">{{productService.profile_product.care.maintenance_level}}</span>
-              </ion-item>
-              <ion-item>
-                <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Can it be dyed?"
-                              [(ngModel)]="productService.profile_product.care && productService.profile_product.care.can_it_be_dyed"></ion-textarea>
-                <ion-label *ngIf="view === 'detail'" slot="start">
-                  Can it be dyed?
-                </ion-label>
-                <span slot="end"
-                      *ngIf="productService.profile_product.care && view === 'detail'">{{productService.profile_product.care.can_it_be_dyed}}</span>
-              </ion-item>
-            </ion-item-group>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="infos">
+            <ion-col size="4">
+              <ion-item-divider class="divider">
+                DESCRIPTION
+              </ion-item-divider>
+              <ion-item-group>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Description" rows="10" cols="20"
+                                style="overflow:hidden;"
+                                [(ngModel)]="productService.profile_product.description.description"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Description
+                  </ion-label>
+                  <span
+                    *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.description}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair type"
+                                [(ngModel)]="productService.profile_product.description.hair_type"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Hair type
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.hair_type}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Model Wearing"
+                                [(ngModel)]="productService.profile_product.description.model_wearing"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Model Wearing
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.model_wearing}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Available Services"
+                                [(ngModel)]="productService.profile_product.description.available_service"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Available Services
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.description && view === 'detail'">{{productService.profile_product.description.available_service}}</span>
+                </ion-item>
+              </ion-item-group>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item-divider class="divider">
+                HAIR INFOS
+              </ion-item-divider>
+              <ion-item-group>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Unit Weight"
+                                [(ngModel)]="productService.profile_product.hairInfo.unit_weight"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Unit Weight
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.unit_weight}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair Quality" rows="5" cols="20"
+                                style="overflow:hidden;"
+                                [(ngModel)]="productService.profile_product.hairInfo.hair_quality"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Hair Quality
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.hair_quality}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair Origin"
+                                [(ngModel)]="productService.profile_product.hairInfo.hair_origin"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Hair Origin
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.hair_origin}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Hair Weft Type"
+                                [(ngModel)]="productService.profile_product.hairInfo.hair_weft_type"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Hair Weft Type
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.hair_weft_type}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Features"
+                                [(ngModel)]="productService.profile_product.hairInfo.features"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Features
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.hairInfo && view === 'detail'">{{productService.profile_product.hairInfo.features}}</span>
+                </ion-item>
+              </ion-item-group>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item-divider class="divider">
+                CARE
+              </ion-item-divider>
+              <ion-item-group>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Maintenance Level"
+                                [(ngModel)]="productService.profile_product.care.maintenance_level"></ion-textarea>
+                  <ion-label *ngIf="productService.profile_product.care && view === 'detail'" slot="start">
+                    Maintenance Level
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.care && view === 'detail'">{{productService.profile_product.care.maintenance_level}}</span>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea *ngIf="view === 'add' || view === 'edit'" placeholder="Can it be dyed?"
+                                [(ngModel)]="productService.profile_product.care && productService.profile_product.care.can_it_be_dyed"></ion-textarea>
+                  <ion-label *ngIf="view === 'detail'" slot="start">
+                    Can it be dyed?
+                  </ion-label>
+                  <span slot="end"
+                        *ngIf="productService.profile_product.care && view === 'detail'">{{productService.profile_product.care.can_it_be_dyed}}</span>
+                </ion-item>
+              </ion-item-group>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

@@ -20,6 +20,14 @@ const routes: Routes = [
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'products',
+        loadChildren: () => import('../products/products.module').then( m => m.ProductsPageModule)
+      },
+      {
+        path: 'product/:id',
+        loadChildren: () => import('../product/product.module').then( m => m.ProductPageModule)
+      },
+      {
         path: 'dashboard',
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
       },
@@ -50,10 +58,6 @@ const routes: Routes = [
       {
         path: 'sold',
         loadChildren: () => import('../sold/sold.module').then( m => m.SoldPageModule)
-      },
-      {
-        path: 'profile-products',
-        loadChildren: () => import('../profile-products/profile-products.module').then( m => m.ProfileProductsPageModule)
       },
       {
         path: 'add-edit-product/:action/:id',

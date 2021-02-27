@@ -9,12 +9,15 @@ import { HairBundlesPageRoutingModule } from './hair-bundles-routing.module';
 import { HairBundlesPage } from './hair-bundles.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HairBundlesPageRoutingModule
-  ],
-  declarations: [HairBundlesPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        HairBundlesPageRoutingModule
+    ],
+    exports: [
+        HairBundlesPage
+    ],
+    declarations: [HairBundlesPage]
 })
 export class HairBundlesPageModule {}

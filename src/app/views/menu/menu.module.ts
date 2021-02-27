@@ -11,6 +11,9 @@ import {Tab1PageModule} from '../tab1/tab1.module';
 import {Tab2PageModule} from '../tab2/tab2.module';
 import {Tab3PageModule} from '../tab3/tab3.module';
 import {DashboardPageModule} from '../dashboard/dashboard.module';
+import {ProductsPageModule} from "../products/products.module";
+import {HairBundlesPageModule} from "../hair-bundles/hair-bundles.module";
+import {HomePageModule} from "../home/home.module";
 
 @NgModule({
   imports: [
@@ -21,7 +24,10 @@ import {DashboardPageModule} from '../dashboard/dashboard.module';
     Tab1PageModule,
     Tab2PageModule,
     Tab3PageModule,
-    DashboardPageModule
+    DashboardPageModule,
+    ProductsPageModule,
+    HairBundlesPageModule,
+    HomePageModule
   ],
   declarations: [MenuPage]
 })

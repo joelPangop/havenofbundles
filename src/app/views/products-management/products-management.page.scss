@@ -202,25 +202,25 @@ div.ex3 {
   overflow: auto;
 }
 #myScrollDiv {
-  height: 500px;
+  height: 70%;
 }
-
-div[scrollx=true], div[scrolly=true] {
-  position: relative;
-  overflow: hidden;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-div[scrollx=true] {
-  overflow-x: auto;
-}
-
-div[scrolly=true] {
-  overflow-y: auto;
-}
+//
+//div[scrollx=true], div[scrolly=true] {
+//  position: relative;
+//  overflow: hidden;
+//
+//  ::-webkit-scrollbar {
+//    display: none;
+//  }
+//}
+//
+//div[scrollx=true] {
+//  overflow-x: auto;
+//}
+//
+//div[scrolly=true] {
+//  overflow-y: auto;
+//}
 
 #detail {
   /* Detail */
@@ -384,4 +384,5 @@ input[type=number]::-webkit-outer-spin-button {
   position: absolute;
   z-index: -1;
 }
-ion-content { --overflow: hidden; }
+//ion-content { --overflow: hidden; }
+

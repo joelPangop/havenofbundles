@@ -1,6 +1,6 @@
-<ion-header *ngIf="platform_view !== 'browser'">
+<ion-header *ngIf="platform.is('ios') || platform.is('android')">
   <ion-toolbar>
-    <ion-buttons *ngIf="platform.is('ios') || platform.is('android')">
+    <ion-buttons>
       <ion-menu-button>
         <ion-icon src="assets/icon/menu.svg"></ion-icon>
       </ion-menu-button>
@@ -18,9 +18,9 @@
     </div>
   </ion-list>
 </ion-content>
-<ion-content *ngIf="!platform.is('ios') && !platform.is('android')">
+<ion-content *ngIf="!platform.is('ios') && !platform.is('android')" fullscreen>
 
-  <ion-grid  fixed style="height: 100%">
+  <ion-grid fixed style="height: 100%">
     <ion-row style="height: 100%">
       <ion-col size="3" style="height: 100%">
         <ion-list class="ion-padding" lines="none">
@@ -35,7 +35,7 @@
         <app-mailing-list name="browser" *ngIf="view === 'mailing List'"></app-mailing-list>
         <app-profile name="browser" *ngIf="view === 'profile'"></app-profile>
         <app-available name="browser" *ngIf="view === 'available'"></app-available>
-        <app-profile-products name="browser" *ngIf="view === 'profile products'"></app-profile-products>
+        <app-products-management name="browser" *ngIf="view === 'profile products'"></app-products-management>
         <app-sold name="browser" *ngIf="view === 'sold'"></app-sold>
         <app-summary name="browser" *ngIf="view === 'summary'"></app-summary>
       </ion-col>

@@ -10,10 +10,10 @@ import { DashboardPage } from './dashboard.page';
 import {MailingListPageModule} from '../mailing-list/mailing-list.module';
 import {ProfilePageModule} from '../profile/profile.module';
 import {AvailablePageModule} from '../available/available.module';
-import {ProfileProductsPageModule} from '../profile-products/profile-products.module';
 import {SoldPageModule} from '../sold/sold.module';
 import {SummaryPageModule} from '../summary/summary.module';
 import {MobileProductsManagementPageModule} from '../mobile-products-management/mobile-products-management.module';
+import {ProductsManagementPageModule} from "../products-management/products-management.module";
 
 @NgModule({
     imports: [
@@ -24,10 +24,10 @@ import {MobileProductsManagementPageModule} from '../mobile-products-management/
         MailingListPageModule,
         ProfilePageModule,
         AvailablePageModule,
-        ProfileProductsPageModule,
         SoldPageModule,
         SummaryPageModule,
-        MobileProductsManagementPageModule
+        MobileProductsManagementPageModule,
+        ProductsManagementPageModule
     ],
   exports: [
     DashboardPage

@@ -25,6 +25,9 @@ import {Tab3PageModule} from '../tab3/tab3.module';
     Tab2PageModule,
     Tab3PageModule
   ],
+  exports: [
+    HomePage
+  ],
   declarations: [HomePage]
 })
 export class HomePageModule {}
