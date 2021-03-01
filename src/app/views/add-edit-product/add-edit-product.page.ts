@@ -1,15 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertController, IonSlides, LoadingController, Platform, ToastController} from "@ionic/angular";
-import {ProductsService} from "../../services/products.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ImageService} from "../../services/image.service";
-import {BundleCategories} from "../../models/bundleCategories";
-import {Colors} from "../../models/colors";
-import {ProductCategories} from "../../models/productCategories";
-import {Styles} from "../../models/styles";
-import {Care, Description, Extra, HairInfo, Product, Rate} from "../../models/Product-interface";
-import {environment} from "../../models/environments";
+import {AlertController, IonSlides, LoadingController, Platform, ToastController} from '@ionic/angular';
+import {ProductsService} from '../../services/products.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ImageService} from '../../services/image.service';
+import {BundleCategories} from '../../models/bundleCategories';
+import {Colors} from '../../models/colors';
+import {ProductCategories} from '../../models/productCategories';
+import {Styles} from '../../models/styles';
+import {Care, Description, Extra, HairInfo, Product, Rate} from '../../models/Product-interface';
+import {environment} from '../../models/environments';
+import {Origins} from '../../models/Origins';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class AddEditProductPage implements OnInit {
   action = '';
   id = '';
   ip = '';
-  view = 'details'
+  view = 'details';
   uploadForm: FormGroup;
   public imagePath;
   imgURL: Map<any, any> = new Map<any, any>();
@@ -45,6 +46,7 @@ export class AddEditProductPage implements OnInit {
   colors: string[];
   productCategories: string[];
   styles: string[];
+  origins: string[];
   change_position_view: boolean = false;
   contentScrollActive = true;
   product: Product;
@@ -78,8 +80,8 @@ export class AddEditProductPage implements OnInit {
     this.action = this.activatedRoute.snapshot.paramMap.get('action');
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.myPictures = [];
-    if (this.id !== "null") {
-      console.log("ID non null");
+    if (this.id !== 'null') {
+      console.log('ID non null');
       this.productService.loadById(this.id).subscribe((product) => {
         this.productService.profile_product = product;
         if (!this.productService.profile_product.rates) {
@@ -94,8 +96,9 @@ export class AddEditProductPage implements OnInit {
         if (!this.productService.profile_product.care) {
           this.productService.profile_product.care = new Care();
         }
-      })
+      });
     } else {
+      this.productService.profile_product = new Product();
       this.productService.profile_product.rates = [];
       this.productService.profile_product.description = new Description();
       this.productService.profile_product.hairInfo = new HairInfo();
@@ -105,18 +108,15 @@ export class AddEditProductPage implements OnInit {
     this.colors = Object.values(Colors);
     this.productCategories = Object.values(ProductCategories);
     this.styles = Object.values(Styles);
+    this.origins = Object.values(Origins);
   }
 
   onFileSelect(event) {
-    // this.imgURL = [];
     if (event.target.files.length > 0) {
       const files: [] = event.target.files;
-      // this.myPictures = files;
-
       for (const file of files) {
         this.preview(file);
       }
-
     }
   }
 
@@ -128,32 +128,23 @@ export class AddEditProductPage implements OnInit {
       this.presentToast(this.message, 2000);
       return;
     }
-
-    // tslint:disable-next-line:prefer-const
     const reader = new FileReader();
     this.imagePath = files;
     await reader.readAsDataURL(files);
-    // this.imgURL = [];
-    // tslint:disable-next-line:variable-name
 
     if (mimeType.match(/image\/*/) !== null) {
-      // reader.onload = async (_event) => {
-      // tslint:disable-next-line:prefer-const
       const reader = new FileReader();
       this.imagePath = files;
       reader.readAsDataURL(files);
-      // this.imgURL = [];
-      // tslint:disable-next-line:variable-name
       reader.onload = (_event) => {
         this.imgURL.set(reader.result, files);
       };
-      console.log("test");
-      // };
+      console.log('test');
     }
     if (mimeType.match(/video\/*/) !== null) {
       const self = this;
       reader.onload = async (_event) => {
-        const snapImage = function () {
+        const snapImage = function() {
           const canvas = document.createElement('canvas');
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
@@ -163,11 +154,7 @@ export class AddEditProductPage implements OnInit {
           if (success) {
             const img = document.createElement('img');
             img.src = image;
-            // self.imgURL.push(img.src);
             self.imgURL.set(img.src, files);
-            // self.myPictures.push(reader.result);
-            // document.getElementById('videoId').appendChild(img);
-            // document.getElementsByTagName('div')[0].appendChild(img);
             URL.revokeObjectURL(url);
           }
           return success;
@@ -176,13 +163,13 @@ export class AddEditProductPage implements OnInit {
         const url = URL.createObjectURL(files);
         const video: any = document.createElement('video');
 
-        const timeupdate = function () {
+        const timeupdate = function() {
           if (snapImage()) {
             video.removeEventListener('timeupdate', timeupdate);
             video.pause();
           }
         };
-        video.addEventListener('loadeddata', function () {
+        video.addEventListener('loadeddata', function() {
           if (snapImage()) {
             video.removeEventListener('timeupdate', timeupdate);
           }
@@ -254,7 +241,7 @@ export class AddEditProductPage implements OnInit {
   addRate() {
     let rate = new Rate();
     if (this.productService.profile_product.rates.length > 0 && Object.keys(this.productService.profile_product.rates[this.productService.profile_product.rates.length - 1]).length === 0) {
-      console.log("No properties")
+      console.log('No properties');
     } else {
       if (this.productService.profile_product.colors && this.productService.profile_product.colors.includes('gold')) {
         let extra = new Extra();
@@ -272,7 +259,7 @@ export class AddEditProductPage implements OnInit {
       message: 'Chargement...'
     });
     await loading.present();
-    if (this.id === "null") {
+    if (this.id === 'null') {
       try {
         this.imgURL.forEach((key: any, value: any) => {
           this.myPictures.push(key);
@@ -292,8 +279,8 @@ export class AddEditProductPage implements OnInit {
                 loading.dismiss();
                 this.router.navigate(['tabs/mobile-products-management']);
                 this.presentToast('Product successfully created', 1500);
-              })
-            })
+              });
+            });
           });
       } catch (e) {
         console.log(e);
@@ -320,8 +307,8 @@ export class AddEditProductPage implements OnInit {
               this.imgURL = new Map<any, any>();
               loading.dismiss();
               this.presentToast('Product successfully updated', 1500);
-            })
-          })
+            });
+          });
         });
     }
   }
@@ -331,7 +318,7 @@ export class AddEditProductPage implements OnInit {
   enableChangeImagePosition() {
     this.change_position_view = !this.change_position_view;
     if (this.change_position_view) {
-      this.array = Array.from(this.imgURL, ([key, value]) => ({key, value}))
+      this.array = Array.from(this.imgURL, ([key, value]) => ({key, value}));
     }
   }
 
@@ -353,7 +340,7 @@ export class AddEditProductPage implements OnInit {
       this.imgURL.set(arr.key, arr.value);
     }
     for (let arr of this.imgURL.entries()) {
-      console.log('key', arr)
+      console.log('key', arr);
     }
   }
 
@@ -362,9 +349,9 @@ export class AddEditProductPage implements OnInit {
       this.action = 'detail';
       this.productService.loadById(this.id).subscribe((product) => {
         this.productService.profile_product = product;
-      })
+      });
     } else {
-      this.action = 'edit'
+      this.action = 'edit';
     }
   }
 

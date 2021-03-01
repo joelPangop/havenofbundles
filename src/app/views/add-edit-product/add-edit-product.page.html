@@ -129,10 +129,6 @@
           </ion-row>
         </ion-grid>
       </div>
-      <ion-button *ngIf="imgURL.size > 0" (click)="enableChangeImagePosition()" fill="outline"
-                  style="--ion-background-color: #222222; color: #ab924d; --border-color: #ab924d">
-        {{!change_position_view ? 'Enable Change positions' : 'Disable Change positions'}}
-      </ion-button>
     </ion-row>
     <ion-grid>
       <ion-list>
@@ -190,8 +186,19 @@
             <span slot="end" *ngIf="action === 'detail'">{{productService.profile_product.bundle_category}}</span>
           </ion-item>
           <ion-item *ngIf="view === 'details'">
-            <ion-input *ngIf="action === 'add' || action === 'edit'" placeholder="Origin" type="text"
-                       [(ngModel)]="productService.profile_product.origin"></ion-input>
+<!--            <ion-input *ngIf="action === 'add' || action === 'edit'" placeholder="Origin" type="text"-->
+<!--                       [(ngModel)]="productService.profile_product.origin"></ion-input>-->
+            <ion-label>
+              Origin
+            </ion-label>
+            <ion-select *ngIf="action === 'add' || action === 'edit'"
+                        [(ngModel)]="productService.profile_product.origin" [ngModelOptions]="{standalone: true}"
+                        mode="md"
+                        interface="popover" placeholder="Origin">
+              <ion-select-option [value]="origin" *ngFor="let origin of origins">
+                {{origin}}
+              </ion-select-option>
+            </ion-select>
             <span slot="end" *ngIf="action === 'detail'">{{productService.profile_product.origin}}</span>
           </ion-item>
           <ion-item>

@@ -162,6 +162,10 @@ ion-input{
   --placeholder-font-weight: 600;
 }
 
+ion-item span {
+  padding-bottom: 2px;
+}
+
 ion-item-divider {
   font-weight: 600;
   font-family: "Berlin Sans FB"

@@ -30,6 +30,9 @@ const routes: Routes = [
   {
     path: 'color-view',
     loadChildren: () => import('./views/color-view/color-view.module').then( m => m.ColorViewPageModule)
+  },  {
+    path: 'category-links',
+    loadChildren: () => import('./views/category-links/category-links.module').then( m => m.CategoryLinksPageModule)
   }
 
 ];
