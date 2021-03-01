@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ProductsService} from "../../services/products.service";
-import {AlertController, LoadingController, ToastController} from "@ionic/angular";
-import {FormBuilder} from "@angular/forms";
-import {ImageService} from "../../services/image.service";
-import {environment} from "../../models/environments";
-import {Colors} from "../../models/colors";
-import {ProductCategories} from "../../models/productCategories";
-import {Product} from "../../models/Product-interface";
-import {Origins} from "../../models/Origins";
-import {Styles} from "../../models/styles";
-import {BundleCategories} from "../../models/bundleCategories";
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProductsService} from '../../services/products.service';
+import {AlertController, LoadingController, ToastController} from '@ionic/angular';
+import {FormBuilder} from '@angular/forms';
+import {ImageService} from '../../services/image.service';
+import {environment} from '../../models/environments';
+import {Colors} from '../../models/colors';
+import {ProductCategories} from '../../models/productCategories';
+import {Product} from '../../models/Product-interface';
+import {Origins} from '../../models/Origins';
+import {BundleCategories} from '../../models/bundleCategories';
+import {PageService} from '../../services/page.service';
 
 @Component({
   selector: 'app-hair-bundles',
@@ -28,9 +28,10 @@ export class HairBundlesPage implements OnInit {
   choosenHairInfos: string[] = [];
   choosenCategories: string[] = [];
   public products: Product[];
+  public filterProducts: Product[];
 
   constructor(private router: Router, public productService: ProductsService, private activatedRoute: ActivatedRoute,
-              private toastCtrl: ToastController, private formBuilder: FormBuilder, private imageService: ImageService,
+              private toastCtrl: ToastController, public pageService: PageService,
               public loadingCtrl: LoadingController, private alertController: AlertController) {
     this.ip = environment.api_url;
     this.products = [];
@@ -71,15 +72,20 @@ export class HairBundlesPage implements OnInit {
   ngOnInit() {
     this.load();
   }
+  ionDidEnter(){
+    this.load();
+  }
 
   load() {
     this.productService.loadAll().subscribe((products) => {
-      this.products = products.filter(res => res.category === ProductCategories.BUNDLES);
+      this.productService.products = products.filter(res => res.category === this.pageService.productCategory);
+      this.filterProducts = Array.from(this.products);
     });
   }
 
-  goToDetail(_id: string) {
-
+  async goToDetail(id: string) {
+    this.pageService.view = 'product-view';
+    this.pageService.parameter = id;
   }
 
   checkColors($event, color: any) {
@@ -87,17 +93,19 @@ export class HairBundlesPage implements OnInit {
       this.choosenColors.push(color.color);
     } else if (!color.isChecked && this.choosenColors.includes(color.color)) {
       this.choosenColors.forEach((element, index) => {
-        if (element === color.color) this.choosenColors.splice(index, 1);
+        if (element === color.color) {
+          this.choosenColors.splice(index, 1);
+        }
       });
     }
     if (this.choosenColors.length > 0) {
-      this.products = this.products.filter((prod) => {
+      this.productService.products = this.filterProducts.filter((prod) => {
         if (prod.colors.length >= this.choosenColors.length) {
           return this.arrayContainsArray(prod.colors, this.choosenColors);
         } else {
           return this.arrayContainsArray(this.choosenColors, prod.colors);
         }
-      })
+      });
     } else {
       this.load();
     }
@@ -108,13 +116,15 @@ export class HairBundlesPage implements OnInit {
       this.choosenHairInfos.push(hairInfo.hairInfo);
     } else if (!hairInfo.isChecked && this.choosenHairInfos.includes(hairInfo.hairInfo)) {
       this.choosenHairInfos.forEach((element, index) => {
-        if (element === hairInfo.hairInfo) this.choosenHairInfos.splice(index, 1);
+        if (element === hairInfo.hairInfo) {
+          this.choosenHairInfos.splice(index, 1);
+        }
       });
     }
     if (this.choosenHairInfos.length > 0) {
       this.products = this.products.filter((prod) => {
         return this.choosenHairInfos.includes(prod.origin);
-      })
+      });
     } else {
       this.load();
     }
@@ -124,7 +134,7 @@ export class HairBundlesPage implements OnInit {
     if (0 === subset.length) {
       return false;
     }
-    return subset.every(function (value) {
+    return subset.every(function(value) {
       return (superset.indexOf(value) >= 0);
     });
   }
@@ -134,19 +144,21 @@ export class HairBundlesPage implements OnInit {
       this.choosenCategories.push(item.hairCategory);
     } else if (!item.isChecked && this.choosenCategories.includes(item.hairCategory)) {
       this.choosenCategories.forEach((element, index) => {
-        if (element === item.hairCategory) this.choosenCategories.splice(index, 1);
+        if (element === item.hairCategory) {
+          this.choosenCategories.splice(index, 1);
+        }
       });
     }
     if (this.choosenCategories.length > 0) {
       this.products = this.products.filter((prod) => {
-        return this.choosenCategories.includes(prod.bundle_category)
-      })
+        return this.choosenCategories.includes(prod.bundle_category);
+      });
     } else {
       this.load();
     }
   }
 
-  clear(){
+  clear() {
     this.colors = [];
     this.hairInfos = [];
     this.hairCategories = [];
@@ -171,19 +183,27 @@ export class HairBundlesPage implements OnInit {
     this.load();
   }
 
-  public async changeView(event, item: any): Promise<void> {
-    let i, styleTabs;
+  public async filterByStyle(event, item: any): Promise<void> {
+    let i, styleTabs, className;
     styleTabs = document.getElementsByClassName('styleTabs');
-    for (i = 0; i < styleTabs.length; i++) {
-      styleTabs[i].className = styleTabs[i].className.replace(' active', '');
+    if (event.currentTarget.className.includes(' active')) {
+      className = event.currentTarget.className.replace(' active', '');
+      event.currentTarget.className = className;
+    } else {
+      for (i = 0; i < styleTabs.length; i++) {
+        styleTabs[i].className = styleTabs[i].className.replace(' active', '');
+      }
+      event.currentTarget.className += ' active';
     }
-    event.currentTarget.className += ' active';
+
     if (item.name) {
-      this.products = this.products.filter((prod) => {
+      this.products = this.filterProducts.filter((prod) => {
         return prod.style === item.name;
-      })
+      });
     } else {
       this.load();
     }
   }
+
+
 }

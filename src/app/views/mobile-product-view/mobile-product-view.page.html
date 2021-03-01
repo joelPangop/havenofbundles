@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/mobile-hair-bundles">
+      <ion-back-button defaultHref="tabs/mobile-hair-bundles/{{pageService.productCategory}}">
       </ion-back-button>
     </ion-buttons>
     <ion-buttons class="ion-align-items-center">
@@ -65,10 +65,21 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col size="4">
+    <ion-col size="6">
       <ion-item lines="none">
         <ion-label>Price</ion-label>
         <span>{{price | currency}}</span>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item lines="none">
+        <ion-label>QTY</ion-label>
+        <ion-select [(ngModel)]="quantity" class="list1"
+                    interface="popover">
+          <ion-select-option *ngFor="let qty of quantities" [value]="qty" class="option2">
+            {{qty}}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
     </ion-col>
   </ion-row>

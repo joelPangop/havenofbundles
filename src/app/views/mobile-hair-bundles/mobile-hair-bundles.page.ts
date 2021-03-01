@@ -3,10 +3,11 @@ import {Product} from '../../models/Product-interface';
 import {ProductsService} from '../../services/products.service';
 import {ProductCategories} from '../../models/productCategories';
 import {environment} from '../../models/environments';
-import {ModalController, Platform} from "@ionic/angular";
-import {FilterViewPage} from "../filter-view/filter-view.page";
-import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
+import {ModalController, Platform} from '@ionic/angular';
+import {FilterViewPage} from '../filter-view/filter-view.page';
+import {BehaviorSubject} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PageService} from '../../services/page.service';
 
 @Component({
   selector: 'app-mobile-hair-bundles',
@@ -17,11 +18,13 @@ export class MobileHairBundlesPage implements OnInit {
 
   public products: Product[];
   url = '';
+  category = '';
   typeImages: any[] = [];
   filterObject: BehaviorSubject<any>;
   public filterNumber: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  constructor(private productsService: ProductsService, private modalController: ModalController, private router: Router) {
+  constructor(private productsService: ProductsService, private modalController: ModalController, private router: Router,
+              private activatedRoute: ActivatedRoute, public pageService: PageService) {
     this.filterObject = new BehaviorSubject({});
     this.filterNumber = new BehaviorSubject(0);
     this.products = [];
@@ -42,13 +45,15 @@ export class MobileHairBundlesPage implements OnInit {
   }
 
   ngOnInit() {
+    this.category = this.activatedRoute.snapshot.paramMap.get('category');
+    this.pageService.productCategory = this.category;
     this.load();
     this.url = environment.api_url;
   }
 
   load() {
     this.productsService.loadAll().subscribe((products) => {
-      this.products = products.filter(res => res.category === ProductCategories.BUNDLES);
+      this.products = products.filter(res => res.category === this.category);
     });
   }
 
@@ -97,7 +102,7 @@ export class MobileHairBundlesPage implements OnInit {
           }
           if (this.filterObject.value.choosenOrigins.length > 0) {
             this.products = this.products.filter((prod) => {
-              return this.filterObject.value.choosenOrigins.includes(prod.origin)
+              return this.filterObject.value.choosenOrigins.includes(prod.origin);
             });
           } else {
             this.load();
@@ -105,7 +110,7 @@ export class MobileHairBundlesPage implements OnInit {
 
           if (this.filterObject.value.choosenStyles.length > 0) {
             this.products = this.products.filter((prod) => {
-              return this.filterObject.value.choosenStyles.includes(prod.origin)
+              return this.filterObject.value.choosenStyles.includes(prod.origin);
             });
           } else {
             this.load();
@@ -113,7 +118,7 @@ export class MobileHairBundlesPage implements OnInit {
 
           if (this.filterObject.value.choosenCategories.length > 0) {
             this.products = this.products.filter((prod) => {
-              return this.filterObject.value.choosenCategories.includes(prod.bundle_category)
+              return this.filterObject.value.choosenCategories.includes(prod.bundle_category);
             });
           } else {
             this.load();
@@ -127,7 +132,7 @@ export class MobileHairBundlesPage implements OnInit {
     if (0 === subset.length) {
       return false;
     }
-    return subset.every(function (value) {
+    return subset.every(function(value) {
       return (superset.indexOf(value) >= 0);
     });
   }

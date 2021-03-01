@@ -25,7 +25,7 @@
               <h2>Textures</h2>
               <ion-row class="texture">
                 <ion-col sizeLg="3" sizeMd="3" sizeXs="12" *ngFor="let item of typeImages" class="ion-padding">
-                  <ion-card class="ion-no-margin styleTabs" (click)="changeView($event, item)">
+                  <ion-card class="ion-no-margin styleTabs" (click)="filterByStyle($event, item)">
                     <img src="{{item.src}}" style="width: 80px; height: 100px;"/>
                     <ion-card-header>
                       <span>{{item.name}}</span>
@@ -90,10 +90,12 @@
             </ion-row>
           </ion-col>
           <ion-col size="9">
-            <ion-toolbar><h2>ALL BUNDLES</h2></ion-toolbar>
+            <ion-toolbar *ngIf="pageService.productCategory === 'Bundles'"><h2>ALL BUNDLES</h2></ion-toolbar>
+            <ion-toolbar *ngIf="pageService.productCategory === 'Frontal'"><h2>ALL FRONTALS</h2></ion-toolbar>
+            <ion-toolbar *ngIf="pageService.productCategory === 'Closure'"><h2>ALL CLOSURES</h2></ion-toolbar>
             <ion-row>
               <ion-col sizeLg="3" sizeMd="3" sizeXs="3"
-                       *ngFor="let item of products; let i = index"
+                       *ngFor="let item of productService.products; let i = index"
                        class="grid">
                 <ion-card class="ion-no-margin" (click)="goToDetail(item._id)">
                   <!-- Product Image -->

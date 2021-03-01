@@ -293,7 +293,7 @@ export class ProductsManagementPage implements OnInit {
             this.productService.profile_product.pictures = res.files;
             this.productService.save().subscribe((res) => {
               console.log(res);
-              this.productService.profile_product = {} as Product;
+              this.productService.profile_product = new Product();
               this.myPictures = [];
               this.imgURL = new Map<any, any>();
               loading.dismiss();

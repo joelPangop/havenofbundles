@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Platform} from '@ionic/angular';
+import {Platform, PopoverController} from '@ionic/angular';
 import {StorageService} from '../../services/storage.service';
 import {PageService} from '../../services/page.service';
+import {RateViewPage} from '../rate-view/rate-view.page';
+import {CategoryLinksPage} from '../category-links/category-links.page';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-menu',
@@ -10,32 +14,57 @@ import {PageService} from '../../services/page.service';
 })
 export class MenuPage implements OnInit {
 
-  public view;
   appPages: any[];
 
-  constructor(public platform: Platform, private storage: StorageService, private pageService: PageService) {
+  constructor(public platform: Platform, private storage: StorageService, public pageService: PageService,
+              private popoverCtrl: PopoverController) {
     this.appPages = this.pageService.getPages();
   }
 
   ngOnInit() {
     this.storage.getObject('tab').then((res) => {
       if (res) {
-        this.view = res;
+        this.pageService.view = res;
         let tablinks = document.getElementsByClassName('tablinks');
         for (let i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(' active', '');
-          if (tablinks[i].textContent.toUpperCase() === this.view.toUpperCase()) {
+          if (tablinks[i].textContent.toUpperCase() === this.pageService.view.toUpperCase()) {
             tablinks[i].className = 'active';
           }
         }
       } else {
-        this.view = 'home';
+        this.pageService.view = 'home';
         let tablinks = document.getElementsByClassName('tablinks');
         for (let i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(' active', '');
         }
       }
     });
+
+    (function($) {
+      $(document).ready(function() {
+        console.log('Hello from jQuery!');
+        $('[data-toggle="popover"]').popover();
+      });
+    })(jQuery);
+  }
+
+  public async goToCategory(event, page) {
+    const popover = await this.popoverCtrl.create({
+      component: CategoryLinksPage,
+      event: event,
+      translucent: true,
+      cssClass: 'my-custom-dialog',
+    });
+    popover.onDidDismiss()
+      .then((data: any) => {
+        if (data.data) {
+          console.log(data.data.link);
+          this.pageService.view = page;
+          this.pageService.productCategory = data.data.link.link;
+        }
+      });
+    await popover.present();
   }
 
   public async changeView(event, page): Promise<void> {
@@ -49,9 +78,12 @@ export class MenuPage implements OnInit {
       tablinks[i].className = tablinks[i].className.replace(' active', '');
     }
     // document.getElementById(cityName).style.display = "block";
-    this.view = page;
-    await this.storage.setObject('tab', this.view);
+    this.pageService.view = page;
+    await this.storage.setObject('tab', this.pageService.view);
     event.currentTarget.className += ' active';
   }
 
+  goToSubMain(sub) {
+
+  }
 }

@@ -1,15 +1,12 @@
-//.swiper-container {
-//  width: 600px;
-//  height: 300px;
-//}
-//#top-slider {
-//  ion-slides {
-//    --bullet-background: var(--ion-color-light);
-//    --bullet-background-active: var(--ion-color-white);
-//  }
-//}
-
-// Slider Style START
+div.ex3 {
+  background-color: rgba(0, 0, 0, .0001) !important;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+#myScrollDiv {
+  height: 90%;
+}
 .custon-nav{
   height: 48px;
   width: 20px;
@@ -49,72 +46,6 @@
 span {
   color: #ab924d;
   text-align: center
-}
-
-#detail {
-  /* Detail */
-
-  position: absolute;
-  width: 50px;
-  height: 24px;
-  left: 15px;
-
-  /* S1 Halyard */
-  font-family: "Berlin Sans FB";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 24px;
-  /* identical to box height, or 160% */
-
-  /* Secondary */
-  color: #ab924d;
-}
-
-#sold {
-  /* Sold */
-
-
-  position: absolute;
-  width: 37px;
-  height: 24px;
-  left: 85px;
-
-  /* S1 Halyard */
-
-  font-family: Berlin Sans FB;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 24px;
-  /* identical to box height, or 160% */
-
-
-  /* Basic 600 */
-
-  color: #ab924d;
-  opacity: 0.6;
-}
-
-#issue {
-  /* Issue */
-  position: relative;
-  width: 45px;
-  height: 24px;
-  left: 142px;
-
-  /* S1 Halyard */
-  font-family: Berlin Sans FB;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 24px;
-  /* identical to box height, or 160% */
-
-  /* Basic 600 */
-
-  color: #ab924d;
-  opacity: 0.6;
 }
 
 /* Change background color of buttons on hover */
@@ -157,7 +88,21 @@ span {
   font-size: small;
 }
 
-ion-select {
+select.list1 {
+  background-color: #1e1e1e;
   color: #ab924d;
-  font-family: "Berlin Sans FB"
+  border: 3px solid #ab924d;
+}
+
+//select.list1 option.option2:hover
+//{
+//  background-color: #ab924d !important;
+//}
+
+select.list1:hover {
+  background-color: #4d4d4d;
+}
+
+select option:hover {
+  background-color: #ab924d !important;
 }

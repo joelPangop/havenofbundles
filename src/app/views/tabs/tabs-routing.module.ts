@@ -80,7 +80,7 @@ const routes: Routes = [
         loadChildren: () => import('../mobile-home/mobile-home.module').then( m => m.MobileHomePageModule)
       },
       {
-        path: 'mobile-hair-bundles',
+        path: 'mobile-hair-bundles/:category',
         loadChildren: () => import('../mobile-hair-bundles/mobile-hair-bundles.module').then( m => m.MobileHairBundlesPageModule)
       },
       {
@@ -88,15 +88,19 @@ const routes: Routes = [
         loadChildren: () => import('../mobile-product-view/mobile-product-view.module').then( m => m.MobileProductViewPageModule)
       },
       {
+        path: 'product-view',
+        loadChildren: () => import('../product-view/product-view.module').then( m => m.ProductViewPageModule)
+      },
+      {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/home',
     pathMatch: 'full'
   }
 ];

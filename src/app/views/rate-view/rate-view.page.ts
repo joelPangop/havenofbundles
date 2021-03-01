@@ -11,11 +11,13 @@ export class RateViewPage implements OnInit {
 
   rates: Rate[];
   rate: Rate;
+  color = '';
   public product: Product;
   price = 0;
 
   constructor(public navParams: NavParams, private loadingCtrl: LoadingController) {
     this.rates = this.navParams.get('rates');
+    this.color = this.navParams.get('color');
     this.product = this.navParams.get('product');
   }
 
@@ -29,6 +31,12 @@ export class RateViewPage implements OnInit {
       if (rate.length === this.rate.length) {
         this.price += rate.price;
       }
+    }
+    if (this.color === 'gold' && this.rate.can_extra) {
+      this.price += 20;
+    }
+    if (this.rate.price < this.price && this.color === 'black') {
+      this.price -= 20;
     }
     const popover = this.navParams.get('popover');
     popover.dismiss({

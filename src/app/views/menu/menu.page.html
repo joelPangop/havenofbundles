@@ -31,19 +31,41 @@
       </ion-item-divider>
       <div *ngFor="let p of appPages">
         <ion-menu-toggle auto-hide="false" *ngIf="p.url">
-          <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" [routerLinkActive]="'active'">
-            <p>
+          <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" [routerLinkActive]="'active'" lines="none">
+            <span class="item">
               {{p.title}}
-            </p>
+            </span>
           </ion-item>
         </ion-menu-toggle>
+        <ion-item *ngIf="p.children?.length > 0" (click)="p.open = !p.open" lines="none"
+                  [class.active-parent]="p.open" detail="false">
+          <span slot="start" class="item">
+            {{p.title}}
+          </span>
+          <button slot="end" fill="outline">
+            <ion-icon name="arrow-forward-circle-outline" slot="icon-only" *ngIf="!p.open"></ion-icon>
+            <ion-icon name="arrow-down-circle-outline" slot="icon-only" *ngIf="p.open"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-list *ngIf="p.open" size="x-small">
+          <ion-menu-toggle *ngFor="let sub of p.children" auto-hide="false">
+            <div>
+              <ion-item [routerLink]="sub.url" lines="none"
+                        [routerDirection]="'root'" routerLinkActive="active" button>
+                <span class="sub-item">
+                  {{sub.title}}
+                </span>
+              </ion-item>
+            </div>
+          </ion-menu-toggle>
+        </ion-list>
       </div>
     </ion-content>
 
     <!-- Footer -->
     <ion-footer no-border>
       <div class="ion-padding">
-        <ion-label>
+        <ion-label color="color1">
           Haven Of Bundles © 2021
         </ion-label>
       </div>
@@ -54,17 +76,20 @@
 </ion-split-pane>
 <ion-toolbar *ngIf="!platform.is('ios') && !platform.is('android')">
   <div class="tab" style="width:80%; margin:0 auto; position: relative;">
-    <button class="tablinks" fill="clear" (click)="changeView($event, 'home')"><ion-icon name="home"></ion-icon></button>
-    <button class="tablinks" (click)="changeView($event, 'hairBundles')">Hair Bundles</button>
+    <button class="tablinks" fill="clear" (click)="changeView($event, 'home')">
+      <ion-icon name="home"></ion-icon>
+    </button>
+    <button class="tablinks" (click)="goToCategory($event, 'hairBundles')">Shop</button>
     <button class="tablinks" (click)="changeView($event, 'dashboard')">Dashboard</button>
-
   </div>
   <ion-button fill="clear" slot="end">
     <ion-icon slot="icon-only" name="cart"></ion-icon>
   </ion-button>
 </ion-toolbar>
 <ion-content [fullscreen]="true" *ngIf="!platform.is('ios') && !platform.is('android')">
-  <app-home *ngIf="view === 'home'"></app-home>
-  <app-hair-bundles *ngIf="view === 'hairBundles'"></app-hair-bundles>
-  <app-dashboard *ngIf="view === 'dashboard'"></app-dashboard>
+  <app-home *ngIf="pageService.view === 'home'"></app-home>
+  <app-hair-bundles *ngIf="pageService.view === 'hairBundles'"></app-hair-bundles>
+  <app-dashboard *ngIf="pageService.view === 'dashboard'"></app-dashboard>
+  <app-product-view *ngIf="pageService.view === 'product-view'" name="{{pageService.parameter}}"
+                    category="{{pageService.productCategory}}"></app-product-view>
 </ion-content>

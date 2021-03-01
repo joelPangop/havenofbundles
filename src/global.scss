@@ -2026,3 +2026,10 @@ span {
 ::-webkit-scrollbar-thumb:hover {
   background: #ffdead;
 }
+.my-custom-dialog .modal-wrapper{
+  width: 5%;
+}
+
+.my-custom-search-dialog .popover-wrapper{
+  --min-width: 40% !important;
+}

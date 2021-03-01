@@ -11,11 +11,15 @@ export class Product {
   style?: string[];
   pictures?: string[];
   averageStar?: number;
-  colors?: string;
+  colors?: string[];
   sizes?: string[];
   available?: boolean;
   care?: Care;
   constructor() {
+    this.care = new Care();
+    this.rates = [] as Rate[];
+    this.hairInfo = new HairInfo();
+    this.description = new Description();
   }
 }
 

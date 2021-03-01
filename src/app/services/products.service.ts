@@ -11,10 +11,12 @@ export class ProductsService {
 
   public profile_product: Product;
   public profile_products: Product[];
+  public products: Product[];
 
   constructor(private http: HttpClient) {
     this.profile_product = new Product();
     this.profile_products = [] as Product[];
+    this.products = [] as Product[];
   }
 
   save(): Observable<Product> {

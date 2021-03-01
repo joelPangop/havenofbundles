@@ -1,23 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonSlides, LoadingController, NavParams, Platform, PopoverController} from "@ionic/angular";
-import {ProductsService} from "../../services/products.service";
-import {ActivatedRoute} from "@angular/router";
-import {Product, Rate} from "../../models/Product-interface";
-import {environment} from "../../models/environments";
-import {RateViewPage} from "../rate-view/rate-view.page";
-import {ColorViewPage} from "../color-view/color-view.page";
-import {PageService} from '../../services/page.service';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {IonSlides, LoadingController, Platform, PopoverController} from '@ionic/angular';
+import {ProductsService} from '../../services/products.service';
+import {ActivatedRoute} from '@angular/router';
+import {Product, Rate} from '../../models/Product-interface';
+import {environment} from '../../models/environments';
 
 @Component({
-  selector: 'app-mobile-product-view',
-  templateUrl: './mobile-product-view.page.html',
-  styleUrls: ['./mobile-product-view.page.scss'],
+  selector: 'app-product-view',
+  templateUrl: './product-view.page.html',
+  styleUrls: ['./product-view.page.scss'],
 })
-export class MobileProductViewPage implements OnInit {
-  private id: string;
-  public product: Product;
-  public color: any;
-  public rate: Rate;
+export class ProductViewPage implements OnInit {
+
+  @Input() name: string;
 
   @ViewChild('slideWithNav', {static: false}) slideWithNav: IonSlides;
 
@@ -38,33 +33,42 @@ export class MobileProductViewPage implements OnInit {
   ip: string;
   price = 0;
   detailView: string = 'description';
+  private id: string;
+  public product: Product;
+  public color: any;
+  public length: any;
+  public rate: Rate;
   public quantity = 1;
   public quantities = [];
 
   constructor(public platform: Platform, public productService: ProductsService, private activatedRoute: ActivatedRoute,
-              private popoverController: PopoverController, public pageService: PageService) {
-    this.product = {} as Product;
-    this.rate = {} as Rate;
-    this.color = "";
+              private popoverController: PopoverController, private loadingCtrl: LoadingController) {
+    this.product = new Product();
+    // this.rate = {} as Rate;
+    // this.color = "";
     this.ip = environment.api_url;
     this.quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     this.detailView = 'description';
   }
 
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    // this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.id = this.name;
+    this.product = new Product();
     this.load();
   }
 
-  load(){
+  load() {
     this.productService.loadById(this.id).subscribe((product) => {
       this.product = product;
       this.rate = this.product.rates[0];
       this.price = this.product.rates[0].price;
+      this.length = this.product.rates[0].length;
       this.color = this.product.colors[0];
       let tablinks = document.getElementsByClassName('sidetablinks');
       tablinks[0].className = tablinks[0].className += ' active';
     });
+
   }
 
   //Move to Next slide
@@ -112,52 +116,30 @@ export class MobileProductViewPage implements OnInit {
     }
   }
 
-  async showOptions(ev: MouseEvent) {
-    const popover = await this.popoverController.create({
-      component: RateViewPage,
-      event: ev,
-      translucent: true,
-      // cssClass: 'my-custom-dialog',
-      componentProps: {
-        rates: this.product.rates,
-        rate: this.rate,
-        product: this.product,
-        color: this.color
-      }
-    });
-    popover.onDidDismiss()
-      .then((data: any) => {
-        if(data.data){
-          console.log(data.data.price);
-          this.price = data.data.price;
-          this.rate = data.data.rate;
+  public changePriceByColor(option) {
+    switch (option) {
+      case 'color':
+        if (this.color === 'gold' && this.rate.can_extra) {
+          this.price += 20;
         }
-      });
-    return await popover.present();
-  }
-
-  async showColors(ev: MouseEvent) {
-    const popover = await this.popoverController.create({
-      component: ColorViewPage,
-      event: ev,
-      translucent: true,
-      // cssClass: 'my-custom-dialog',
-      componentProps: {
-        color: this.color,
-        colors: this.rate.can_extra ? this.product.colors : ["black"],
-        price: this.price,
-        rate: this.rate,
-      }
-    });
-    popover.onDidDismiss()
-      .then((data: any) => {
-        if(data.data){
-          console.log(data.data.price);
-          this.price = data.data.price;
-          this.color = data.data.color;
+        if (this.rate.price < this.price && this.color === 'black') {
+          this.price -= 20;
         }
-      });
-    return await popover.present();
+        break;
+      case 'length':
+        for (let rate of this.product.rates) {
+          if (rate.length === this.rate.length) {
+            this.price = rate.price;
+          }
+        }
+        if (this.color === 'gold' && this.rate.can_extra) {
+          this.price += 20;
+        }
+        if (this.rate.price < this.price && this.color === 'black') {
+          this.price -= 20;
+        }
+        break;
+    }
   }
 
   public async changeView(event, page: string): Promise<void> {
