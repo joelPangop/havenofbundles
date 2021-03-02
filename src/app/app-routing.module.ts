@@ -33,6 +33,10 @@ const routes: Routes = [
   },  {
     path: 'category-links',
     loadChildren: () => import('./views/category-links/category-links.module').then( m => m.CategoryLinksPageModule)
+  },
+  {
+    path: 'bundle-set',
+    loadChildren: () => import('./views/bundle-set/bundle-set.module').then( m => m.BundleSetPageModule)
   }
 
 ];
