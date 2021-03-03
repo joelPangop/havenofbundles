@@ -22,6 +22,8 @@ export class MobileHairBundlesPage implements OnInit {
   typeImages: any[] = [];
   filterObject: BehaviorSubject<any>;
   public filterNumber: BehaviorSubject<number> = new BehaviorSubject(0);
+  grid: Boolean = true;
+  list: Boolean = false;
 
   constructor(private productsService: ProductsService, private modalController: ModalController, private router: Router,
               private activatedRoute: ActivatedRoute, public pageService: PageService) {
@@ -139,5 +141,16 @@ export class MobileHairBundlesPage implements OnInit {
 
   async goToDetail(id) {
     await this.router.navigateByUrl('tabs/mobile-product-view/' + id);
+  }
+
+
+  showGrid() {
+    this.grid = true;
+    this.list = false;
+  }
+
+  showList() {
+    this.grid = false;
+    this.list = true;
   }
 }

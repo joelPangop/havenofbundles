@@ -8,7 +8,7 @@ export class Product {
   category: string;
   bundle_category?: string;
   clos_front_category: string;
-  style?: string[];
+  style?: string;
   pictures?: string[];
   averageStar?: number;
   colors?: string[];

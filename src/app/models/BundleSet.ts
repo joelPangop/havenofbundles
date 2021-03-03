@@ -3,11 +3,26 @@ import {Rate} from './Product-interface';
 export class BundleSet {
   _id: string;
   title: string;
-  features: Rate[];
+  features: BundleSetRate[];
   productId: string;
   price: number;
-  supplement: any;
+  supplement: Supplement;
   constructor() {
     this.features = [];
+    this.supplement = {} as Supplement;
+  }
+}
+
+export class Supplement {
+  summary: String;
+  quantity: number;
+  price: number;
+}
+
+export class BundleSetRate {
+  rate: Rate;
+  quantity: number;
+  constructor() {
+    this.rate = new Rate();
   }
 }

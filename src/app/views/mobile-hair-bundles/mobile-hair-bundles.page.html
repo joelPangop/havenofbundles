@@ -59,26 +59,39 @@
     <hr style="list-style: url('src/assets/images/separated.jpeg') inside">
 
     <h3>All categories</h3>
+    <ion-item-divider>
+      <div class="ion-text-end" slot="end">
+        <!-- Grid Option -->
+        <ion-button fill="clear" [color]="grid ? 'color1' : 'color2'" class="ion-no-padding" (click)="showGrid()">
+          <ion-icon slot="icon-only" name="grid"></ion-icon>
+        </ion-button>
+
+        <!-- List View Option -->
+        <ion-button fill="clear" [color]="list ? 'color1' : 'color2'" class="ion-no-padding" (click)="showList()">
+          <ion-icon slot="icon-only" name="list"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item-divider>
     <ion-row>
       <ion-col size="12">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="8">
-              <div align="left">
-                <span style="color: #ab924d;">FILTER BY:</span>
-                <ion-chip outline color="color1" (click)="gotoFilterPage()">
-                  <ion-icon name="funnel"></ion-icon>
-                  <ion-label>Filters</ion-label>
-                  <ion-label>{{filterNumber.value ? ": "+filterNumber.value : ""}}</ion-label>
-                </ion-chip>
-              </div>
-            </ion-col>
-            <ion-col size="4">
-              <div align="right">
-                <span style="color: #ab924d;">{{products.length}} items</span>
-              </div>
-            </ion-col>
-          </ion-row>
+        <ion-row>
+          <ion-col size="8">
+            <div align="left">
+              <span style="color: #ab924d;">FILTER BY:</span>
+              <ion-chip outline color="color1" (click)="gotoFilterPage()">
+                <ion-icon name="funnel"></ion-icon>
+                <ion-label>Filters</ion-label>
+                <ion-label>{{filterNumber.value ? ": " + filterNumber.value : ""}}</ion-label>
+              </ion-chip>
+            </div>
+          </ion-col>
+          <ion-col size="4">
+            <div align="right">
+              <span style="color: #ab924d;">{{products.length}} items</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-grid *ngIf="grid">
           <ion-row>
             <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of products">
               <ion-card class="ion-no-margin pin" (click)="goToDetail(item._id)">
@@ -96,6 +109,17 @@
               </ion-card>
             </ion-col>
           </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="list">
+          <ion-item *ngFor="let item of products">
+            <ion-avatar slot="start">
+              <img src="{{url+'/file/image/' + item.pictures[0]}}">
+            </ion-avatar>
+            <ion-label (click)="goToDetail(item._id)">
+              <h5 style="color: #c4c4c4">{{item.name}}</h5>
+              <span>Price: {{item.rates[0].price | currency}}</span>
+            </ion-label>
+          </ion-item>
         </ion-grid>
       </ion-col>
     </ion-row>

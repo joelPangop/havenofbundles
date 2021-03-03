@@ -9,12 +9,15 @@ import { BundleSetPageRoutingModule } from './bundle-set-routing.module';
 import { BundleSetPage } from './bundle-set.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    BundleSetPageRoutingModule
-  ],
-  declarations: [BundleSetPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        BundleSetPageRoutingModule
+    ],
+    exports: [
+        BundleSetPage
+    ],
+    declarations: [BundleSetPage]
 })
 export class BundleSetPageModule {}

@@ -1,0 +1,96 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>mobileAddEditBundleSet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-item-divider>
+        Choose Style and category
+      </ion-item-divider>
+      <ion-item lines="none">
+        <span>Style: </span>&#160;&#160;
+        <ion-select [(ngModel)]="style" [ngModelOptions]="{standalone: true}"
+                    mode="md" (ionChange)="loadByCategory()"
+                    interface="popover" placeholder="Choose style">
+          <ion-select-option *ngFor="let style of styles; let i=index;" [value]="style">
+            {{style}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <span>Origin: </span>&#160;&#160;
+        <ion-select [(ngModel)]="origin" [ngModelOptions]="{standalone: true}"
+                    mode="md" (ionChange)="loadByCategory()"
+                    interface="popover" placeholder="Choose bundle">
+          <ion-select-option *ngFor="let org of origins; let i=index;" [value]="org">
+            {{org}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <span>Bundle: </span>&#160;&#160;
+        <ion-select [(ngModel)]="product" [ngModelOptions]="{standalone: true}"
+                    mode="md"
+                    interface="popover" placeholder="Choose bundle">
+          <ion-select-option *ngFor="let prod of products; let i=index;" [value]="prod">
+            {{prod.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-row>
+        <ion-col>
+          Length
+        </ion-col>
+        <ion-col>
+          Price
+        </ion-col>
+        <ion-col
+          *ngIf="product.colors && product.colors.includes('gold')">
+          Extra
+        </ion-col>
+        <ion-col>
+          Quantity
+        </ion-col>
+        <ion-col>
+          Action
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let rate of product.rates; let i = index">
+        <ion-col>
+          <span>{{rate.length}}</span>
+        </ion-col>
+        <ion-col>
+          <span>{{rate.price}}</span>
+        </ion-col>
+        <ion-col *ngIf="product.colors && product.colors.includes('gold')">
+          <span>{{rate.extra}}</span>
+        </ion-col>
+        <ion-col>
+          <ion-input [(ngModel)]="quantity"></ion-input>
+        </ion-col>
+        <button (click)="add(rate)"></button>
+      </ion-row>
+    </ion-row>
+    <ion-item-divider>
+      Bundle Set Configuration
+    </ion-item-divider>
+    <ion-row>
+      <ion-col>Bundle feature</ion-col>
+      <ion-col>Price</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let bundle of bundleSet.features; let i = index">
+      <ion-avatar slot="start">
+        <img src="{{ip+'/file/image/' + product.pictures[0]}}">
+      </ion-avatar>
+      <ion-label>
+        <h5 style="color: #c4c4c4">{{product.name}}</h5>
+        <span>Price: {{bundle.rate.price | currency}}</span>
+      </ion-label>
+    </ion-row>
+  </ion-grid>
+</ion-content>

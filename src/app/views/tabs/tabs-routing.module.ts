@@ -92,6 +92,22 @@ const routes: Routes = [
         loadChildren: () => import('../product-view/product-view.module').then( m => m.ProductViewPageModule)
       },
       {
+        path: 'bundle-set',
+        loadChildren: () => import('../bundle-set/bundle-set.module').then( m => m.BundleSetPageModule)
+      },
+      {
+        path: 'mobile-bundle-set',
+        loadChildren: () => import('../mobile-bundle-set/mobile-bundle-set.module').then( m => m.MobileBundleSetPageModule)
+      },
+      {
+        path: 'mobile-bundle-set-manager',
+        loadChildren: () => import('../mobile-bundle-set-manager/mobile-bundle-set-manager.module').then( m => m.MobileBundleSetManagerPageModule)
+      },
+      {
+        path: 'mobile-add-edit-bundle-set/:action/:id',
+        loadChildren: () => import('../mobile-add-edit-bundle-set/mobile-add-edit-bundle-set.module').then( m => m.MobileAddEditBundleSetPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

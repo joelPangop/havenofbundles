@@ -17,7 +17,7 @@ export class PageService {
     return [
       {
         title: 'Home',
-        url: '/menu/tabs/home',
+        url: '/tabs/mobile-home',
         icon: 'home'
       },
       {

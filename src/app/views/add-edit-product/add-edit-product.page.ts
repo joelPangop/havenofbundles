@@ -144,7 +144,7 @@ export class AddEditProductPage implements OnInit {
     if (mimeType.match(/video\/*/) !== null) {
       const self = this;
       reader.onload = async (_event) => {
-        const snapImage = function() {
+        const snapImage = function () {
           const canvas = document.createElement('canvas');
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
@@ -163,13 +163,13 @@ export class AddEditProductPage implements OnInit {
         const url = URL.createObjectURL(files);
         const video: any = document.createElement('video');
 
-        const timeupdate = function() {
+        const timeupdate = function () {
           if (snapImage()) {
             video.removeEventListener('timeupdate', timeupdate);
             video.pause();
           }
         };
-        video.addEventListener('loadeddata', function() {
+        video.addEventListener('loadeddata', function () {
           if (snapImage()) {
             video.removeEventListener('timeupdate', timeupdate);
           }

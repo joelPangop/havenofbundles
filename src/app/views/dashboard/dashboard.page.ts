@@ -31,6 +31,10 @@ export class DashboardPage implements OnInit {
           url: "/tabs/mobile-products-management"
         },
         {
+          name: "Bundle Set",
+          url: "/tabs/mobile-bundle-set-manager"
+        },
+        {
           name: "Profile",
           url: "/tabs/profile"
         },
@@ -56,6 +60,10 @@ export class DashboardPage implements OnInit {
         {
           name: "Products",
           url: "profile products"
+        },
+        {
+          name: "Bundle Sets",
+          url: "bundle Sets"
         },
         {
           name: "Profile",
