@@ -1,0 +1,109 @@
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+h2 {
+  font-size: x-large;
+}
+
+#products {
+  #empty {
+    h4 {
+      color: #888888;
+      font-weight: bolder;
+    }
+    p {
+      color: #888888;
+    }
+  }
+
+  .card-img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  .grid .card-img {
+    height: 200px;
+  }
+
+  #oneColumn .card-img {
+    height: 200px;
+  }
+
+  .product-name {
+    font-size: 0.9rem;
+    color: rgba(8, 8, 8, 0.58);
+  }
+
+  .product-name1 {
+    font-size: 0.5rem;
+    color: rgba(8, 8, 8, 0.58);
+  }
+
+  .product-name2 {
+    font-size: 1.2rem;
+    color: rgba(8, 8, 8, 0.58);
+  }
+
+  .previous-price {
+    text-decoration: line-through;
+    font-size: 0.8rem;
+  }
+
+  #list {
+    .item {
+      ion-thumbnail {
+        width: 140px;
+        height: 90px;
+
+        img {
+          width: 140px;
+          height: 90px;
+          border-radius: 5px;
+        }
+      }
+
+      ion-note {
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  ion-fab-button {
+    --background: transparent;
+    --background-focused: transparent;
+    --background-activated: transparent;
+  }
+}
+
+div.ex3 {
+  background-color: rgba(0, 0, 0, .0001) !important;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+#myScrollDiv {
+  height: 90%;
+}
+
+.texture ion-card:hover {
+  border: 3px solid rgba(171, 146, 77, 2);
+  font-size: x-small;
+}
+
+.texture ion-card ion-item {
+  font-size: small;
+  border-bottom: 0.5px solid rgba(171, 146, 77, 2);;
+}
+
+.texture ion-col .active {
+  border: 3px solid rgba(171, 146, 77, 2);
+  font-size: x-small;
+}

@@ -42,18 +42,31 @@ export class MenuPage implements OnInit {
     });
   }
 
-  public async goToCategory(event, page) {
+  public async goToCategory(event, page, type) {
+    // await this.changeView(event, page);
+    let i, tablinks;
+    tablinks = document.getElementsByClassName('tablinks');
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+    // document.getElementById(cityName).style.display = "block";
+    event.currentTarget.className += ' active';
     const popover = await this.popoverCtrl.create({
       component: CategoryLinksPage,
       event: event,
+      componentProps: {
+        type
+      },
       translucent: true,
       cssClass: 'my-custom-dialog',
     });
     popover.onDidDismiss()
-      .then((data: any) => {
+      .then(async (data: any) => {
         if (data.data) {
           console.log(data.data.link);
+          // this.pageService.view = page;
           this.pageService.view = page;
+          await this.storage.setObject('tab', this.pageService.view);
           this.pageService.productCategory = data.data.link.link;
         }
       });

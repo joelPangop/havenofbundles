@@ -34,7 +34,11 @@ const routes: Routes = [
   {
     path: 'category-links',
     loadChildren: () => import('./views/category-links/category-links.module').then( m => m.CategoryLinksPageModule)
+  },  {
+    path: 'bundle-set-list',
+    loadChildren: () => import('./views/bundle-set-list/bundle-set-list.module').then( m => m.BundleSetListPageModule)
   }
+
 
 ];
 @NgModule({

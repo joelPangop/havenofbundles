@@ -54,18 +54,36 @@
               <span>Length: {{bundle.rate.length}}</span>
             </ion-col>
             <ion-col>
-              <span>Length: {{bundle.quantity}}</span>
+              <span>Quantity: {{bundle.quantity}}</span>
             </ion-col>
           </ion-row>
         </ion-label>
       </ion-item>
     </ion-row>
+    <ion-row>
+      <ion-label>
+        <h5 style="color: #c4c4c4">{{bundleSet.supplement.title}}</h5>
+        <ion-row>
+          <ion-col size="8">
+            <span>{{bundleSet.supplement.summary}}</span>
+          </ion-col>
+          <ion-col size="4">
+            <ion-row>
+              <span>Price: {{bundleSet.supplement.price | currency}}</span>
+            </ion-row>
+            <ion-row>
+              <span>Qty: {{bundleSet.supplement.quantity}}</span>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-row>
     <ion-row style="background-color: #c4c4c4">
       <ion-col>
-        <ion-item lines="none" class="ion-text-center" style="align-items: center">
+        <ion-label>
           <ion-text style="font-size: large">Total:</ion-text>&#160;&#160;
           <ion-text style="font-size: large" color="color1">{{bundleSet.price | currency}}</ion-text>
-        </ion-item>
+        </ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>

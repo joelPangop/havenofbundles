@@ -15,22 +15,26 @@ import {ProductsPageModule} from "../products/products.module";
 import {HairBundlesPageModule} from "../hair-bundles/hair-bundles.module";
 import {HomePageModule} from "../home/home.module";
 import {ProductViewPageModule} from '../product-view/product-view.module';
+import {BundleSetListPageModule} from '../bundle-set-list/bundle-set-list.module';
+import {BundleSetPageModule} from '../bundle-set/bundle-set.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        MenuPageRoutingModule,
-        Tab1PageModule,
-        Tab2PageModule,
-        Tab3PageModule,
-        DashboardPageModule,
-        ProductsPageModule,
-        HairBundlesPageModule,
-        HomePageModule,
-        ProductViewPageModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    MenuPageRoutingModule,
+    Tab1PageModule,
+    Tab2PageModule,
+    Tab3PageModule,
+    DashboardPageModule,
+    ProductsPageModule,
+    HairBundlesPageModule,
+    HomePageModule,
+    ProductViewPageModule,
+    BundleSetListPageModule,
+    BundleSetPageModule
+  ],
   declarations: [MenuPage]
 })
 export class MenuPageModule {}

@@ -79,7 +79,8 @@
     <button class="tablinks" fill="clear" (click)="changeView($event, 'home')">
       <ion-icon name="home"></ion-icon>
     </button>
-    <button class="tablinks" (click)="goToCategory($event, 'hairBundles')">Shop</button>
+    <button class="tablinks" (click)="goToCategory($event, 'hairBundles', 'hair')">Shop Hair</button>
+    <button class="tablinks" (click)="goToCategory($event, 'bundleSet', 'bundleSet')">Shop Bundle Set</button>
     <button class="tablinks" (click)="changeView($event, 'dashboard')">Dashboard</button>
   </div>
   <ion-button fill="clear" slot="end">
@@ -89,6 +90,8 @@
 <ion-content [fullscreen]="true" *ngIf="!platform.is('ios') && !platform.is('android')">
   <app-home *ngIf="pageService.view === 'home'"></app-home>
   <app-hair-bundles *ngIf="pageService.view === 'hairBundles'"></app-hair-bundles>
+  <app-bundle-set-list *ngIf="pageService.view === 'bundleSet'"></app-bundle-set-list>
+  <app-bundle-set *ngIf="pageService.view === 'bundleSet-view'" name="{{pageService.parameter}}"></app-bundle-set>
   <app-dashboard *ngIf="pageService.view === 'dashboard'"></app-dashboard>
   <app-product-view *ngIf="pageService.view === 'product-view'" name="{{pageService.parameter}}"></app-product-view>
 </ion-content>

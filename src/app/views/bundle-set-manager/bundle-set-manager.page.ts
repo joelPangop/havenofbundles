@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup} from "@angular/forms";
-import {BundleSetService} from "../../services/bundle-set.service";
-import {Product, Rate} from "../../models/Product-interface";
-import {BundleSet} from "../../models/BundleSet";
-import {environment} from "../../models/environments";
-import {Styles} from "../../models/styles";
-import {Origins} from "../../models/Origins";
-import {LoadingController} from "@ionic/angular";
-import {ProductCategories} from "../../models/productCategories";
-import {ProductsService} from "../../services/products.service";
-import {BundleSetCategories} from "../../models/BundleSetCategories";
+import {BundleSetService} from '../../services/bundle-set.service';
+import {Product, Rate} from '../../models/Product-interface';
+import {BundleSet} from '../../models/BundleSet';
+import {environment} from '../../models/environments';
+import {Styles} from '../../models/styles';
+import {Origins} from '../../models/Origins';
+import {LoadingController} from '@ionic/angular';
+import {ProductCategories} from '../../models/productCategories';
+import {ProductsService} from '../../services/products.service';
+import {BundleSetCategories} from '../../models/BundleSetCategories';
 
 @Component({
   selector: 'app-bundle-set-manager',
