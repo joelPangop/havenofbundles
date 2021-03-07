@@ -15,6 +15,7 @@ import {SummaryPageModule} from '../summary/summary.module';
 import {MobileProductsManagementPageModule} from '../mobile-products-management/mobile-products-management.module';
 import {ProductsManagementPageModule} from "../products-management/products-management.module";
 import {BundleSetPageModule} from "../bundle-set/bundle-set.module";
+import {BundleSetManagerPageModule} from "../bundle-set-manager/bundle-set-manager.module";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {BundleSetPageModule} from "../bundle-set/bundle-set.module";
     SummaryPageModule,
     MobileProductsManagementPageModule,
     ProductsManagementPageModule,
-    BundleSetPageModule
+    BundleSetPageModule,
+    BundleSetManagerPageModule
   ],
   exports: [
     DashboardPage

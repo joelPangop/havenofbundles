@@ -1,0 +1,218 @@
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar *ngIf="view === 'list'">
+      <ion-buttons slot="start">
+        <ion-button fill="outline" (click)="goToAdd()"
+                    style="--border-radius: 3px; --border-color: #ab924d; color: #ab924d">
+          <span>Add</span>
+          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="view !== 'list'">
+      <ion-buttons slot="start">
+        <ion-button fill="outline" *ngIf="view === 'detail'" (click)="changeView()"
+                    style="--border-radius: 3px; --border-color: #ab924d; color: #ab924d">
+          <ion-label style="color: #ab924d">Edit</ion-label>
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-button>&#160;&#160;&#160;
+        <ion-button *ngIf="view === 'edit'" fill="outline" (click)="changeView()"
+                    style="--border-radius: 3px; --border-color: #ab924d">
+          <ion-label style="color: #ab924d">Cancel</ion-label>
+        </ion-button>&#160;&#160;&#160;
+
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button fill="outline" (click)="save()" *ngIf="view === 'add' || view === 'edit'"
+                    style="--ion-background-color: #222222; color: #ab924d; --border-color: #ab924d" expand="block">Save
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="view === 'list'">
+    <ion-item-divider>
+      <ion-icon name="list-outline"></ion-icon>&#160;&#160;&#160;
+      <span>LIST</span>
+    </ion-item-divider>
+  </div>
+
+  <div *ngIf="view === 'list'" class="ex3" id="myScrollDiv">
+    <ion-row>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of bundleSetService.bundleSets; let i = index"
+               class="grid">
+        <ion-card class="ion-no-margin" (click)="goToDetail(item._id)">
+          <!-- Product Image -->
+          <div class="card-img"
+               [style.background-image]="'url('+ip+'/file/image/'+item.pictures[0]+')'"></div>
+          <ion-card-header color="medium">
+            <span style="color: #1e2023">{{item.title}}</span>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="view === 'add' || view === 'detail' || view === 'edit'" class="ex3">
+    <ion-item-divider>
+      <ion-icon name="list-outline"></ion-icon>
+      <p style="text-decoration: underline;"><a (click)="goToList()">
+        LIST
+      </a></p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      <ion-icon name="add-circle-outline"></ion-icon>&#160;&#160;&#160;
+      <span>Create Product</span>
+    </ion-item-divider>
+    <ion-row>
+      <ion-item lines="none">
+        <span *ngIf="view === 'detail'">Title: <u>{{bundleSetService.bundleSet.title}}</u></span>
+        <ion-input *ngIf="view === 'add' || view === 'edit'" [(ngModel)]="bundleSetService.bundleSet.title" color="color1"
+                   placeholder="Title" style="width: 100%"></ion-input>
+      </ion-item>
+      <ion-item-divider align="center">
+        Choose Style and category
+      </ion-item-divider>
+      <ion-item lines="none">
+        <span *ngIf="view === 'detail'">Style: <u>{{style}}</u></span>
+        <span *ngIf="view === 'add' || view === 'edit'">Style: </span>&#160;&#160;
+        <ion-select [(ngModel)]="style" [ngModelOptions]="{standalone: true}"
+                    mode="md" (ionChange)="loadByCategory()" *ngIf="view === 'add' || view === 'edit'"
+                    interface="popover" placeholder="Choose style">
+          <ion-select-option *ngFor="let style of styles; let i=index;" [value]="style">
+            {{style}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <span *ngIf="view === 'detail'">Origin: <u>{{origin}}</u></span>
+        <span *ngIf="view === 'add' || view === 'edit'">Origin: </span>&#160;&#160;
+        <ion-select [(ngModel)]="origin" [ngModelOptions]="{standalone: true}"
+                    mode="md" (ionChange)="loadByCategory()" *ngIf="view === 'add' || view === 'edit'"
+                    interface="popover" placeholder="Choose origins">
+          <ion-select-option *ngFor="let org of origins; let i=index;" [value]="org">
+            {{org}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <span *ngIf="view === 'detail'">Product name: <u>{{product.name}}</u></span>
+        <span *ngIf="view === 'add' || view === 'edit'">Bundle: </span>&#160;&#160;
+        <ion-select [(ngModel)]="product" [ngModelOptions]="{standalone: true}"
+                    mode="md" *ngIf="view === 'add' || view === 'edit'" interface="popover"
+                    placeholder="Choose product">
+          <ion-select-option *ngFor="let prod of products; let i=index;" [value]="prod">
+            {{prod.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <ion-grid fixed>
+          <ion-row class="thead ion-align-items-center">
+            <ion-col class="ion-align-items-center">
+              Length
+            </ion-col>
+            <ion-col class="ion-text-center">
+              Price
+            </ion-col>
+            <ion-col
+              *ngIf="product.colors && product.colors.includes('gold')">
+              Extra
+            </ion-col>
+            <ion-col *ngIf="view === 'add' || view === 'edit'">
+              Action
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="product.rates.length === 0">
+            <hr/>
+            <hr/>
+            <div align="center">
+          <span>
+            No bundle set added yet
+          </span>
+            </div>
+            <hr/>
+            <hr/>
+          </ion-row>
+          <ion-row *ngFor="let rate of product.rates; let i = index" class="tbody ion-align-items-center">
+            <ion-col class="ion-align-items-center">
+              <span>{{rate.length}}</span>
+            </ion-col>
+            <ion-col class="ion-text-center">
+              <span>{{rate.price | currency}}</span>
+            </ion-col>
+            <ion-col *ngIf="product.colors && product.colors.includes('gold')">
+              <span>{{rate.extra}}</span>
+            </ion-col>
+            <ion-button fill="outline" (click)="add(rate)" expand="block" *ngIf="view === 'add' || view === 'edit'"
+                        style="--border-radius: 3px; --border-color: #ab924d">
+              <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col size="4">
+        <ion-item-divider>
+          Bundle Set Configuration
+        </ion-item-divider>
+        <ion-row *ngFor="let bundle of bundleSetService.bundleSet.features; let i = index">
+          <ion-item lines="none">
+            <ion-avatar>
+              <img src="{{ip+'/file/image/' + bundleSetService.bundleSet.pictures[0]}}">
+            </ion-avatar>
+            <ion-label>
+              <h5 style="color: #c4c4c4">{{product.name}}</h5>
+              <ion-row>
+                <ion-col>
+                  <span>Price: {{bundle.rate.price | currency}}</span>
+                </ion-col>
+                <ion-col>
+                  <span>Length: {{bundle.rate.length}}</span>
+                </ion-col>
+                <ion-col>
+                  <span>Length: {{bundle.quantity}}</span>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+            <ion-button fill="outline" color="color1" (click)="remove(i)" *ngIf="view === 'add' || view === 'edit'">
+              remove
+            </ion-button>
+          </ion-item>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4">
+        <ion-row>
+          <div align="center" style="width: 100%">
+            <ion-label align="center">
+              <h5 style="color: #c4c4c4">Supplement:</h5>
+            </ion-label>
+            <!--        <ion-list>-->
+            <ion-item>
+              <ion-input *ngIf="view === 'add' || view === 'edit'" [(ngModel)]="bundleSetService.bundleSet.supplement.title"
+                         placeholder="Title"></ion-input>
+              <span *ngIf="view === 'detail'">{{bundleSetService.bundleSet.supplement.title}}</span>
+            </ion-item>
+            <ion-item>
+              <ion-textarea *ngIf="view === 'add' || view === 'edit'" [(ngModel)]="bundleSetService.bundleSet.supplement.summary"
+                            placeholder="Summary">
+              </ion-textarea>
+              <ion-text *ngIf="view === 'detail'">{{bundleSetService.bundleSet.supplement.summary}}</ion-text>
+            </ion-item>
+            <ion-item *ngIf="view === 'add' || view === 'edit'">
+              <ion-input [(ngModel)]="bundleSetService.bundleSet.supplement.quantity" placeholder="Quantity"></ion-input>
+              <ion-input [(ngModel)]="bundleSetService.bundleSet.supplement.price" placeholder="Price"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="view === 'detail'">
+              <ion-col>
+                Quantity: {{bundleSetService.bundleSet.supplement.quantity}}
+              </ion-col>
+              <ion-col>
+                Price: {{bundleSetService.bundleSet.supplement.price}}
+              </ion-col>
+            </ion-item>
+            <!--        </ion-list>-->
+          </div>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

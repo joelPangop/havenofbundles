@@ -1,10 +1,12 @@
-import {Rate} from './Product-interface';
+import {Product, Rate} from './Product-interface';
 
 export class BundleSet {
   _id: string;
   title: string;
   features: BundleSetRate[];
-  productId: string;
+  pictures?: string[];
+  product: Product;
+  category: string;
   price: number;
   supplement: Supplement;
   constructor() {
@@ -14,7 +16,8 @@ export class BundleSet {
 }
 
 export class Supplement {
-  summary: String;
+  title: string;
+  summary: string;
   quantity: number;
   price: number;
 }
@@ -24,5 +27,6 @@ export class BundleSetRate {
   quantity: number;
   constructor() {
     this.rate = new Rate();
+    this.quantity = 1;
   }
 }

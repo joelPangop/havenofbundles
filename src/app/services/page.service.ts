@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ProductCategories} from '../models/productCategories';
+import {Styles} from "../models/styles";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class PageService {
         icon: 'home'
       },
       {
-        title: 'Shop',
+        title: 'Shop Hair',
         children: [
           {
             title: 'Hair Bundles',
@@ -34,6 +35,23 @@ export class PageService {
           {
             title: 'Frontals',
             url: '/tabs/mobile-hair-bundles/'+ProductCategories.FRONTAL,
+          }
+        ]
+      },
+      {
+        title: 'Shop Bundle Set',
+        children: [
+          {
+            title: 'All Bundle Sets',
+            url: '/tabs/mobile-bundle-set-list/all',
+          },
+          {
+            title: 'Straight Bundle Sets',
+            url: '/tabs/mobile-bundle-set-list/'+Styles.STRAIGHT,
+          },
+          {
+            title: 'Wavy & Curly Bundle Sets',
+            url: '/tabs/mobile-bundle-set-list/'+Styles.CURLY,
           }
         ]
       }

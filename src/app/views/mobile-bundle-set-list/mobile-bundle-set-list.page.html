@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <ion-icon src="assets/icon/menu.svg"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>mobileBundleSetList</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid id="grid">
+      <ion-row>
+        <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of bundleSets">
+          <ion-card class="ion-no-margin" (click)="goToDetail(item._id)">
+            <!-- Product Image -->
+            <div class="card-img"
+                 [style.background-image]="'url('+ip+'/file/image/'+item.pictures[0]+')'"></div>
+            <ion-card-header color="medium">
+              <span style="color: #1e2023">{{item.title}}</span>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

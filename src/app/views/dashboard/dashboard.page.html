@@ -1,11 +1,12 @@
-<ion-header *ngIf="platform.is('ios') || platform.is('android')">
+<ion-header *ngIf="platform.is('ios') || platform.is('android')" translucent="true">
   <ion-toolbar>
     <ion-buttons>
       <ion-menu-button>
         <ion-icon src="assets/icon/menu.svg"></ion-icon>
       </ion-menu-button>
+      <ion-title>Dashboard</ion-title>
     </ion-buttons>
-    <ion-title>Dashboard</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
@@ -36,7 +37,7 @@
         <app-profile name="browser" *ngIf="view === 'profile'"></app-profile>
         <app-available name="browser" *ngIf="view === 'available'"></app-available>
         <app-products-management name="browser" *ngIf="view === 'profile products'"></app-products-management>
-        <app-bundle-set name="browser" *ngIf="view === 'bundle Sets'"></app-bundle-set>
+        <app-bundle-set-manager name="browser" *ngIf="view === 'bundle Sets'"></app-bundle-set-manager>
         <app-sold name="browser" *ngIf="view === 'sold'"></app-sold>
         <app-summary name="browser" *ngIf="view === 'summary'"></app-summary>
       </ion-col>

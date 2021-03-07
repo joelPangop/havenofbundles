@@ -1,9 +1,77 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>mobileBundleSet</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'/tabs/mobile-bundle-set-list/all'"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons>
+      <span style="font-size: large">{{bundleSet.title}}</span>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="cart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1">
+        <span class="slider-nav arrow-prev" (click)="slidePrev(slideOpts, slideWithNav)">
+          <div class="prev-icon-custom custon-nav" [class.disabled]="slideOpts.isBeginningSlide"></div>
+        </span>
+      </ion-col>
+      <ion-col size="10">
+        <ion-slides [options]="slideOpts"
+                    class="ion-padding-top" #slideWithNav>
+          <ion-slide *ngFor="let img of bundleSet.pictures; let i = index">
+            <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col>
+      <span class="slider-nav arrow-next" (click)="slideNext(slideOpts, slideWithNav)">
+          <div class="next-icon-custom custon-nav" [class.disabled]="slideOpts.isEndSlide"></div>
+        </span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><h3>Bundle Set features</h3></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let bundle of bundleSet.features; let i = index">
+      <ion-item lines="none">
+        <ion-avatar>
+          <img src="{{ip+'/file/image/' + bundleSet.pictures[0]}}">
+        </ion-avatar>
+        <ion-label>
+          <h5 style="color: #c4c4c4">{{bundleSet.product.name}}</h5>
+          <ion-row>
+            <ion-col>
+              <span>Price: {{bundle.rate.price | currency}}</span>
+            </ion-col>
+            <ion-col>
+              <span>Length: {{bundle.rate.length}}</span>
+            </ion-col>
+            <ion-col>
+              <span>Length: {{bundle.quantity}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-row>
+    <ion-row style="background-color: #c4c4c4">
+      <ion-col>
+        <ion-item lines="none" class="ion-text-center" style="align-items: center">
+          <ion-text style="font-size: large">Total:</ion-text>&#160;&#160;
+          <ion-text style="font-size: large" color="color1">{{bundleSet.price | currency}}</ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+<ion-footer>
+  <ion-button expand="block" fill="outline" color="color1">
+    Add To Cart
+  </ion-button>
+</ion-footer>

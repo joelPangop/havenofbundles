@@ -90,6 +90,5 @@
   <app-home *ngIf="pageService.view === 'home'"></app-home>
   <app-hair-bundles *ngIf="pageService.view === 'hairBundles'"></app-hair-bundles>
   <app-dashboard *ngIf="pageService.view === 'dashboard'"></app-dashboard>
-  <app-product-view *ngIf="pageService.view === 'product-view'" name="{{pageService.parameter}}"
-                    category="{{pageService.productCategory}}"></app-product-view>
+  <app-product-view *ngIf="pageService.view === 'product-view'" name="{{pageService.parameter}}"></app-product-view>
 </ion-content>

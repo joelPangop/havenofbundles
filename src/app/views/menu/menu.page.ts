@@ -40,13 +40,6 @@ export class MenuPage implements OnInit {
         }
       }
     });
-
-    (function($) {
-      $(document).ready(function() {
-        console.log('Hello from jQuery!');
-        $('[data-toggle="popover"]').popover();
-      });
-    })(jQuery);
   }
 
   public async goToCategory(event, page) {

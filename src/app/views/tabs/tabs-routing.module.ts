@@ -96,7 +96,7 @@ const routes: Routes = [
         loadChildren: () => import('../bundle-set/bundle-set.module').then( m => m.BundleSetPageModule)
       },
       {
-        path: 'mobile-bundle-set',
+        path: 'mobile-bundle-set/:id',
         loadChildren: () => import('../mobile-bundle-set/mobile-bundle-set.module').then( m => m.MobileBundleSetPageModule)
       },
       {
@@ -106,6 +106,14 @@ const routes: Routes = [
       {
         path: 'mobile-add-edit-bundle-set/:action/:id',
         loadChildren: () => import('../mobile-add-edit-bundle-set/mobile-add-edit-bundle-set.module').then( m => m.MobileAddEditBundleSetPageModule)
+      },
+      {
+        path: 'bundle-set-manager',
+        loadChildren: () => import('../bundle-set-manager/bundle-set-manager.module').then( m => m.BundleSetManagerPageModule)
+      },
+      {
+        path: 'mobile-bundle-set-list/:category',
+        loadChildren: () => import('../mobile-bundle-set-list/mobile-bundle-set-list.module').then( m => m.MobileBundleSetListPageModule)
       },
       {
         path: '',
