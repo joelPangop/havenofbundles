@@ -37,6 +37,26 @@ const routes: Routes = [
   },  {
     path: 'bundle-set-list',
     loadChildren: () => import('./views/bundle-set-list/bundle-set-list.module').then( m => m.BundleSetListPageModule)
+  },
+  {
+    path: 'landing',
+    loadChildren: () => import('./views/auth/landing/landing.module').then( m => m.LandingPageModule)
+  },
+  {
+    path: 'sign-in',
+    loadChildren: () => import('./views/auth/sign-in/sign-in.module').then( m => m.SignInPageModule)
+  },
+  {
+    path: 'sign-out',
+    loadChildren: () => import('./views/auth/sign-out/sign-out.module').then( m => m.SignOutPageModule)
+  },
+  {
+    path: 'verification',
+    loadChildren: () => import('./views/auth/verification/verification.module').then( m => m.VerificationPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./views/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   }
 
 
