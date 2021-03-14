@@ -34,7 +34,8 @@ const routes: Routes = [
   {
     path: 'category-links',
     loadChildren: () => import('./views/category-links/category-links.module').then( m => m.CategoryLinksPageModule)
-  },  {
+  },
+  {
     path: 'bundle-set-list',
     loadChildren: () => import('./views/bundle-set-list/bundle-set-list.module').then( m => m.BundleSetListPageModule)
   },
@@ -47,16 +48,36 @@ const routes: Routes = [
     loadChildren: () => import('./views/auth/sign-in/sign-in.module').then( m => m.SignInPageModule)
   },
   {
-    path: 'sign-out',
-    loadChildren: () => import('./views/auth/sign-out/sign-out.module').then( m => m.SignOutPageModule)
-  },
-  {
     path: 'verification',
     loadChildren: () => import('./views/auth/verification/verification.module').then( m => m.VerificationPageModule)
   },
   {
     path: 'forgot-password',
     loadChildren: () => import('./views/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'mobile-landing',
+    loadChildren: () => import('./views/mobile-auth/mobile-landing/mobile-landing.module').then( m => m.MobileLandingPageModule)
+  },
+  {
+    path: 'mobile-sign-in',
+    loadChildren: () => import('./views/mobile-auth/mobile-sign-in/mobile-sign-in.module').then( m => m.MobileSignInPageModule)
+  },
+  {
+    path: 'mobile-verification',
+    loadChildren: () => import('./views/mobile-auth/mobile-verification/mobile-verification.module').then( m => m.MobileVerificationPageModule)
+  },
+  {
+    path: 'mobile-forgot-password',
+    loadChildren: () => import('./views/mobile-auth/mobile-forgot-password/mobile-forgot-password.module').then( m => m.MobileForgotPasswordPageModule)
+  },
+  {
+    path: 'mobile-sign-up',
+    loadChildren: () => import('./views/mobile-auth/mobile-sign-up/mobile-sign-up.module').then( m => m.MobileSignUpPageModule)
+  },
+  {
+    path: 'sign-up',
+    loadChildren: () => import('./views/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
   }
 
 

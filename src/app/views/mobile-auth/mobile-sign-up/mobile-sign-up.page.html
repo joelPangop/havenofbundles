@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="color1" default-href="" routerLink="/mobile-landing"
+                       routerDirection="root">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="'true'">
+  <div class="ion-padding">
+    <form>
+      <div *ngIf="userInfo">
+        <ion-list>
+          <ion-item lines="none">
+            <div class="itemInput ion-padding">
+              <ion-select [(ngModel)]="user.userInfo.gender" [ngModelOptions]="{standalone: true}" interface="popover"
+                          placeholder="Gender">
+                <ion-select-option *ngFor="let g of genders" [value]="g">{{g}}</ion-select-option>
+              </ion-select>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="itemInput ion-padding">
+              First Name
+              <ion-input [(ngModel)]="user.userInfo.firstName" [ngModelOptions]="{standalone: true}"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="itemInput ion-padding">
+              Last Name
+              <ion-input [(ngModel)]="user.userInfo.lastName" [ngModelOptions]="{standalone: true}"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="itemInput ion-padding">
+              User Name
+              <ion-input [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="itemInput ion-padding">
+              Email
+              <ion-input [(ngModel)]="user.email" placeholder="xyz@example.com"
+                         [ngModelOptions]="{standalone: true}"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="itemInput ion-padding">
+              Birthday
+              <ion-datetime [(ngModel)]= "user.birthday" [ngModelOptions]="{standalone: true}" placeholder="MM-DD-YYYY" displayFormat="MM-DD-YYYY" min="1804-03-14"
+                            max="2200-12-09"></ion-datetime>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div *ngIf="addressInfo">
+
+      </div>
+    </form>
+  </div>
+</ion-content>
