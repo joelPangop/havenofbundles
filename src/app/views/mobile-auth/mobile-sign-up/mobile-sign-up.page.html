@@ -5,17 +5,79 @@
                        routerDirection="root">
       </ion-back-button>
     </ion-buttons>
+    <ion-title>
+      Subscribe
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="'true'">
   <div class="ion-padding">
-    <form>
-      <div *ngIf="userInfo">
+    <div *ngIf="userStep">
+      <form [formGroup]="userForm">
+
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            User Name
+            <ion-input [(ngModel)]="user.username" formControlName="username"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Email
+            <ion-input [(ngModel)]="user.email" placeholder="xyz@example.com"
+                       formControlName="email"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item aria-expanded="true" lines="none">
+          <div class="itemInput ion-padding">
+            Password
+            <ion-input [type]="passwordType" [(ngModel)]="user.password"
+                       formControlName="password">
+            </ion-input>
+          </div>
+        </ion-item>
+        <ion-item aria-expanded="true" lines="none">
+          <div class="itemInput ion-padding">
+            Confirm Password
+            <div class="form-group">
+              <ion-input [type]="passwordType" formControlName="passwordConfirm">
+              </ion-input>
+
+              <div class="text-danger"
+                   *ngIf="passwordConfirm?.valid && (passwordConfirm.dirty || passwordConfirm.touched)">
+                <div *ngIf="userForm.errors.passwordMismatch">
+                  Password and Confirm Password fields should match
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+      </form>
+    </div>
+    <div *ngIf="userInfoStep">
+      <form [formGroup]="userInfoForm">
         <ion-list>
           <ion-item lines="none">
             <div class="itemInput ion-padding">
-              <ion-select [(ngModel)]="user.userInfo.gender" [ngModelOptions]="{standalone: true}" interface="popover"
+              Upload
+              <hr>
+              <ion-avatar slot="start">
+                <ion-img [src]="imgURL"></ion-img>
+              </ion-avatar>
+              <hr>
+              <ion-buttons slot="end">
+                <input type="file" name="file" id="fileId" (change)="onFileSelect($event)" formControlName="image"
+                       class="inputfile"/>
+                <label color="secondary" class="custom-file-upload" for="fileId">
+                  <ion-icon name="camera" slot="icon-only"></ion-icon>
+                </label>
+              </ion-buttons>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="itemInput ion-padding">
+              <ion-select [(ngModel)]="user.userInfo.gender" formControlName="gender" interface="popover"
                           placeholder="Gender">
                 <ion-select-option *ngFor="let g of genders" [value]="g">{{g}}</ion-select-option>
               </ion-select>
@@ -24,40 +86,138 @@
           <ion-item lines="none">
             <div class="itemInput ion-padding">
               First Name
-              <ion-input [(ngModel)]="user.userInfo.firstName" [ngModelOptions]="{standalone: true}"></ion-input>
+              <ion-input [(ngModel)]="user.userInfo.firstName" formControlName="firstName"></ion-input>
             </div>
           </ion-item>
           <ion-item lines="none">
             <div class="itemInput ion-padding">
               Last Name
-              <ion-input [(ngModel)]="user.userInfo.lastName" [ngModelOptions]="{standalone: true}"></ion-input>
-            </div>
-          </ion-item>
-          <ion-item lines="none">
-            <div class="itemInput ion-padding">
-              User Name
-              <ion-input [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}"></ion-input>
-            </div>
-          </ion-item>
-          <ion-item lines="none">
-            <div class="itemInput ion-padding">
-              Email
-              <ion-input [(ngModel)]="user.email" placeholder="xyz@example.com"
-                         [ngModelOptions]="{standalone: true}"></ion-input>
+              <ion-input [(ngModel)]="user.userInfo.lastName" formControlName="lastName"></ion-input>
             </div>
           </ion-item>
           <ion-item lines="none">
             <div class="itemInput ion-padding">
               Birthday
-              <ion-datetime [(ngModel)]= "user.birthday" [ngModelOptions]="{standalone: true}" placeholder="MM-DD-YYYY" displayFormat="MM-DD-YYYY" min="1804-03-14"
+              <ion-datetime [(ngModel)]="user.birthday" formControlName="birthday" placeholder="MM-DD-YYYY"
+                            displayFormat="MM-DD-YYYY" min="1804-03-14"
                             max="2200-12-09"></ion-datetime>
             </div>
           </ion-item>
+          <ion-item lines="none">
+            <ion-item-group>
+              <div class="itemInput ion-padding">
+                <!--              <ion-label>-->
+                Contacts
+                <!--              </ion-label>-->
+                <ion-item *ngFor="let telephone of user.userInfo.telephones; let i = index">
+                  <ion-input required type="text" [(ngModel)]=telephone.numeroTelephone
+                             [ngModelOptions]="{standalone: true}"
+                             placeholder="Numero"></ion-input>
+                  <ion-select [(ngModel)]="telephone.categorieTelephone" placeholder="Categorie">
+                    <ion-select-option *ngFor="let t of options" [value]="t">
+                      {{t}}
+                    </ion-select-option>
+                  </ion-select>
+                  <ion-icon (click)="removeControl(i)" name="close-circle"></ion-icon>
+                </ion-item>
+              </div>
+              <ion-button expand="block" color="color1" fill="outline" (click)="addTelephone()">Add Telephone
+              </ion-button>
+            </ion-item-group>
+          </ion-item>
         </ion-list>
-      </div>
-      <div *ngIf="addressInfo">
+      </form>
+    </div>
+    <div *ngIf="addressStep">
+      <form [formGroup]="addressInfoForm">
+        <h1>Address</h1>
 
-      </div>
-    </form>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Address 1
+            <ion-input name="addr_1" #name="ngModel" required="true"
+                       [(ngModel)]="user.userInfo.address.addr_1" [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Address 2 (Optional)
+            <ion-input name="addr_2" #name="ngModel" required="true"
+                       [(ngModel)]="user.userInfo.address.addr_2" [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Apartment number
+            <ion-input name="appartNumber" #name="ngModel" [(ngModel)]="user.userInfo.address.appartNumber"
+                       [ngModelOptions]="{standalone: true}">
+            </ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Town
+            <ion-input name="ville" #name="ngModel" [(ngModel)]="user.userInfo.address.town"
+                       [ngModelOptions]="{standalone: true}"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Postal Code
+            <ion-input name="postalCode" #name="ngModel" [(ngModel)]="user.userInfo.address.postalCode"
+                       [ngModelOptions]="{standalone: true}"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Region
+            <ion-input name="region" #name="ngModel" [(ngModel)]="user.userInfo.address.region"
+                       [ngModelOptions]="{standalone: true}"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            Country
+            <ion-input name="pays" #name="ngModel" [(ngModel)]="user.userInfo.address.country"
+                       [ngModelOptions]="{standalone: true}"></ion-input>
+          </div>
+        </ion-item>
+      </form>
+    </div>
+
   </div>
 </ion-content>
+<ion-footer>
+<!--  <ion-button *ngIf="userStep" color="color1" fill="outline" expand="block" [disabled]="!userForm.valid" type="submit"-->
+  <ion-button *ngIf="userStep" color="color1" fill="outline" expand="block" type="submit" [disabled]="!userForm.valid"
+              (click)="changeView()">
+    Next
+  </ion-button>
+  <ion-row *ngIf="userInfoStep">
+    <ion-col size="6">
+      <ion-button color="color1" fill="outline" expand="block" (click)="backView()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button color="color1" fill="outline" expand="block" (click)="changeView()" [disabled]="!userInfoForm.valid"
+                  type="submit">
+        Next
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="addressStep">
+    <ion-col size="6">
+      <ion-button color="color1" fill="outline" expand="block" (click)="backView()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button color="color1" fill="outline" expand="block" type="submit" [disabled]="!addressInfoForm.valid" (click)="register()">
+        Save
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

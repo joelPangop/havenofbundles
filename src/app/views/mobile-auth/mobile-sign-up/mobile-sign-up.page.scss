@@ -12,3 +12,20 @@ ion-select {
   color: #ab924d;
   font-family: "Berlin Sans FB"
 }
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+//.custom-file-upload {
+//  border: 1px solid #ccc;
+//  display: inline-block;
+//  padding: 6px 12px;
+//  cursor: pointer;
+//  color: #ab924d;
+//}

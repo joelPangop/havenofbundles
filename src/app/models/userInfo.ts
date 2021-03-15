@@ -8,11 +8,11 @@ export class UserInfo {
     gender?: string;
     telephones?: Telephone[];
     devices?: Device[];
-    addresses?: Address[];
+    address?: Address;
     subscription: any;
     constructor() {
       this.telephones = [];
       this.devices = [];
-      this.addresses = [];
+      this.address = new Address();
     }
 }

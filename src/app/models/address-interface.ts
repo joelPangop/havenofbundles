@@ -1,5 +1,6 @@
 export class Address {
-    roadName: string;
+    addr_1: string;
+    addr_2: string;
     appartNumber: string;
     town: string;
     country: string;
