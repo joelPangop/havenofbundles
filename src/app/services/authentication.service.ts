@@ -16,6 +16,8 @@ import {Router} from '@angular/router';
 const TOKEN_KEY = 'access_token';
 const REFRESH_KEY = 'refresh_token';
 
+const helper = new JwtHelperService();
+
 @Injectable({
   providedIn: 'root'
 })
@@ -59,11 +61,15 @@ export class AuthenticationService {
   login(credentials: { username, password }): Observable<any> {
     return this.http.post(`${this.url}/user/login`, credentials).pipe(
 
-      switchMap((tokens: { accessToken, refreshToken }) => {
+      switchMap(async (tokens: {user, refreshToken, accessToken }) => {
         this.currentAccessToken = tokens.accessToken;
-        const storeAccess = this.storageService.setObject(TOKEN_KEY, tokens.accessToken);
-        const storeRefresh = this.storageService.setObject(REFRESH_KEY, tokens.refreshToken);
-        return from(Promise.all([storeAccess, storeRefresh]));
+        const decoded = helper.decodeToken(this.currentAccessToken);
+        this.currentUser = tokens.user;
+        const storeRefresh = await this.storageService.setObject(REFRESH_KEY, tokens.refreshToken);
+        const storeAccess = await this.storageService.setString(TOKEN_KEY, this.currentAccessToken);
+        const storeUser = await this.storageService.setObject('user', tokens.user);
+
+        return from(Promise.all([storeRefresh, storeAccess, storeUser]));
       }),
       tap(_ => {
         this.authenticationState.next(true);

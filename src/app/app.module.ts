@@ -12,7 +12,8 @@ import {RateViewPage} from './views/rate-view/rate-view.page';
 import {RateViewPageModule} from './views/rate-view/rate-view.module';
 import {environment} from './models/environments';
 import {StorageService} from './services/storage.service';
-import {IonicStorageModule, Storage} from '@ionic/storage';
+import {Plugins} from '@capacitor/core';
+const { Storage } = Plugins;
 import {JwtInterceptors} from './services/interceptors/jwt.interceptors';
 
 export function jwtOptionsFactory(storage) {
@@ -20,7 +21,7 @@ export function jwtOptionsFactory(storage) {
     tokenGetter: () => {
       return storage.get('access_token');
     },
-    whitelistedDomains: [environment.api_url]
+    allowedDomains: [environment.api_url]
   };
 }
 

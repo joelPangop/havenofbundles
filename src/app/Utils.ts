@@ -1,5 +1,3 @@
-import {NetworkInterface} from '@ionic-native/network-interface/ngx';
-
 // export let ipAddress: any;
 
 export abstract class Utils {
