@@ -12,7 +12,8 @@ import {Utils} from '../Utils';
 import {MailService} from './mail.service';
 import {Mail} from '../models/mail-interface';
 import {Router} from '@angular/router';
-
+import {Plugins} from '@capacitor/core';
+const { Storage } = Plugins;
 const TOKEN_KEY = 'access_token';
 const REFRESH_KEY = 'refresh_token';
 
@@ -64,12 +65,14 @@ export class AuthenticationService {
       switchMap(async (tokens: {user, refreshToken, accessToken }) => {
         this.currentAccessToken = tokens.accessToken;
         const decoded = helper.decodeToken(this.currentAccessToken);
+
+        await Storage.set({key: TOKEN_KEY, value: this.currentAccessToken });
         this.currentUser = tokens.user;
         const storeRefresh = await this.storageService.setObject(REFRESH_KEY, tokens.refreshToken);
-        const storeAccess = await this.storageService.setString(TOKEN_KEY, this.currentAccessToken);
+        // const storeAccess = await this.storageService.setString(TOKEN_KEY, this.currentAccessToken);
         const storeUser = await this.storageService.setObject('user', tokens.user);
 
-        return from(Promise.all([storeRefresh, storeAccess, storeUser]));
+        return from(Promise.all([storeRefresh, storeUser]));
       }),
       tap(_ => {
         this.authenticationState.next(true);
