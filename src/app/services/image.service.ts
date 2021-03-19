@@ -30,6 +30,21 @@ export class ImageService {
     return this.http.post<any>(url, formData, {headers});
   }
 
+  uploadImage(uploadForm: FormGroup) {
+    const headers = {
+      enctype: 'multipart/form-data;',
+      Accept: 'plain/text',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
+      'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token'
+    };
+    const formData = new FormData();
+    const url = `${environment.api_url}/file/uploadImgProfil`;
+    formData.set('file', uploadForm.value.image);
+    return this.http.post<any>(url, formData, {headers});
+  }
+
+
   deleteImage(filename) {
     const url = `${environment.api_url}/file/files/${filename}`;
     return this.http.delete(url);

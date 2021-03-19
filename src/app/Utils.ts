@@ -1,5 +1,7 @@
 // export let ipAddress: any;
 
+import * as moment from "moment";
+
 export abstract class Utils {
 public ipAddress: any;
     // constructor(public networkinterface: NetworkInterface) {
@@ -29,4 +31,9 @@ public ipAddress: any;
         }
         return result;
     }
+
+
+  getDate(date){
+    return moment(date).format('MMMM Do YYYY');
+  }
 }

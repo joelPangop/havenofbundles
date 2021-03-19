@@ -15,6 +15,9 @@ import {StorageService} from './services/storage.service';
 import {Plugins} from '@capacitor/core';
 const { Storage } = Plugins;
 import {JwtInterceptors} from './services/interceptors/jwt.interceptors';
+import { FileValidatorDirective } from './services/file-validator.directive';
+import { FileValueAccessorDirective } from './services/file-value-accessor.directive';
+import { PasswordValidatorDirective } from './services/password-validator.directive';
 
 export function jwtOptionsFactory(storage) {
   return {
@@ -26,7 +29,7 @@ export function jwtOptionsFactory(storage) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FileValidatorDirective, FileValueAccessorDirective, PasswordValidatorDirective],
   entryComponents: [FilterViewPage, RateViewPage],
   imports: [
     BrowserModule,

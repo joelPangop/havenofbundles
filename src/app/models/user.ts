@@ -1,6 +1,7 @@
 import {UserInfo} from './userInfo';
 import {RoleType} from './roleType';
 import {File} from './file';
+import {Address} from "./address-interface";
 
 export class User {
   role?: RoleType;
@@ -11,6 +12,7 @@ export class User {
   password ?: string;
   userInfo?: UserInfo;
   birthday: string;
+  shipping_addr?: Address;
   customer_profile?: any;
   payment_account?: any;
   subscription?: Subscription;
@@ -19,6 +21,7 @@ export class User {
   constructor() {
     this.avatar = new File();
     this.userInfo = new UserInfo();
+    this.shipping_addr = new Address();
     // this.birthday = new Date().toISOString()
   }
 }

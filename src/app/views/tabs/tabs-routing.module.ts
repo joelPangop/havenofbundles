@@ -116,6 +116,13 @@ const routes: Routes = [
         loadChildren: () => import('../mobile-bundle-set-list/mobile-bundle-set-list.module').then( m => m.MobileBundleSetListPageModule)
       },
       {
+        path: 'mobile-account',
+        loadChildren: () => import('../mobile-account/mobile-account.module').then( m => m.MobileAccountPageModule)
+      }, {
+        path: 'mobile-personal-info/:category/:id',
+        loadChildren: () => import('../mobile-personal-info/mobile-personal-info.module').then( m => m.MobilePersonalInfoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

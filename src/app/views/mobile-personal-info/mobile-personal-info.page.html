@@ -1,0 +1,310 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/mobile-account">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="view === 'edit'" fill="outline" color="color1" (click)="changeView()">Cancel</ion-button>
+      <ion-button *ngIf="view === 'detail'" fill="outline" color="color1" (click)="changeView()">
+        <ion-icon name="pencil-outline" slot="icon-only"></ion-icon>
+        Edit
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <div *ngIf="category === 'userInfo'">
+      <form [formGroup]="userInfoForm">
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            <ion-select [(ngModel)]="user.userInfo.gender" formControlName="gender" interface="popover"
+                        *ngIf="view === 'edit'"
+                        placeholder="Gender">
+              <ion-select-option *ngFor="let g of genders" [value]="g">{{g}}</ion-select-option>
+            </ion-select>
+            <span *ngIf="view === 'detail'">
+              {{user.userInfo.gender === 'Male' ? 'Mr.' : 'M.'}}
+            </span>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            <ion-label>
+              <p>Firstname</p>
+              <span *ngIf="view === 'detail'">
+              {{user.userInfo.firstName}}
+            </span>
+            </ion-label>
+            <ion-input *ngIf="view === 'edit'" [(ngModel)]="user.userInfo.firstName"
+                       formControlName="firstName"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            <ion-label>
+              <p>Lastname</p>
+              <span *ngIf="view === 'detail'">
+              {{user.userInfo.lastName}}
+            </span>
+            </ion-label>
+            <ion-input *ngIf="view === 'edit'" [(ngModel)]="user.userInfo.lastName" placeholder="xyz@example.com"
+                       formControlName="lastName"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            <ion-label>
+              <p>User Name</p>
+              <span *ngIf="view === 'detail'">
+              {{user.username}}
+            </span>
+            </ion-label>
+            <ion-input *ngIf="view === 'edit'" [(ngModel)]="user.username" formControlName="username"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            <ion-label>
+              <p>Email</p>
+              <span *ngIf="view === 'detail'">
+              {{user.email}}
+            </span>
+            </ion-label>
+            <ion-input *ngIf="view === 'edit'" [(ngModel)]="user.email" placeholder="xyz@example.com"
+                       formControlName="email"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="itemInput ion-padding">
+            <ion-label>
+              <p>Birthday</p>
+              <span *ngIf="view === 'detail'">
+              {{getDate(user.birthday)}}
+            </span>
+            </ion-label>
+            <ion-datetime *ngIf="view === 'edit'" [(ngModel)]="user.birthday" formControlName="birthday"
+                          placeholder="MM-DD-YYYY"
+                          displayFormat="MM-DD-YYYY" min="1804-03-14"
+                          max="2200-12-09"></ion-datetime>
+          </div>
+        </ion-item>
+      </form>
+    </div>
+    <div *ngIf="category === 'addressInfo'">
+      <h1>Address</h1>
+      <ion-toolbar>
+        <ion-segment [(ngModel)]="addresseType" (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="user" layout="icon-start">
+            <ion-label color="color1">User Address</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="shipping" layout="icon-start">
+            <ion-label color="color1">Shipping Address</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+      <div [ngSwitch]="addresseType">
+        <div *ngSwitchCase="'user'">
+          <form [formGroup]="addressInfoForm">
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Address 1</p>
+                  <span *ngIf="view === 'detail'">
+              {{user.userInfo.address.addr_1}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="addr_1" required="true" formControlName="addr_1"
+                           [(ngModel)]="user.userInfo.address.addr_1">
+                </ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Address 2 (Optional)</p>
+                  <span *ngIf="view === 'detail'">
+              {{user.userInfo.address.addr_2}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="addr_2" required="true"
+                           [(ngModel)]="user.userInfo.address.addr_2" formControlName="addr_2">
+                </ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Apartment number</p>
+                  <span *ngIf="view === 'detail'">
+              {{user.userInfo.address.appartNumber}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="appart_number" [(ngModel)]="user.userInfo.address.appartNumber"
+                           formControlName="appart_number">
+                </ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Town</p>
+                  <span *ngIf="view === 'detail'">
+              {{user.userInfo.address.town}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="ville" [(ngModel)]="user.userInfo.address.town"
+                           formControlName="ville"></ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Postal Code</p>
+                  <span *ngIf="view === 'detail'">
+              {{user.userInfo.address.postalCode}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="postalCode" [(ngModel)]="user.userInfo.address.postalCode"
+                           formControlName="postalCode"></ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Postal Code</p>
+                  <span *ngIf="view === 'detail'">
+              {{user.userInfo.address.region}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="region" [(ngModel)]="user.userInfo.address.region"
+                           formControlName="region"></ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Country</p>
+                  <span *ngIf="view === 'detail'">
+              {{user.userInfo.address.country}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="pays" [(ngModel)]="user.userInfo.address.country"
+                           formControlName="pays"></ion-input>
+              </div>
+            </ion-item>
+
+          </form>
+        </div>
+        <div *ngSwitchCase="'shipping'">
+          <div style="margin: auto; width: 70%;" *ngIf="view === 'edit'">
+            <div class="toggle_box in_stock end">
+              <ion-label color="color1">{{"Use user address information ?"}}</ion-label>&nbsp;
+              <ion-toggle mode="ios" [(ngModel)]="addr_informations"
+                          (ionChange)="use_information_toggle()"
+                          [ngModelOptions]="{standalone: true}"></ion-toggle>
+            </div>
+          </div>
+          <form [formGroup]="addressShipForm">
+
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Address 1</p>
+                  <span *ngIf="view === 'detail'">
+              {{shipping_addr.addr_1}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="addr_1" required="true" formControlName="addr_1"
+                           [(ngModel)]="shipping_addr.addr_1">
+                </ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Address 2 (Optional)</p>
+                  <span *ngIf="view === 'detail'">
+              {{shipping_addr.addr_2}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="addr_2" required="true"
+                           [(ngModel)]="shipping_addr.addr_2" formControlName="addr_2">
+                </ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Apartment number</p>
+                  <span *ngIf="view === 'detail'">
+              {{shipping_addr.appartNumber}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="appart_number" [(ngModel)]="shipping_addr.appartNumber"
+                           formControlName="appart_number">
+                </ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Town</p>
+                  <span *ngIf="view === 'detail'">
+              {{shipping_addr.town}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="ville" [(ngModel)]="shipping_addr.town"
+                           formControlName="ville"></ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Postal Code</p>
+                  <span *ngIf="view === 'detail'">
+              {{shipping_addr.postalCode}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="postalCode" [(ngModel)]="shipping_addr.postalCode"
+                           formControlName="postalCode"></ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Postal Code</p>
+                  <span *ngIf="view === 'detail'">
+              {{shipping_addr.region}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="region" [(ngModel)]="shipping_addr.region"
+                           formControlName="region"></ion-input>
+              </div>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="itemInput ion-padding">
+                <ion-label>
+                  <p>Country</p>
+                  <span *ngIf="view === 'detail'">
+              {{shipping_addr.country}}
+            </span>
+                </ion-label>
+                <ion-input *ngIf="view === 'edit'" name="pays" [(ngModel)]="shipping_addr.country"
+                           formControlName="pays"></ion-input>
+              </div>
+            </ion-item>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer *ngIf="view === 'edit'">
+  <ion-button fill="outline" color="color1" expand="block" (click)="save()">
+    Save
+  </ion-button>
+</ion-footer>

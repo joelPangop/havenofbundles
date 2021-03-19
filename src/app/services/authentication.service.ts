@@ -24,7 +24,7 @@ const helper = new JwtHelperService();
 })
 export class AuthenticationService {
 
-  currentUser: User;
+  currentUser: any;
   authResponse: AuthResponse;
   authenticationState = new BehaviorSubject(false);
   url = environment.api_url;
@@ -34,7 +34,11 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private storageService: StorageService, private router: Router,
               private platform: Platform, private mailService: MailService, private showAlert: AlertController) {
     this.authResponse = {} as AuthResponse;
-    this.loadToken();
+    this.currentUser = new User();
+    this.storageService.getObject('user').then((res: any) => {
+      this.currentUser = res;
+    })
+    // this.loadToken();
   }
 
   async loadToken() {
@@ -69,14 +73,15 @@ export class AuthenticationService {
         await Storage.set({key: TOKEN_KEY, value: this.currentAccessToken });
         this.currentUser = tokens.user;
         const storeRefresh = await this.storageService.setObject(REFRESH_KEY, tokens.refreshToken);
-        // const storeAccess = await this.storageService.setString(TOKEN_KEY, this.currentAccessToken);
+        const storeAccess = await this.storageService.setString(TOKEN_KEY, this.currentAccessToken);
+        this.storeAccessToken(this.currentAccessToken);
         const storeUser = await this.storageService.setObject('user', tokens.user);
 
-        return from(Promise.all([storeRefresh, storeUser]));
+        return from(Promise.all([storeRefresh, storeAccess, storeUser]));
       }),
       tap(_ => {
         this.authenticationState.next(true);
-        this.storageService.setObject(TOKEN_KEY, _.access_token);
+        // this.storageService.setObject(TOKEN_KEY, _.access_token);
       })
     );
   }
@@ -94,6 +99,10 @@ export class AuthenticationService {
         this.router.navigateByUrl('/', {replaceUrl: true});
       })
     ).subscribe();
+  }
+
+  getUserById(id: string): Observable<any>{
+    return this.http.get<any>(`${this.url}/user/user/${id}`);
   }
 
   storeAccessToken(accessToken) {
@@ -118,5 +127,9 @@ export class AuthenticationService {
         }
       })
     );
+  }
+
+  update(user: User):Observable<any> {
+    return this.http.put(`${this.url}/user/update/${this.currentUser.id}`, user);
   }
 }
