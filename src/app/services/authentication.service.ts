@@ -102,7 +102,7 @@ export class AuthenticationService {
   }
 
   getUserById(id: string): Observable<any>{
-    return this.http.get<any>(`${this.url}/user/user/${id}`);
+    return this.http.get<any>(`${this.url}/user/user/`+id);
   }
 
   storeAccessToken(accessToken) {
@@ -131,5 +131,9 @@ export class AuthenticationService {
 
   update(user: User):Observable<any> {
     return this.http.put(`${this.url}/user/update/${this.currentUser.id}`, user);
+  }
+
+  updatePassword(user: User):Observable<any> {
+    return this.http.put(`${this.url}/user/update/password/${this.currentUser.id}`, user);
   }
 }

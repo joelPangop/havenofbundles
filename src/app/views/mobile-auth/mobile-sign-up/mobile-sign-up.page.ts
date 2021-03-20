@@ -65,6 +65,7 @@ export class MobileSignUpPage implements OnInit {
     }, [PasswordValidatorDirective.validate]);
     this.userInfoForm = new FormGroup({
       gender: new FormControl("", [Validators.required]),
+      firstName: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
       phone_category: new FormControl("", [Validators.required]),
       birthday: new FormControl("", [Validators.required])

@@ -123,6 +123,10 @@ const routes: Routes = [
         loadChildren: () => import('../mobile-personal-info/mobile-personal-info.module').then( m => m.MobilePersonalInfoPageModule)
       },
       {
+        path: 'mobile-update-password/:id',
+        loadChildren: () => import('../mobile-update-password/mobile-update-password.module').then( m => m.MobileUpdatePasswordPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

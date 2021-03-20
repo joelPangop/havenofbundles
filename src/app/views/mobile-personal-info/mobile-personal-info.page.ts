@@ -114,7 +114,7 @@ export class MobilePersonalInfoPage implements OnInit {
   async presentToast(msg) {
     const toast = await this.toastCtrl.create({
       message: msg,
-      duration: 1500
+      duration: 2000
     })
     await toast.present();
   }

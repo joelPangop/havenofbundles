@@ -36,7 +36,7 @@ export class MobileAccountPage implements OnInit {
       {
         name: "Security",
         features: 'Password, two factor',
-        url: "/tabs/summary"
+        url: "/tabs/mobile-update-password/"+res.id
       },
       {
         name: "Payments Methods",
