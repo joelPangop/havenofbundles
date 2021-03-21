@@ -37,7 +37,7 @@ export class AuthenticationService {
     this.currentUser = new User();
     this.storageService.getObject('user').then((res: any) => {
       this.currentUser = res;
-    })
+    });
     // this.loadToken();
   }
 

@@ -2,7 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {IonSlides, LoadingController, Platform, PopoverController} from '@ionic/angular';
 import {ProductsService} from '../../services/products.service';
 import {ActivatedRoute} from '@angular/router';
-import {Product, Rate} from '../../models/Product-interface';
+import {Product, Rate} from '../../models/Product';
 import {environment} from '../../models/environments';
 
 @Component({

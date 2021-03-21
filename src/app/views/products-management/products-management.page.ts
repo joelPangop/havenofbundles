@@ -3,7 +3,7 @@ import {AlertController, LoadingController, Platform, ToastController} from '@io
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductsService} from '../../services/products.service';
 import {environment} from '../../models/environments';
-import {Care, Description, Extra, HairInfo, Product, Rate} from '../../models/Product-interface';
+import {Care, Description, Extra, HairInfo, Product, Rate} from '../../models/Product';
 import {BundleCategories} from '../../models/bundleCategories';
 import {Colors} from '../../models/colors';
 import {ProductCategories} from '../../models/productCategories';

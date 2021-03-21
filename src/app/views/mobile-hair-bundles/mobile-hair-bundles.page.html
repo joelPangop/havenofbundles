@@ -94,16 +94,17 @@
         <ion-grid *ngIf="grid">
           <ion-row>
             <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of products">
-              <ion-card class="ion-no-margin pin" (click)="goToDetail(item._id)">
-                <!--            <ion-fab vertical="top" horizontal="end">-->
-                <!--              <ion-fab-button>-->
-                <!--                <ion-icon color="color1" name="heart-outline"></ion-icon>-->
-                <!--              </ion-fab-button>-->
-                <!--            </ion-fab>-->
+              <ion-card class="ion-no-margin pin">
+                <!-- Wish Button or Product Like/Dislike Button Option -->
+                <ion-fab vertical="top" horizontal="end" (click)="checkLike(item)">
+                  <ion-icon color="color1" name="heart-outline"
+                            *ngIf="!isWishList(item)"></ion-icon>
+                  <ion-icon color="color1" name="heart" *ngIf="isWishList(item)"></ion-icon>
+                </ion-fab>
                 <!-- Product Image -->
                 <div class="card-img"
                      [style.background-image]="'url('+url+'/file/image/' + item.pictures[0] + ')'"></div>
-                <ion-card-header color="medium">
+                <ion-card-header color="medium" (click)="goToDetail(item)">
                   <span style="color: #1e2023">{{item.name}}</span>
                 </ion-card-header>
               </ion-card>
@@ -115,9 +116,16 @@
             <ion-avatar slot="start">
               <img src="{{url+'/file/image/' + item.pictures[0]}}">
             </ion-avatar>
-            <ion-label (click)="goToDetail(item._id)">
-              <h5 style="color: #c4c4c4">{{item.name}}</h5>
-              <span>Price: {{item.rates[0].price | currency}}</span>
+
+            <ion-label>
+              <h5 style="color: #c4c4c4" (click)="goToDetail(item)">{{item.name}}</h5>
+              <ion-item lines="none">
+                <span slot="start">Price: {{item.rates[0].price | currency}}</span>
+                <ion-button fill="clear" slot="end" (click)="checkLike(item)">
+                  <ion-icon color="color1" name="heart-outline" *ngIf="!isWishList(item)"></ion-icon>
+                  <ion-icon color="color1" name="heart" *ngIf="isWishList(item)"></ion-icon>
+                </ion-button>
+              </ion-item>
             </ion-label>
           </ion-item>
         </ion-grid>

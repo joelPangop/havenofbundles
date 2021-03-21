@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from '../../models/Product-interface';
+import {Product} from '../../models/Product';
 import {ProductsService} from '../../services/products.service';
 import {ProductCategories} from '../../models/productCategories';
 import {environment} from '../../models/environments';
@@ -8,6 +8,7 @@ import {FilterViewPage} from '../filter-view/filter-view.page';
 import {BehaviorSubject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PageService} from '../../services/page.service';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-mobile-hair-bundles',
@@ -24,9 +25,11 @@ export class MobileHairBundlesPage implements OnInit {
   public filterNumber: BehaviorSubject<number> = new BehaviorSubject(0);
   grid: Boolean = true;
   list: Boolean = false;
+  like: boolean = false;
 
   constructor(private productsService: ProductsService, private modalController: ModalController, private router: Router,
-              private activatedRoute: ActivatedRoute, public pageService: PageService) {
+              private activatedRoute: ActivatedRoute, public pageService: PageService,
+              private authService: AuthenticationService) {
     this.filterObject = new BehaviorSubject({});
     this.filterNumber = new BehaviorSubject(0);
     this.products = [];
@@ -139,8 +142,9 @@ export class MobileHairBundlesPage implements OnInit {
     });
   }
 
-  async goToDetail(id) {
-    await this.router.navigateByUrl('tabs/mobile-product-view/' + id);
+  async goToDetail(product: Product) {
+    this.pageService.productCategory = product.category;
+    await this.router.navigateByUrl('tabs/mobile-product-view/' + product._id);
   }
 
 
@@ -152,5 +156,36 @@ export class MobileHairBundlesPage implements OnInit {
   showList() {
     this.grid = false;
     this.list = true;
+  }
+
+  public isWishList(item: Product) {
+    return item.likes.includes(this.authService.currentUser.id);
+  }
+
+  async checkLike(product: Product) {
+    if (product.likes.includes(this.authService.currentUser.id)) {
+      this.like = true;
+    }
+    if (this.authService.currentUser.id) {
+      // if (product.userId === this.authService.currentUser.id) {
+      //   await this.presentToast('Impossible de liker son propre article');
+      // } else {
+      if(this.like){
+        this.like = false;
+      } else {
+        this.like = true;
+      }
+      if (this.like === false) {
+        const index = product.likes.indexOf(this.authService.currentUser.id, 0);
+        product.likes.splice(index, 1);
+      } else {
+        product.likes.push(this.authService.currentUser.id);
+      }
+      this.productsService.checkLike(product).subscribe((res) => {
+        console.log(res);
+        product = res;
+      });
+      // }
+    }
   }
 }

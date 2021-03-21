@@ -8,7 +8,7 @@ import {BundleCategories} from '../../models/bundleCategories';
 import {Colors} from '../../models/colors';
 import {ProductCategories} from '../../models/productCategories';
 import {Styles} from '../../models/styles';
-import {Care, Description, Extra, HairInfo, Product, Rate} from '../../models/Product-interface';
+import {Care, Description, Extra, HairInfo, Product, Rate} from '../../models/Product';
 import {environment} from '../../models/environments';
 import {Origins} from '../../models/Origins';
 

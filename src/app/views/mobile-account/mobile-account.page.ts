@@ -46,7 +46,7 @@ export class MobileAccountPage implements OnInit {
       {
         name: "Wish List",
         features: 'Favorites Products',
-        url: ""
+        url: "/tabs/mobile-wish-list"
       },
       {
         name: "Message",

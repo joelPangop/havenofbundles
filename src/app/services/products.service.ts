@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Care, Description, HairInfo, Product} from "../models/Product-interface";
+import {Care, Description, HairInfo, Product} from "../models/Product";
 import {Observable} from "rxjs";
 import {environment} from "../models/environments";
+import {BundleSet} from '../models/BundleSet';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,15 @@ export class ProductsService {
 
   update(id: string): Observable<Product> {
     return this.http.put<Product>(`${environment.api_url}/product/${id}`, this.profile_product);
+  }
+
+  checkLike(article: Product): Observable<Product> {
+    const url = `${environment.api_url}/product/like/productId/${article._id}`;
+    return this.http.put<Product>(url, article);
+  }
+
+  checkBundleSetLike(article: BundleSet): Observable<BundleSet> {
+    const url = `${environment.api_url}/bundleset/like/bundlesetId/${article._id}`;
+    return this.http.put<BundleSet>(url, article);
   }
 }

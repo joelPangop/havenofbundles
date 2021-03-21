@@ -15,6 +15,9 @@ export class Product {
   sizes?: string[];
   available?: boolean;
   care?: Care;
+  likes?: string[];
+  userId: string;
+
   constructor() {
     this.care = new Care();
     this.rates = [] as Rate[];

@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Platform} from '@ionic/angular';
+import {Platform, ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {ProductsService} from '../../services/products.service';
 import {environment} from '../../models/environments';
+import {Product} from '../../models/Product';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-mobile-products-management',
@@ -18,8 +20,10 @@ export class MobileProductsManagementPage implements OnInit {
   ip = '';
   lastItem1: string = '';
   lastItem2: string = '';
+  like: boolean = false;
 
-  constructor(public platform: Platform, private router: Router, public productService: ProductsService) {
+  constructor(public platform: Platform, private router: Router, public productService: ProductsService,
+              private authService: AuthenticationService, private toastCtrl: ToastController) {
 
   }
 
@@ -48,6 +52,14 @@ export class MobileProductsManagementPage implements OnInit {
     this.productService.loadAll().subscribe((products) => {
       this.productService.profile_products = products;
     });
+  }
+
+  async presentToast(msg) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    })
+    await toast.present();
   }
 
 }

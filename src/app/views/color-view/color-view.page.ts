@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavParams} from "@ionic/angular";
-import {Rate} from "../../models/Product-interface";
+import {Rate} from "../../models/Product";
 
 @Component({
   selector: 'app-color-view',

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Product, Rate} from "../../models/Product-interface";
+import {Product, Rate} from "../../models/Product";
 import {LoadingController, NavParams} from "@ionic/angular";
 
 @Component({

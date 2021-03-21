@@ -7,7 +7,7 @@ import {ImageService} from '../../services/image.service';
 import {environment} from '../../models/environments';
 import {Colors} from '../../models/colors';
 import {ProductCategories} from '../../models/productCategories';
-import {Product} from '../../models/Product-interface';
+import {Product} from '../../models/Product';
 import {Origins} from '../../models/Origins';
 import {BundleCategories} from '../../models/bundleCategories';
 import {PageService} from '../../services/page.service';

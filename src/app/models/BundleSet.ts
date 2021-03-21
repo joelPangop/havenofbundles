@@ -1,4 +1,4 @@
-import {Product, Rate} from './Product-interface';
+import {Product, Rate} from './Product';
 
 export class BundleSet {
   _id: string;
@@ -9,6 +9,8 @@ export class BundleSet {
   category: string;
   price: number;
   supplement: Supplement;
+  likes?: string[];
+
   constructor() {
     this.features = [];
     this.supplement = {} as Supplement;

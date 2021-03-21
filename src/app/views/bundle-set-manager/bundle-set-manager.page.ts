@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BundleSetService} from '../../services/bundle-set.service';
-import {Product, Rate} from '../../models/Product-interface';
+import {Product, Rate} from '../../models/Product';
 import {BundleSet} from '../../models/BundleSet';
 import {environment} from '../../models/environments';
 import {Styles} from '../../models/styles';

@@ -81,8 +81,9 @@ export class MobilePersonalInfoPage implements OnInit {
     })
   }
 
-  ionWillEnter() {
-    this.view = 'detail'
+  ionViewWillEnter() {
+    this.load();
+    this.view = 'detail';
   }
 
   async changeView() {

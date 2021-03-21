@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from "../../models/Product-interface";
+import {Product} from "../../models/Product";
 import {BundleSet} from "../../models/BundleSet";
 import {ProductsService} from "../../services/products.service";
 import {BundleSetService} from "../../services/bundle-set.service";

@@ -30,17 +30,19 @@
     </ion-row>
     <ion-row>
       <ion-list class="ion-padding" lines="none">
-        <div *ngFor="let page of pages">
-          <ion-item [routerDirection]="'root'" [routerLink]="[page.url]" [routerLinkActive]="'active'">
-            <ion-label color="color1" slot="start">
-              <p>{{page.name}}</p>
-              <ion-text color="medium" style="font-size: small">{{page.features}}</ion-text>
-            </ion-label>
-            <ion-button slot="end" fill="clear">
-              <ion-icon name="arrow-forward-circle-outline" slot="icon-only"></ion-icon>
-            </ion-button>
-          </ion-item>
-        </div>
+        <ion-col size="12">
+          <div *ngFor="let page of pages" style="width: 100%">
+            <ion-item [routerDirection]="'root'" [routerLink]="[page.url]" [routerLinkActive]="'active'">
+              <ion-label color="color1" slot="start">
+                <p>{{page.name}}</p>
+                <ion-text color="medium" style="font-size: small">{{page.features}}</ion-text>
+              </ion-label>
+              <ion-button slot="end" fill="clear">
+                <ion-icon name="arrow-forward-circle-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </div>
+        </ion-col>
       </ion-list>
     </ion-row>
   </ion-grid>

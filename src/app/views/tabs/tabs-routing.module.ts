@@ -118,13 +118,18 @@ const routes: Routes = [
       {
         path: 'mobile-account',
         loadChildren: () => import('../mobile-account/mobile-account.module').then( m => m.MobileAccountPageModule)
-      }, {
+      },
+      {
         path: 'mobile-personal-info/:category/:id',
         loadChildren: () => import('../mobile-personal-info/mobile-personal-info.module').then( m => m.MobilePersonalInfoPageModule)
       },
       {
         path: 'mobile-update-password/:id',
         loadChildren: () => import('../mobile-update-password/mobile-update-password.module').then( m => m.MobileUpdatePasswordPageModule)
+      },
+      {
+        path: 'mobile-wish-list',
+        loadChildren: () => import('../mobile-wish-list/mobile-wish-list.module').then( m => m.MobileWishListPageModule)
       },
       {
         path: '',

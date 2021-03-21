@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonSlides, LoadingController, NavParams, Platform, PopoverController} from "@ionic/angular";
 import {ProductsService} from "../../services/products.service";
 import {ActivatedRoute} from "@angular/router";
-import {Product, Rate} from "../../models/Product-interface";
+import {Product, Rate} from "../../models/Product";
 import {environment} from "../../models/environments";
 import {RateViewPage} from "../rate-view/rate-view.page";
 import {ColorViewPage} from "../color-view/color-view.page";
