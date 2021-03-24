@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ProductCategories} from '../models/productCategories';
 import {Styles} from "../models/styles";
+import {AuthenticationService} from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,10 @@ export class PageService {
   public view;
   public parameter;
   public productCategory;
+  accountPages: any[];
 
-  constructor() {
+  constructor(public authSrv: AuthenticationService) {
+    this.getAccountPages();
   }
 
   getPages() {
@@ -55,6 +58,57 @@ export class PageService {
           }
         ]
       }
+    ];
+  }
+
+  getAccountPages(){
+    this.accountPages = [
+      {
+        name: 'Personal Info',
+        features: 'Name, Email, Birth, Birthday',
+        url: '/tabs/mobile-personal-info/userInfo/' + this.authSrv.currentUser.id
+      },
+      {
+        name: 'Orders',
+        features: 'Paid, unpaid, Delivered',
+        url: '/tabs/summary'
+      },
+      {
+        name: 'Addresses',
+        features: 'Manage addresses',
+        url: '/tabs/mobile-personal-info/addressInfo/' + this.authSrv.currentUser.id
+      },
+      {
+        name: 'Security',
+        features: 'Password, two factor',
+        url: '/tabs/mobile-update-password/' + this.authSrv.currentUser.id
+      },
+      {
+        name: 'Payments Methods',
+        features: 'Paypal, Credit Card',
+        url: '/tabs/summary'
+      },
+      {
+        name: 'Wish List',
+        features: 'Favorites Products',
+        url: '/tabs/mobile-wish-list'
+      },
+      {
+        name: 'Message',
+        features: 'Chat with us',
+        url: ''
+      },
+      {
+        name: 'Help',
+        features: 'Get help',
+        url: ''
+      },
+      {
+        name: 'Privacy Policy',
+        features: 'Our policy and terms & conditions',
+        url: ''
+      }
+
     ];
   }
 }

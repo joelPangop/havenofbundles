@@ -3,6 +3,7 @@ import {FormGroup} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Platform} from "@ionic/angular";
 import {environment} from "../models/environments";
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class ImageService {
     return this.http.post<any>(url, formData, {headers});
   }
 
-  uploadImage(uploadForm: FormGroup) {
+  uploadImage(uploadForm: FormGroup):Observable<any> {
     const headers = {
       enctype: 'multipart/form-data;',
       Accept: 'plain/text',
@@ -39,7 +40,7 @@ export class ImageService {
       'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token'
     };
     const formData = new FormData();
-    const url = `${environment.api_url}/file/uploadImgProfil`;
+    const url = `${environment.api_url}/user/uploadImgProfile`;
     formData.set('file', uploadForm.value.image);
     return this.http.post<any>(url, formData, {headers});
   }

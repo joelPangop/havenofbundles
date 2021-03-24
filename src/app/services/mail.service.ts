@@ -14,7 +14,7 @@ export class MailService {
   constructor(private http: HttpClient) { }
 
   sendMail(content: Mail): Observable<Mail> {
-    const url = `${this.url}/mail`;
+    const url = `${this.url}/user/mail`;
     return this.http.post<Mail>(url, content);
   }
 }

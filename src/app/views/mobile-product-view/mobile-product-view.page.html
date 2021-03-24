@@ -30,11 +30,13 @@
         </span>
     </ion-col>
     <ion-col size="10">
-      <ion-slides [options]="slideOpts" #slideWithNav>
-        <ion-slide *ngFor="let img of product.pictures; let i = index">
-          <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
-        </ion-slide>
-      </ion-slides>
+      <ion-row>
+        <ion-slides [options]="slideOpts" #slideWithNav class="ion-padding-top">
+          <ion-slide *ngFor="let img of product.pictures; let i = index">
+            <img [src]="ip + '/file/image/'+ img" style="height:100%"/>
+          </ion-slide>
+        </ion-slides>
+      </ion-row>
     </ion-col>
     <ion-col size="1">
       <span class="slider-nav arrow-next" (click)="slideNext(slideOpts, slideWithNav)">

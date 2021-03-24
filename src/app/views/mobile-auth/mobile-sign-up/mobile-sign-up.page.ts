@@ -214,15 +214,17 @@ export class MobileSignUpPage implements OnInit {
         if (res) {
           this.mailService.sendMail(content).subscribe(res1 => {
             console.log(res1);
+            let navigationExtras: NavigationExtras = {
+              queryParams: {
+                special: JSON.stringify(this.confirmation_code),
+                user: res
+              }
+            };
+            this.router.navigate(['mobile-verification'], navigationExtras);
           });
         }
         // load.dismiss();
-        let navigationExtras: NavigationExtras = {
-          queryParams: {
-            special: JSON.stringify(res)
-          }
-        };
-        this.router.navigate(['mobile-sign-in'], navigationExtras);
+
       });
     }
   }

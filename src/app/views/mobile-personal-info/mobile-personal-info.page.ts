@@ -74,9 +74,9 @@ export class MobilePersonalInfoPage implements OnInit {
     this.category = this.activatedRoute.snapshot.paramMap.get('category');
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.authSrv.getUserById(this.id).subscribe((res) => {
-      this.user = res.user;
-      if(res.user.shipping_addr) {
-        this.shipping_addr = res.user.shipping_addr;
+      this.user = res;
+      if(res.shipping_addr) {
+        this.shipping_addr = res.shipping_addr;
       }
     })
   }
@@ -95,7 +95,7 @@ export class MobilePersonalInfoPage implements OnInit {
     } else {
       this.view = 'detail';
       this.authSrv.getUserById(this.id).subscribe((res) => {
-        this.user = res.user;
+        this.user = res;
         load.dismiss();
       })
     }
@@ -124,7 +124,7 @@ export class MobilePersonalInfoPage implements OnInit {
     return moment(date).format('MMMM Do YYYY');
   }
 
-  segmentChanged($event: CustomEvent) {
+  segmentChanged($event) {
     console.log('event detail',$event.detail.value);
   }
 

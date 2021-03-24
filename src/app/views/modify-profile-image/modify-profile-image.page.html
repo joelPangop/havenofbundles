@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button (click)="dismiss()" fill="clear" color="dark">
+        <ion-icon name="close" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="uploadForm" (ngSubmit)="apply()">
+    <div align="center">
+      <h1>Upload</h1>
+      <hr>
+      <ion-avatar>
+        <ion-img [src]="imgURL"></ion-img>
+      </ion-avatar>
+      <hr>
+      <ion-row>
+        <ion-col size="5"></ion-col>
+        <ion-col size="4">
+          <ion-buttons>
+            <input type="file" name="file" id="fileId" (change)="onFileSelect($event)"
+                   class="inputfile"/>
+            <label color="secondary" class="custom-file-upload" for="fileId">
+              <ion-icon name="camera" slot="icon-only"></ion-icon>
+            </label>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="3"></ion-col>
+      </ion-row>
+    </div>
+    <ion-button expand="block" fill="outline" type="submit" color="color1">Apply</ion-button>
+  </form>
+</ion-content>

@@ -18,6 +18,9 @@ export class User {
   subscription?: Subscription;
   bank_account?: any[];
   _id ?: string;
+  verified: boolean;
+  isLogged: boolean;
+  LoginDateList: string[];
   constructor() {
     this.avatar = new File();
     this.userInfo = new UserInfo();

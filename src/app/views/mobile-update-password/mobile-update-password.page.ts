@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {LoadingController, ToastController} from '@ionic/angular';
 import {MailService} from '../../services/mail.service';
 import {PasswordValidatorDirective} from '../../services/password-validator.directive';
+import {Device} from '@capacitor/core';
 
 @Component({
   selector: 'app-mobile-update-password',
@@ -42,7 +43,7 @@ export class MobileUpdatePasswordPage implements OnInit {
   load() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.authSrv.getUserById(this.id).subscribe((res) => {
-      this.user = res.user;
+      this.user = res;
     });
   }
 
@@ -59,13 +60,15 @@ export class MobileUpdatePasswordPage implements OnInit {
     } else {
       this.view = 'detail';
       this.authSrv.getUserById(this.id).subscribe((res) => {
-        this.user = res.user;
+        this.user = res;
         load.dismiss();
       });
     }
   }
 
-  save() {
+  async save() {
+    const info = await Device.getInfo();
+    this.user.userInfo.devices.push(info);
     this.authSrv.updatePassword(this.user).subscribe(async (res) => {
       this.user = res.user;
       if (res.result === 'success') {

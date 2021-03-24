@@ -17,13 +17,13 @@
         <div align="center">
           <h1>Account</h1>
           <hr>
-          <ion-avatar slot="start">
-            <ion-img [src]="'assets/images/no-profile.png'"></ion-img>
+          <ion-avatar slot="start" (click)="updateImage()">
+            <ion-img [src]="imgURL"></ion-img>
           </ion-avatar>
           <hr>
           <ion-label>
-            <p>Prenom nom</p>
-            <ion-text color="medium" style="font-size: small">email</ion-text>
+            <p>{{user.userInfo.firstName ? user.userInfo.firstName : 'firstname'}} {{user.userInfo.lastName ? user.userInfo.lastName : 'lastName'}}</p>
+            <ion-text color="medium" style="font-size: small">{{user.email ? user.email : 'email'}}</ion-text>
           </ion-label>
         </div>
       </ion-col>

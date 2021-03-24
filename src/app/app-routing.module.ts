@@ -82,7 +82,11 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./views/account/account.module').then( m => m.AccountPageModule)
+  },  {
+    path: 'modify-profile-image',
+    loadChildren: () => import('./views/modify-profile-image/modify-profile-image.module').then( m => m.ModifyProfileImagePageModule)
   }
+
 
 ];
 @NgModule({

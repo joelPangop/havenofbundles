@@ -13,7 +13,8 @@ import {MailService} from './mail.service';
 import {Mail} from '../models/mail-interface';
 import {Router} from '@angular/router';
 import {Plugins} from '@capacitor/core';
-const { Storage } = Plugins;
+
+const { Storage, Device } = Plugins;
 const TOKEN_KEY = 'access_token';
 const REFRESH_KEY = 'refresh_token';
 
@@ -30,6 +31,7 @@ export class AuthenticationService {
   url = environment.api_url;
   confirmation_code: string;
   currentAccessToken: any;
+  private isPasswordForgotten: boolean;
 
   constructor(private http: HttpClient, private storageService: StorageService, private router: Router,
               private platform: Platform, private mailService: MailService, private showAlert: AlertController) {
@@ -101,8 +103,8 @@ export class AuthenticationService {
     ).subscribe();
   }
 
-  getUserById(id: string): Observable<any>{
-    return this.http.get<any>(`${this.url}/user/user/`+id);
+  getUserById(id: string): Observable<User>{
+    return this.http.get<User>(`${this.url}/user/user/`+id);
   }
 
   storeAccessToken(accessToken) {
@@ -136,4 +138,21 @@ export class AuthenticationService {
   updatePassword(user: User):Observable<any> {
     return this.http.put(`${this.url}/user/update/password/${this.currentUser.id}`, user);
   }
+
+  updateImage(user: User):Observable<any> {
+    return this.http.put(`${this.url}/user/update/image/${this.currentUser.id}`, user);
+  }
+  verification_user(user: User): Observable<any> {
+    return this.http.put<any>(`${environment.api_url}/user/update_verification`, user)
+      .pipe(
+        tap(async res => {
+          console.log('res', res);
+        }),
+        catchError(e => {
+          this.isPasswordForgotten = true;
+          throw new Error(e);
+        })
+      );
+  }
+
 }
