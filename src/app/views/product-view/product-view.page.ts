@@ -53,7 +53,7 @@ export class ProductViewPage implements OnInit {
 
   ngOnInit() {
     // this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.id = this.name;
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.product = new Product();
     this.load();
   }

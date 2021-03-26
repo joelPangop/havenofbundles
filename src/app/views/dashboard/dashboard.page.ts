@@ -20,31 +20,31 @@ export class DashboardPage implements OnInit {
       this.pages = [
         {
           name: "Summary",
-          url: "/tabs/summary"
+          url: "/summary"
         },
         {
           name: "Sold",
-          url: "/tabs/sold"
+          url: "/sold"
         },
         {
           name: "Products",
-          url: "/tabs/mobile-products-management"
+          url: "/mobile-products-management"
         },
         {
           name: "Bundle Set",
-          url: "/tabs/mobile-bundle-set-manager"
+          url: "/mobile-bundle-set-manager"
         },
         {
           name: "Profile",
-          url: "/tabs/profile"
+          url: "/profile"
         },
         {
           name: "Available",
-          url: "/tabs/available"
+          url: "/available"
         },
         {
           name: "Mailing List",
-          url: "/tabs/mailing-list"
+          url: "/mailing-list"
         }]
 
     } else {

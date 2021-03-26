@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TabsPage} from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
+      {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule),
+      },
       {
         path: 'tab1',
         loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
@@ -92,8 +96,12 @@ const routes: Routes = [
         loadChildren: () => import('../product-view/product-view.module').then( m => m.ProductViewPageModule)
       },
       {
-        path: 'bundle-set',
+        path: 'bundle-set/:id',
         loadChildren: () => import('../bundle-set/bundle-set.module').then( m => m.BundleSetPageModule)
+      },
+      {
+        path: 'bundle-set-list',
+        loadChildren: () => import('../bundle-set-list/bundle-set-list.module').then( m => m.BundleSetListPageModule)
       },
       {
         path: 'mobile-bundle-set/:id',
@@ -118,29 +126,48 @@ const routes: Routes = [
       {
         path: 'mobile-account',
         loadChildren: () => import('../mobile-account/mobile-account.module').then( m => m.MobileAccountPageModule)
-      },
-      {
+      }, {
         path: 'mobile-personal-info/:category/:id',
         loadChildren: () => import('../mobile-personal-info/mobile-personal-info.module').then( m => m.MobilePersonalInfoPageModule)
       },
       {
-        path: 'mobile-update-password/:id',
-        loadChildren: () => import('../mobile-update-password/mobile-update-password.module').then( m => m.MobileUpdatePasswordPageModule)
+        path: 'account',
+        loadChildren: () => import('../account/account.module').then( m => m.AccountPageModule)
       },
       {
-        path: 'mobile-wish-list',
-        loadChildren: () => import('../mobile-wish-list/mobile-wish-list.module').then( m => m.MobileWishListPageModule)
+        path: 'products-management',
+        loadChildren: () => import('../products-management/products-management.module').then( m => m.ProductsManagementPageModule)
+      },
+      {
+        path: 'hair-bundles',
+        loadChildren: () => import('../hair-bundles/hair-bundles.module').then( m => m.HairBundlesPageModule)
+      },
+      {
+        path: 'product-view/:id',
+        loadChildren: () => import('../product-view/product-view-routing.module').then( m => m.ProductViewPageRoutingModule)
+      },
+      {
+        path: 'personal-info',
+        loadChildren: () => import('../personal-info/personal-info.module').then( m => m.PersonalInfoPageModule)
+      },
+      {
+        path: 'update-password',
+        loadChildren: () => import('../update-password/update-password.module').then( m => m.UpdatePasswordPageModule)
+      },
+      {
+        path: 'wish-list',
+        loadChildren: () => import('../wish-list/wish-list.module').then( m => m.WishListPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: '/mobile-home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/home',
+    redirectTo: '/mobile-home',
     pathMatch: 'full'
   }
 ];

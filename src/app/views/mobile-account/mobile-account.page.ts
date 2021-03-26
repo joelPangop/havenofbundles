@@ -76,7 +76,6 @@ export class MobileAccountPage implements OnInit {
             features: 'Our policy and terms & conditions',
             url: ''
           }
-
         ];
       });
     });

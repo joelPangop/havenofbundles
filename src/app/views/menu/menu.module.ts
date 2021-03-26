@@ -17,24 +17,26 @@ import {HomePageModule} from "../home/home.module";
 import {ProductViewPageModule} from '../product-view/product-view.module';
 import {BundleSetListPageModule} from '../bundle-set-list/bundle-set-list.module';
 import {BundleSetPageModule} from '../bundle-set/bundle-set.module';
+import {TabsPageModule} from "../tabs/tabs.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MenuPageRoutingModule,
-    Tab1PageModule,
-    Tab2PageModule,
-    Tab3PageModule,
-    DashboardPageModule,
-    ProductsPageModule,
-    HairBundlesPageModule,
-    HomePageModule,
-    ProductViewPageModule,
-    BundleSetListPageModule,
-    BundleSetPageModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        MenuPageRoutingModule,
+        Tab1PageModule,
+        Tab2PageModule,
+        Tab3PageModule,
+        DashboardPageModule,
+        ProductsPageModule,
+        HairBundlesPageModule,
+        HomePageModule,
+        ProductViewPageModule,
+        BundleSetListPageModule,
+        BundleSetPageModule,
+        TabsPageModule
+    ],
   declarations: [MenuPage]
 })
 export class MenuPageModule {}

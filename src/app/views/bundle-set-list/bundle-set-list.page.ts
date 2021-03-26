@@ -49,8 +49,9 @@ export class BundleSetListPage implements OnInit {
     })
   }
 
-  goToDetail(id: string) {
+  async goToDetail(id: string) {
     this.pageService.view = 'bundleSet-view';
     this.pageService.parameter = id;
+    await this.router.navigateByUrl('bundle-set/'+id);
   }
 }

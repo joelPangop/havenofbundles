@@ -3,6 +3,7 @@ import {IonSlides} from '@ionic/angular';
 import {BundleSet} from '../../models/BundleSet';
 import {BundleSetService} from '../../services/bundle-set.service';
 import {environment} from '../../models/environments';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-bundle-set',
@@ -32,14 +33,14 @@ export class BundleSetPage implements OnInit {
     }
   };
 
-  constructor(private bundleSetService: BundleSetService) {
+  constructor(private bundleSetService: BundleSetService, private activatedRoute: ActivatedRoute) {
     this.bundleSet = new BundleSet();
-
   }
 
   ngOnInit() {
-    this.id = this.name;
+    // this.id = this.name;
     this.ip = environment.api_url;
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.bundleSetService.getBundleSet(this.id).subscribe((res) => {
       this.bundleSet = res;
     });

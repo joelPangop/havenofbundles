@@ -1,0 +1,32 @@
+/* Change background color of buttons on hover */
+.sidetab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.sidetab button.active {
+  border-bottom: 2px solid #ab924d;
+}
+
+.sidetab {
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, .0001) !important;
+  border: 1px solid rgba(0, 0, 0, .0001) !important;
+  //background-color: #f1f1f1;
+}
+
+.sidetab button {
+  color: #ab924d;
+}
+
+/* Style the buttons inside the tab */
+.sidetab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}

@@ -12,14 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./views/menu/menu.module').then( m => m.MenuPageModule)
   },
   {
-    path: 'products-management',
-    loadChildren: () => import('./views/products-management/products-management.module').then( m => m.ProductsManagementPageModule)
-  },
-  {
-    path: 'hair-bundles',
-    loadChildren: () => import('./views/hair-bundles/hair-bundles.module').then( m => m.HairBundlesPageModule)
-  },
-  {
     path: 'filter-view',
     loadChildren: () => import('./views/filter-view/filter-view.module').then( m => m.FilterViewPageModule)
   },
@@ -76,18 +68,9 @@ const routes: Routes = [
     loadChildren: () => import('./views/mobile-auth/mobile-sign-up/mobile-sign-up.module').then( m => m.MobileSignUpPageModule)
   },
   {
-    path: 'sign-up',
-    loadChildren: () => import('./views/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
-  },
-  {
-    path: 'account',
-    loadChildren: () => import('./views/account/account.module').then( m => m.AccountPageModule)
-  },  {
     path: 'modify-profile-image',
     loadChildren: () => import('./views/modify-profile-image/modify-profile-image.module').then( m => m.ModifyProfileImagePageModule)
   }
-
-
 ];
 @NgModule({
   imports: [

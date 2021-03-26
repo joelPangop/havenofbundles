@@ -85,6 +85,7 @@ export class HairBundlesPage implements OnInit {
 
   async goToDetail(id: string) {
     this.pageService.view = 'product-view';
+    await this.router.navigateByUrl("/product-view/"+id);
     this.pageService.parameter = id;
   }
 

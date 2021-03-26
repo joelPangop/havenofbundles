@@ -1,9 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>account</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div class="ex3" id="myScrollDiv">
+    <h1>Account</h1>
+    <ion-grid fixed style="height: 100%">
+      <ion-row style="height: 100%">
+        <ion-col size="3" style="height: 100%">
+          <ion-list class="ion-padding" lines="none">
+            <div class="sidetab" *ngFor="let page of pages">
+              <button class="sidetablinks" (click)="changeView($event, page.url)">
+                {{page.name}}
+              </button>
+            </div>
+          </ion-list>
+        </ion-col>
+        <ion-col size="9" style="height: 100%">
+          <app-personal-info name="browser" *ngIf="view === 'Personal Info'"></app-personal-info>
+          <app-update-password name="browser" *ngIf="view === 'Security'"></app-update-password>
+          <app-wish-list name="browser" *ngIf="view === 'Wish List'"></app-wish-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

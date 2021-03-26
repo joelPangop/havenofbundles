@@ -84,7 +84,7 @@ export class MenuPage implements OnInit {
       tablinks[i].className = tablinks[i].className.replace(' active', '');
     }
     // document.getElementById(cityName).style.display = "block";
-    this.pageService.view = page;
+    // this.pageService.view = page;
     await this.storage.setObject('tab', this.pageService.view);
     event.currentTarget.className += ' active';
   }

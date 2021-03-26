@@ -1,5 +1,5 @@
-<ion-split-pane contentId="content" *ngIf="platform.is('ios') || platform.is('android')">
-  <ion-menu side="start" menuId="pages" type="overlay" contentId="content">
+<ion-split-pane contentId="content">
+  <ion-menu side="start" menuId="pages" type="overlay" contentId="content" *ngIf="platform.is('ios') || platform.is('android')">
     <!-- Header -->
     <ion-header>
       <ion-row>
@@ -12,7 +12,7 @@
       <ion-row>
         <ion-col size="4">
           <ion-buttons routerLink="/mobile-sign-in"
-          routerDirection="root">
+                       routerDirection="root">
             Sign In
           </ion-buttons>
         </ion-col>
@@ -76,24 +76,25 @@
 
   <ion-router-outlet id="content"></ion-router-outlet>
 </ion-split-pane>
-<ion-toolbar *ngIf="!platform.is('ios') && !platform.is('android')">
-  <div class="tab" style="width:80%; margin:0 auto; position: relative;">
-    <button class="tablinks" fill="clear" (click)="changeView($event, 'home')">
-      <ion-icon name="home"></ion-icon>
-    </button>
-    <button class="tablinks" (click)="goToCategory($event, 'hairBundles', 'hair')">Shop Hair</button>
-    <button class="tablinks" (click)="goToCategory($event, 'bundleSet', 'bundleSet')">Shop Bundle Set</button>
-    <button class="tablinks" (click)="changeView($event, 'dashboard')">Dashboard</button>
-  </div>
-  <ion-button fill="clear" slot="end">
-    <ion-icon slot="icon-only" name="cart"></ion-icon>
-  </ion-button>
-</ion-toolbar>
-<ion-content [fullscreen]="true" *ngIf="!platform.is('ios') && !platform.is('android')">
-  <app-home *ngIf="pageService.view === 'home'"></app-home>
-  <app-hair-bundles *ngIf="pageService.view === 'hairBundles'"></app-hair-bundles>
-  <app-bundle-set-list *ngIf="pageService.view === 'bundleSet'"></app-bundle-set-list>
-  <app-bundle-set *ngIf="pageService.view === 'bundleSet-view'" name="{{pageService.parameter}}"></app-bundle-set>
-  <app-dashboard *ngIf="pageService.view === 'dashboard'"></app-dashboard>
-  <app-product-view *ngIf="pageService.view === 'product-view'" name="{{pageService.parameter}}"></app-product-view>
-</ion-content>
+<!--<ion-toolbar *ngIf="!platform.is('ios') && !platform.is('android')">-->
+<!--  <div class="tab" style="width:80%; margin:0 auto; position: relative;">-->
+<!--    <button class="tablinks" fill="clear" (click)="changeView($event, 'home')" routerLink="/tabs/home" routerDirection="root">-->
+<!--      <ion-icon name="home"></ion-icon>-->
+<!--    </button>-->
+<!--    <button class="tablinks" (click)="goToCategory($event, 'hairBundles', 'hair')">Shop Hair</button>-->
+<!--    <button class="tablinks" (click)="goToCategory($event, 'bundleSet', 'bundleSet')">Shop Bundle Set</button>-->
+<!--    <button class="tablinks" (click)="changeView($event, 'dashboard')">Dashboard</button>-->
+<!--  </div>-->
+<!--  <ion-button fill="clear" slot="end">-->
+<!--    <ion-icon slot="icon-only" name="cart"></ion-icon>-->
+<!--  </ion-button>-->
+<!--</ion-toolbar>-->
+<!--<ion-content [fullscreen]="true" *ngIf="!platform.is('ios') && !platform.is('android')">-->
+<!--<app-tabs></app-tabs>-->
+<!--  &lt;!&ndash;  <app-home *ngIf="pageService.view === 'home'"></app-home>&ndash;&gt;-->
+<!--  &lt;!&ndash;  <app-hair-bundles *ngIf="pageService.view === 'hairBundles'"></app-hair-bundles>&ndash;&gt;-->
+<!--  &lt;!&ndash;  <app-bundle-set-list *ngIf="pageService.view === 'bundleSet'"></app-bundle-set-list>&ndash;&gt;-->
+<!--  &lt;!&ndash;  <app-bundle-set *ngIf="pageService.view === 'bundleSet-view'" name="{{pageService.parameter}}"></app-bundle-set>&ndash;&gt;-->
+<!--  &lt;!&ndash;  <app-dashboard *ngIf="pageService.view === 'dashboard'"></app-dashboard>&ndash;&gt;-->
+<!--  &lt;!&ndash;  <app-product-view *ngIf="pageService.view === 'product-view'" name="{{pageService.parameter}}"></app-product-view>&ndash;&gt;-->
+<!--</ion-content>-->

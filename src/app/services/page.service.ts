@@ -21,7 +21,7 @@ export class PageService {
     return [
       {
         title: 'Home',
-        url: '/tabs/mobile-home',
+        url: '/mobile-home',
         icon: 'home'
       },
       {
@@ -29,15 +29,15 @@ export class PageService {
         children: [
           {
             title: 'Hair Bundles',
-            url: '/tabs/mobile-hair-bundles/'+ProductCategories.BUNDLES,
+            url: '/mobile-hair-bundles/'+ProductCategories.BUNDLES,
           },
           {
             title: 'Closures',
-            url: '/tabs/mobile-hair-bundles/'+ProductCategories.CLOSURE,
+            url: '/mobile-hair-bundles/'+ProductCategories.CLOSURE,
           },
           {
             title: 'Frontals',
-            url: '/tabs/mobile-hair-bundles/'+ProductCategories.FRONTAL,
+            url: '/mobile-hair-bundles/'+ProductCategories.FRONTAL,
           }
         ]
       },
@@ -46,15 +46,15 @@ export class PageService {
         children: [
           {
             title: 'All Bundle Sets',
-            url: '/tabs/mobile-bundle-set-list/all',
+            url: '/mobile-bundle-set-list/all',
           },
           {
             title: 'Straight Bundle Sets',
-            url: '/tabs/mobile-bundle-set-list/'+Styles.STRAIGHT,
+            url: '/mobile-bundle-set-list/'+Styles.STRAIGHT,
           },
           {
             title: 'Wavy & Curly Bundle Sets',
-            url: '/tabs/mobile-bundle-set-list/'+Styles.CURLY,
+            url: '/mobile-bundle-set-list/'+Styles.CURLY,
           }
         ]
       }
@@ -66,32 +66,32 @@ export class PageService {
       {
         name: 'Personal Info',
         features: 'Name, Email, Birth, Birthday',
-        url: '/tabs/mobile-personal-info/userInfo/' + this.authSrv.currentUser.id
+        url: '/mobile-personal-info/userInfo/' + this.authSrv.currentUser.id
       },
       {
         name: 'Orders',
         features: 'Paid, unpaid, Delivered',
-        url: '/tabs/summary'
+        url: '/summary'
       },
       {
         name: 'Addresses',
         features: 'Manage addresses',
-        url: '/tabs/mobile-personal-info/addressInfo/' + this.authSrv.currentUser.id
+        url: '/mobile-personal-info/addressInfo/' + this.authSrv.currentUser.id
       },
       {
         name: 'Security',
         features: 'Password, two factor',
-        url: '/tabs/mobile-update-password/' + this.authSrv.currentUser.id
+        url: '/mobile-update-password/' + this.authSrv.currentUser.id
       },
       {
         name: 'Payments Methods',
         features: 'Paypal, Credit Card',
-        url: '/tabs/summary'
+        url: '/summary'
       },
       {
         name: 'Wish List',
         features: 'Favorites Products',
-        url: '/tabs/mobile-wish-list'
+        url: '/mobile-wish-list'
       },
       {
         name: 'Message',
