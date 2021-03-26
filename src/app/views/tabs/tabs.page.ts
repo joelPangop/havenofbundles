@@ -17,7 +17,7 @@ export class TabsPage {
     console.log(platform.platforms());
   }
 
-  public async goToCategory(event, page, type) {
+  public async goToCategory(ev: any, page, type) {
     // await this.changeView(event, page);
     let i, tablinks;
     tablinks = document.getElementsByClassName('tablinks');
@@ -25,15 +25,15 @@ export class TabsPage {
       tablinks[i].className = tablinks[i].className.replace(' active', '');
     }
     // document.getElementById(cityName).style.display = "block";
-    event.currentTarget.className += ' active';
+    ev.currentTarget.className += ' active';
     const popover = await this.popoverCtrl.create({
       component: CategoryLinksPage,
-      event: event,
       componentProps: {
         type
       },
-      translucent: true,
-      cssClass: 'my-custom-dialog',
+      cssClass: 'popover-custom',
+      event: ev,
+      translucent: true
     });
     popover.onDidDismiss()
       .then(async (data: any) => {

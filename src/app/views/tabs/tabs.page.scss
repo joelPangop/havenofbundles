@@ -55,3 +55,10 @@
   color: #ab924d;
 }
 
+.custom-popover .popover-content {
+  width: 30%;
+  bottom: 20px;
+  height: 20%;
+  top: 90px; // is not working
+
+}

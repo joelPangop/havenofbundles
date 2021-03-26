@@ -3,6 +3,8 @@ import {StorageService} from "../../services/storage.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {User} from "../../models/user";
 import {environment} from "../../models/environments";
+import {ModalController} from '@ionic/angular';
+import {ModifyProfileImagePage} from '../modify-profile-image/modify-profile-image.page';
 
 @Component({
   selector: 'app-account',
@@ -14,8 +16,11 @@ export class AccountPage implements OnInit {
   view: string;
   user: User;
   ip: string;
+  imgURL: any;
+  category: any;
 
-  constructor(public authSrv: AuthenticationService, private storage: StorageService) {
+  constructor(public authSrv: AuthenticationService, private storage: StorageService, private modalController: ModalController) {
+    this.user = new User();
   }
 
   ngOnInit() {
@@ -24,10 +29,12 @@ export class AccountPage implements OnInit {
       this.authSrv.currentUser = res;
       this.authSrv.getUserById(res.id).subscribe((rep) => {
         this.user = rep;
+        this.imgURL = !this.user.avatar.path ? 'assets/images/no-profile.png' : this.ip+'/file/image/' + this.user.avatar.path;
         this.pages = [
           {
             name: "Personal Info",
-            url: '/personal-info/userInfo/' + res.id
+            url: '/personal-info/userInfo/' + res.id,
+            category: 'userInfo'
           },
           {
             name: "Orders",
@@ -35,7 +42,8 @@ export class AccountPage implements OnInit {
           },
           {
             name: "Addresses",
-            url: '/personal-info/addressInfo/' + res.id
+            url: '/personal-info/addressInfo/' + res.id,
+            category: 'addressInfo'
           },
           {
             name: "Security",
@@ -76,8 +84,10 @@ export class AccountPage implements OnInit {
       tablinks[i].className = tablinks[i].className.replace(' active', '');
     }
     // document.getElementById(cityName).style.display = "block";
-    this.view = url;
+    this.view = url.name;
+    url.category ? this.category = url.category : '';
     await this.storage.setObject('dashboard_view', this.view);
     event.currentTarget.className += ' active';
   }
+
 }
