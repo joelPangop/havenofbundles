@@ -44,13 +44,13 @@ export class MobileSignInPage implements OnInit {
     this.authService.login(this.credentials.value).subscribe(
       async _ => {
         await load.dismiss();
-        await this.router.navigateByUrl('/tabs/mobile-home', {replaceUrl: true});
+        await this.router.navigateByUrl('/home', {replaceUrl: true});
       },
       async (res) => {
         await load.dismiss();
         const alert = await this.alertController.create({
           header: 'Login failed',
-          message: res.error.msg,
+          message: res.error.message,
           buttons: ['OK']
         });
         await alert.present();

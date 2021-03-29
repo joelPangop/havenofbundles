@@ -3,10 +3,11 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../models/user';
 import {AuthenticationService} from '../../services/authentication.service';
 import {ActivatedRoute} from '@angular/router';
-import {LoadingController, ToastController} from '@ionic/angular';
+import {LoadingController, Platform, ToastController} from '@ionic/angular';
 import {MailService} from '../../services/mail.service';
 import {PasswordValidatorDirective} from '../../services/password-validator.directive';
 import {Device} from '@capacitor/core';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
   selector: 'app-mobile-update-password',
@@ -23,8 +24,10 @@ export class MobileUpdatePasswordPage implements OnInit {
   passwordConfirm;
 
   constructor(private activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public authSrv: AuthenticationService, private loadCtrl: LoadingController,
-              private mailService: MailService, private toastCtrl: ToastController) {
+              private mailService: MailService, private toastCtrl: ToastController, public platform: Platform,
+              private storageService: StorageService) {
   }
+
 
   ngOnInit() {
     this.userForm = new FormGroup({
@@ -40,8 +43,14 @@ export class MobileUpdatePasswordPage implements OnInit {
     this.load();
   }
 
-  load() {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+  async load() {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    } else {
+      const currentUser = await this.storageService.getObject('user') as any;
+      this.id = currentUser.id;
+
+    }
     this.authSrv.getUserById(this.id).subscribe((res) => {
       this.user = res;
     });

@@ -1,7 +1,7 @@
 <ion-tabs *ngIf="platform.is('ios') || platform.is('android')">
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="mobile-home">
+    <ion-tab-button tab="home">
       <ion-icon name="home-outline"></ion-icon>
       <span>Home</span>
     </ion-tab-button>
@@ -16,7 +16,7 @@
       <ion-label>Cart</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="mobile-account">
+    <ion-tab-button tab="mobile-account" *ngIf="authService.currentUser">
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>account</ion-label>
     </ion-tab-button>
@@ -44,7 +44,7 @@
       <ion-label>Shop Bundle Set</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="account" class="tablinks">
+    <ion-tab-button *ngIf="authService.currentUser" tab="account" class="tablinks">
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>account</ion-label>
     </ion-tab-button>

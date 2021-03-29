@@ -8,13 +8,11 @@ import {AlertController, Platform} from '@ionic/angular';
 import {environment} from '../models/environments';
 import {AuthResponse} from '../models/auth-response';
 import {catchError, switchMap, tap} from 'rxjs/operators';
-import {Utils} from '../Utils';
 import {MailService} from './mail.service';
-import {Mail} from '../models/mail-interface';
 import {Router} from '@angular/router';
 import {Plugins} from '@capacitor/core';
 
-const { Storage, Device } = Plugins;
+const {Storage, Device} = Plugins;
 const TOKEN_KEY = 'access_token';
 const REFRESH_KEY = 'refresh_token';
 
@@ -35,21 +33,23 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private storageService: StorageService, private router: Router,
               private platform: Platform, private mailService: MailService, private showAlert: AlertController) {
+
+    this.loadToken();
     this.authResponse = {} as AuthResponse;
-    this.currentUser = new User();
-    this.storageService.getObject('user').then((res: any) => {
-      this.currentUser = res;
-    });
-    // this.loadToken();
+    //
   }
 
   async loadToken() {
     const token = await this.storageService.getObject(TOKEN_KEY);
-    if (token && token.value) {
+
+    if (token) {
       this.currentAccessToken = token.value;
+      this.currentUser = await this.storageService.getObject('user');
+
       this.authenticationState.next(true);
     } else {
       this.authenticationState.next(false);
+      this.currentUser = new User();
     }
   }
 
@@ -67,12 +67,11 @@ export class AuthenticationService {
 
   login(credentials: { username, password }): Observable<any> {
     return this.http.post(`${this.url}/user/login`, credentials).pipe(
-
-      switchMap(async (tokens: {user, refreshToken, accessToken }) => {
+      switchMap(async (tokens: { user, refreshToken, accessToken }) => {
         this.currentAccessToken = tokens.accessToken;
         const decoded = helper.decodeToken(this.currentAccessToken);
 
-        await Storage.set({key: TOKEN_KEY, value: this.currentAccessToken });
+        await Storage.set({key: TOKEN_KEY, value: this.currentAccessToken});
         this.currentUser = tokens.user;
         const storeRefresh = await this.storageService.setObject(REFRESH_KEY, tokens.refreshToken);
         const storeAccess = await this.storageService.setString(TOKEN_KEY, this.currentAccessToken);
@@ -88,23 +87,30 @@ export class AuthenticationService {
     );
   }
 
-  logout() {
-    return this.http.post(`${this.url}/users/auth/logout`, {}).pipe(
-      switchMap(_ => {
-        this.currentAccessToken = null;
-        const deleteAccess = this.storageService.removeItem(TOKEN_KEY);
-        const deleteRefresh = this.storageService.removeItem(REFRESH_KEY);
-        return from(Promise.all([deleteAccess, deleteRefresh]));
-      }),
-      tap(_ => {
-        this.authenticationState.next(false);
-        this.router.navigateByUrl('/', {replaceUrl: true});
-      })
-    ).subscribe();
+  logout(load: any) {
+    // return this.http.post(`${this.url}/users/auth/logout`, {}).pipe(
+    //   switchMap(_ => {
+    this.currentUser = undefined;
+    this.currentAccessToken = null;
+    const deleteAccess = this.storageService.removeItem(TOKEN_KEY);
+    const deleteRefresh = this.storageService.removeItem(REFRESH_KEY);
+    const deleteUser = this.storageService.removeItem('user');
+
+    load.dismiss();
+    this.router.navigateByUrl('/', {replaceUrl: true});
+    return from(Promise.all([deleteAccess, deleteRefresh, deleteUser]));
+    //   }),
+    //   tap(_ => {
+    //     this.authenticationState.next(false);
+    //     this.currentUser = {};
+    //     load.dismiss();
+    //     this.router.navigateByUrl('/', {replaceUrl: true});
+    //   })
+    // ).subscribe();
   }
 
-  getUserById(id: string): Observable<User>{
-    return this.http.get<User>(`${this.url}/user/user/`+id);
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/user/user/` + id);
   }
 
   storeAccessToken(accessToken) {
@@ -131,17 +137,18 @@ export class AuthenticationService {
     );
   }
 
-  update(user: User):Observable<any> {
+  update(user: User): Observable<any> {
     return this.http.put(`${this.url}/user/update/${this.currentUser.id}`, user);
   }
 
-  updatePassword(user: User):Observable<any> {
+  updatePassword(user: User): Observable<any> {
     return this.http.put(`${this.url}/user/update/password/${this.currentUser.id}`, user);
   }
 
-  updateImage(user: User):Observable<any> {
+  updateImage(user: User): Observable<any> {
     return this.http.put(`${this.url}/user/update/image/${this.currentUser.id}`, user);
   }
+
   verification_user(user: User): Observable<any> {
     return this.http.put<any>(`${environment.api_url}/user/update_verification`, user)
       .pipe(
@@ -153,6 +160,12 @@ export class AuthenticationService {
           throw new Error(e);
         })
       );
+  }
+
+  setCurrentUser(user: User) {
+    this.currentUser.id = user._id;
+    this.currentUser.email = user.email;
+    this.currentUser.username = user.username;
   }
 
 }

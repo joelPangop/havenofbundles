@@ -10,6 +10,7 @@ import { AccountPage } from './account.page';
 import {PersonalInfoPageModule} from "../personal-info/personal-info.module";
 import {UpdatePasswordPageModule} from "../update-password/update-password.module";
 import {WishListPageModule} from "../wish-list/wish-list.module";
+import {MobileUpdatePasswordPageModule} from '../mobile-update-password/mobile-update-password.module';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import {WishListPageModule} from "../wish-list/wish-list.module";
         AccountPageRoutingModule,
         PersonalInfoPageModule,
         UpdatePasswordPageModule,
-        WishListPageModule
+        WishListPageModule,
+        MobileUpdatePasswordPageModule
     ],
   declarations: [AccountPage]
 })

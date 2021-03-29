@@ -2,11 +2,35 @@
   <ion-header style="text-align: center">
     <div data-test="promo-banner" class="inherit-color">GET FREE STANDARD SHIPPING ON ALL ORDERS</div>
   </ion-header>
-  <ion-header style="height: 50px;">
-        <div data-test="promo-banner" class="align-center">HAVEN OF BUNDLES</div>
-<!--    <div class="logo align-center">-->
-<!--      <img src="assets/images/logo.png" alt="logo">-->
-<!--    </div>-->
+  <ion-header>
+    <ion-toolbar color="black" *ngIf="!platform.is('ios') && !platform.is('android')">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <a *ngIf="!authService.currentUser" routerLink="/sign-in"
+               routerDirection="root">
+              <span>Sign In</span>
+            </a>
+            <p *ngIf="authService.currentUser">Hello, {{authService.currentUser.username}}</p>
+          </ion-col>
+          <ion-col size="6">
+            <a *ngIf="!authService.currentUser" routerLink="/sign-up"
+               routerDirection="root">
+              <span>or </span><u>Sign Up</u>
+            </a>
+            <a *ngIf="authService.currentUser" (click)="logOut()">
+              <u>Sign Out</u>
+            </a>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+    <ion-toolbar color="black">
+      <div data-test="promo-banner" class="align-center">HAVEN OF BUNDLES</div>
+    </ion-toolbar>
+    <!--        <div class="logo align-center">-->
+    <!--          <img src="assets/images/logo2.png" alt="logo">-->
+    <!--        </div>-->
   </ion-header>
   <ion-content>
     <ion-router-outlet></ion-router-outlet>

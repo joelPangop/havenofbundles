@@ -13,6 +13,7 @@ import {ImageService} from '../../services/image.service';
 import {Genders} from '../../models/Genders';
 import {CategorieTelephone} from '../../models/CategorieTelephone';
 import * as moment from 'moment';
+import {PageService} from '../../services/page.service';
 
 @Component({
   selector: 'app-personal-info',
@@ -33,27 +34,21 @@ export class PersonalInfoPage implements OnInit {
   id: string = '';
   genders: string[];
   options: string[];
-  addresseType: any = 'user';
+  addressType: any = 'user';
   shipping_addr: Address;
   addr_informations: any;
 
   constructor(public authSrv: AuthenticationService, private storage: StorageService, private modalController: ModalController,
               private activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, private router: Router,
-              private loadCtrl: LoadingController, private mailService: MailService, public imgSrv: ImageService, private toastCtrl: ToastController) {
+              private loadCtrl: LoadingController, private mailService: MailService, public imgSrv: ImageService, private toastCtrl: ToastController,
+              public pageService: PageService) {
     this.user = new User();
     this.shipping_addr = new Address();
   }
 
   ngOnInit() {
     this.ip = environment.api_url;
-    this.category = this.name;
-    this.storage.getObject('user').then((res: any) => {
-      this.authSrv.currentUser = res;
-      this.authSrv.getUserById(res.id).subscribe((rep) => {
-        this.user = rep;
-        this.imgURL = !this.user.avatar.path ? 'assets/images/no-profile.png' : this.ip + '/file/image/' + this.user.avatar.path;
-      })
-    })
+    this.category = this.pageService.userInfoCategory;
     this.load();
     this.genders = Object.values(Genders);
     this.options = Object.values(CategorieTelephone);
@@ -89,13 +84,21 @@ export class PersonalInfoPage implements OnInit {
   ionViewWillEnter() {
     this.load();
     this.view = 'detail';
+    this.category = this.name;
+  }
+
+  ionViewDidEnter() {
+    this.load();
+    this.view = 'detail';
+    this.category = this.name;
   }
 
   load() {
-    this.category = this.activatedRoute.snapshot.paramMap.get('category');
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+  //   this.category = this.activatedRoute.snapshot.paramMap.get('category');
+    this.id = this.authSrv.currentUser.id;
     this.authSrv.getUserById(this.id).subscribe((res) => {
       this.user = res;
+      this.imgURL = !this.user.avatar.path ? 'assets/images/no-profile.png' : this.ip + '/file/image/' + this.user.avatar.path;
       if(res.shipping_addr) {
         this.shipping_addr = res.shipping_addr;
       }

@@ -45,15 +45,23 @@ const routes: Routes = [
       },
       {
         path: 'sign-in',
-        loadChildren: () => import('../sign-in/sign-in.module').then( m => m.SignInPageModule)
+        loadChildren: () => import('../auth/sign-in/sign-in.module').then( m => m.SignInPageModule)
       },
       {
         path: 'sign-up',
-        loadChildren: () => import('../sign-up/sign-up.module').then( m => m.SignUpPageModule)
+        loadChildren: () => import('../auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
       },
       {
         path: 'landing',
-        loadChildren: () => import('../landing/landing.module').then( m => m.LandingPageModule)
+        loadChildren: () => import('../auth/landing/landing.module').then( m => m.LandingPageModule)
+      },
+      {
+        path: 'verification',
+        loadChildren: () => import('../auth/verification/verification.module').then( m => m.VerificationPageModule)
+      },
+      {
+        path: 'forgot-password',
+        loadChildren: () => import('../auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
       },
       {
         path: 'summary',
@@ -160,14 +168,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/mobile-home',
+        redirectTo: '/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/mobile-home',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];

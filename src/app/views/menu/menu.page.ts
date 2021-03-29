@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Platform, PopoverController} from '@ionic/angular';
+import {LoadingController, Platform, PopoverController} from '@ionic/angular';
 import {StorageService} from '../../services/storage.service';
 import {PageService} from '../../services/page.service';
 import {RateViewPage} from '../rate-view/rate-view.page';
 import {CategoryLinksPage} from '../category-links/category-links.page';
+import {AuthenticationService} from '../../services/authentication.service';
 
 declare var jQuery: any;
 
@@ -17,7 +18,9 @@ export class MenuPage implements OnInit {
   appPages: any[];
 
   constructor(public platform: Platform, private storage: StorageService, public pageService: PageService,
-              private popoverCtrl: PopoverController) {
+              private popoverCtrl: PopoverController,
+              private loadCtrl: LoadingController,
+              public authService: AuthenticationService) {
     this.appPages = this.pageService.getPages();
   }
 
@@ -89,7 +92,9 @@ export class MenuPage implements OnInit {
     event.currentTarget.className += ' active';
   }
 
-  goToSubMain(sub) {
-
+  async logOut() {
+    const load = await this.loadCtrl.create();
+    await load.present();
+    this.authService.logout(load);
   }
 }

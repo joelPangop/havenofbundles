@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.platform.platforms());
     this.view = 'tab1';
   }
 

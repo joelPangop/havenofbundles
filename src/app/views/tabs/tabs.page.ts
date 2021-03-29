@@ -4,6 +4,7 @@ import {CategoryLinksPage} from "../category-links/category-links.page";
 import {StorageService} from "../../services/storage.service";
 import {PageService} from "../../services/page.service";
 import {Router} from "@angular/router";
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-tabs',
@@ -13,7 +14,8 @@ import {Router} from "@angular/router";
 export class TabsPage {
 
   constructor(public platform: Platform, private storage: StorageService, public pageService: PageService,
-              private popoverCtrl: PopoverController, private router: Router) {
+              private popoverCtrl: PopoverController, private router: Router,
+              public authService: AuthenticationService) {
     console.log(platform.platforms());
   }
 

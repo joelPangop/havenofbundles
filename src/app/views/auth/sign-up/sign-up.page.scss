@@ -1,0 +1,32 @@
+div.ex3 {
+  background-color: rgba(0, 0, 0, .0001) !important;
+  width: 100%;
+  height: 70%;
+  overflow: auto;
+}
+
+.card-img {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 200px;
+  width: 200px;
+}
+
+.grid .card-img {
+  height: 200px;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.itemInput ion-card {
+  height: 200px;
+  width: 200px;
+}

@@ -27,7 +27,7 @@ export class MobilePersonalInfoPage implements OnInit {
   id: string = '';
   genders: string[];
   options: string[];
-  addresseType: any = 'user';
+  addressType: any = 'user';
   shipping_addr: Address;
   addr_informations: any;
 

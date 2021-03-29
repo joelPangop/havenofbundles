@@ -96,7 +96,7 @@
     <div *ngIf="category === 'addressInfo'">
       <h1>Address</h1>
       <ion-toolbar>
-        <ion-segment [(ngModel)]="addresseType" (ionChange)="segmentChanged($event)">
+        <ion-segment [(ngModel)]="addressType" (ionChange)="segmentChanged($event)">
           <ion-segment-button value="user" layout="icon-start">
             <ion-label color="color1">User Address</ion-label>
           </ion-segment-button>
@@ -105,7 +105,7 @@
           </ion-segment-button>
         </ion-segment>
       </ion-toolbar>
-      <div [ngSwitch]="addresseType">
+      <div [ngSwitch]="addressType">
         <div *ngSwitchCase="'user'">
           <form [formGroup]="addressInfoForm">
             <ion-item lines="none">

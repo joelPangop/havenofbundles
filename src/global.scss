@@ -36,7 +36,7 @@
 /****************************/
 /** Reset **/
 /****************************/
-html, body, div, span, applet, object, iframe, h1, h3, .side-right #countdown span, .side-right #countdown li.seperator, h2, h4, h5, h6, p, .address-detail a, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h3, .side-right #countdown span, .side-right #countdown li.seperator, p, .address-detail a, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -50,8 +50,25 @@ body {
   font-family: "Berlin Sans FB" !important;
 }
 
+u {
+  color: aliceblue;
+}
+
+ion-tab-button {
+  --background-focused: #ab924d;
+  --color-selected: #ab924d;
+}
+
+ion-tab-button:hover {
+  font-size: large;
+  ion-icon {
+    font-size: x-large;
+  }
+}
+
 .itemInput {
   width: 100%;
+
   ion-input {
     color: #ab924d;
     font-family: "Berlin Sans FB";
@@ -89,7 +106,7 @@ ion-header {
 
 ion-input {
   color: #ab924d;
-  background-color: rgba(168, 135, 50,.1) !important;
+  background-color: rgba(168, 135, 50, .1) !important;
   font-family: "Berlin Sans FB";
   font-weight: initial;
   font-style: normal;
@@ -101,18 +118,18 @@ ion-input {
 
 ion-datetime {
   color: #ab924d;
-  background-color: rgba(168, 135, 50,.1) !important;
+  background-color: rgba(168, 135, 50, .1) !important;
   font-family: "Berlin Sans FB";
   font-weight: initial;
   font-style: normal;
 }
 
 ion-input:hover {
-  background-color: rgba(168, 135, 50,.3) !important;
+  background-color: rgba(168, 135, 50, .3) !important;
 }
 
 ion-datetime:hover {
-  background-color: rgba(168, 135, 50,.3) !important;
+  background-color: rgba(168, 135, 50, .3) !important;
 }
 
 .toggle_box {

@@ -1,9 +1,244 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>signUp</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="ex3" id="myScrollDiv">
+    <ion-grid>
+      <h1>Register</h1>
+      <ion-row>
+        <ion-col size="3"></ion-col>
+        <ion-col size="6">
+          <div class="ion-padding">
+            <ion-item-divider>
+              <span><h4 slot="start">LOGIN INFORMATIONS</h4></span>
+              <ion-button slot="end" fill="outline" color="color1" (click)="openLoginStep()" [disabled]="!userForm.valid">
+                <ion-icon name="caret-forward-outline" slot="icon-only" *ngIf="!userStep"></ion-icon>
+                <ion-icon name="caret-down-outline" slot="icon-only" *ngIf="userStep"></ion-icon>
+              </ion-button>
+            </ion-item-divider>
+            <div *ngIf="userStep">
+              <form [formGroup]="userForm">
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    User Name
+                    <ion-input [(ngModel)]="user.username" formControlName="username"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Email
+                    <ion-input [(ngModel)]="user.email" placeholder="xyz@example.com"
+                               formControlName="email"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item aria-expanded="true" lines="none">
+                  <div class="itemInput ion-padding">
+                    Password
+                    <ion-input [type]="passwordType" [(ngModel)]="user.password"
+                               formControlName="password">
+                    </ion-input>
+                  </div>
+                </ion-item>
+                <ion-item aria-expanded="true" lines="none">
+                  <div class="itemInput ion-padding">
+                    Confirm Password
+                    <div class="form-group">
+                      <ion-input [type]="passwordType" formControlName="passwordConfirm">
+                      </ion-input>
 
-<ion-content>
+                      <div class="text-danger"
+                           *ngIf="passwordConfirm?.valid && (passwordConfirm.dirty || passwordConfirm.touched)">
+                        <div *ngIf="userForm.errors.passwordMismatch">
+                          Password and Confirm Password fields should match
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ion-item>
+                <ion-row>
+                  <ion-col size="4"></ion-col>
+                  <ion-col size="4">
+                    <ion-button *ngIf="userStep" color="color1" fill="outline" expand="block" type="submit"
+                                [disabled]="!userForm.valid"
+                                (click)="changeView()">
+                      Next
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="4"></ion-col>
+                </ion-row>
+              </form>
+            </div>
+            <ion-item-divider>
+              <span><h4 slot="start">USER INFORMATIONS</h4></span>
+              <ion-button slot="end" fill="outline" color="color1" (click)="openUserInfoStep()" [disabled]="!userInfoForm.valid">
+                <ion-icon name="caret-forward-outline" slot="icon-only" *ngIf="!userInfoStep"></ion-icon>
+                <ion-icon name="caret-down-outline" slot="icon-only" *ngIf="userInfoStep"></ion-icon>
+              </ion-button>
+            </ion-item-divider>
+            <div *ngIf="userInfoStep">
+              <ion-list>
+                <form [formGroup]="uploadForm">
+                  <ion-item lines="none">
+                    <div class="itemInput ion-padding" align="center">
+                      Upload(Click on the camera icon to open a file chooser)
+                      <hr>
+                      <ion-card>
+                        <!-- Profile Image -->
+                        <div class="card-img"
+                             [style.background-image]="'url('+imgURL+')'"></div>
+                      </ion-card>
+                      <hr>
+                      <ion-button fill="outline" color="color1">
+                        <input type="file" name="file" id="fileId" (change)="onFileSelect($event)"
+                               class="inputfile"/>
+                        <label class="custom-file-upload"
+                               for='fileId' fill="clear">
+                          <ion-icon name="camera" slot="icon-only"></ion-icon>
+                        </label>
+                      </ion-button>
+                    </div>
+                  </ion-item>
+                </form>
+                <form [formGroup]="userInfoForm">
+                  <ion-item lines="none">
+                    <div class="itemInput ion-padding">
+                      <ion-select [(ngModel)]="user.userInfo.gender" formControlName="gender" interface="popover"
+                                  placeholder="Gender">
+                        <ion-select-option *ngFor="let g of genders" [value]="g">{{g}}</ion-select-option>
+                      </ion-select>
+                    </div>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <div class="itemInput ion-padding">
+                      First Name
+                      <ion-input [(ngModel)]="user.userInfo.firstName" formControlName="firstName"></ion-input>
+                    </div>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <div class="itemInput ion-padding">
+                      Last Name
+                      <ion-input [(ngModel)]="user.userInfo.lastName" formControlName="lastName"></ion-input>
+                    </div>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <div class="itemInput ion-padding">
+                      Birthday
+                      <ion-input [(ngModel)]="user.birthday" type="date" id="birthday" name="birthday" formControlName="birthday">
+                      </ion-input>
+                    </div>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <ion-item-group>
+                      <div class="itemInput ion-padding">
+                        <!--              <ion-label>-->
+                        Contacts
+                        <!--              </ion-label>-->
+                        <ion-item *ngFor="let telephone of user.userInfo.telephones; let i = index">
+                          <ion-select [(ngModel)]="telephone.categorieTelephone" formControlName="phone_category"
+                                      placeholder="Category">
+                            <ion-select-option *ngFor="let t of options" [value]="t">
+                              {{t}}
+                            </ion-select-option>
+                          </ion-select>
+                          <ion-input required type="text" [(ngModel)]=telephone.numeroTelephone
+                                     [ngModelOptions]="{standalone: true}"
+                                     placeholder="Number"></ion-input>
+                          <ion-icon (click)="removeControl(i)" name="close-circle"></ion-icon>
+                        </ion-item>
+                      </div>
+                      <ion-button expand="block" color="color1" fill="outline" (click)="addTelephone()">Add Phone
+                      </ion-button>
+                    </ion-item-group>
+                  </ion-item>
+                  <ion-row>
+                    <ion-col size="4"></ion-col>
+                    <ion-col size="4">
+                      <ion-button *ngIf="userInfoStep" color="color1" fill="outline" expand="block" type="submit"
+                                  [disabled]="!userInfoForm.valid"
+                                  (click)="changeView()">
+                        Next
+                      </ion-button>
+                    </ion-col>
+                    <ion-col size="4"></ion-col>
+                  </ion-row>
+                </form>
+              </ion-list>
+            </div>
+            <ion-item-divider>
+              <span><h4 slot="start">ADDRESS INFORMATIONS</h4></span>
+              <ion-button slot="end" fill="outline" color="color1" (click)="changeView()" [disabled]="!addressInfoForm.valid">
+                <ion-icon name="caret-forward-outline" slot="icon-only" *ngIf="!addressStep"></ion-icon>
+                <ion-icon name="caret-down-outline" slot="icon-only" *ngIf="addressStep"></ion-icon>
+              </ion-button>
+            </ion-item-divider>
+            <div *ngIf="addressStep">
+              <form [formGroup]="addressInfoForm">
+                <h1>Address</h1>
 
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Address 1
+                    <ion-input name="addr_1" required="true" formControlName="addr_1"
+                               [(ngModel)]="user.userInfo.address.addr_1">
+                    </ion-input>
+                  </div>
+                </ion-item>
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Address 2 (Optional)
+                    <ion-input name="addr_2" required="true"
+                               [(ngModel)]="user.userInfo.address.addr_2" formControlName="addr_2">
+                    </ion-input>
+                  </div>
+                </ion-item>
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Apartment number
+                    <ion-input name="appart_number" [(ngModel)]="user.userInfo.address.appartNumber"
+                               formControlName="appart_number">
+                    </ion-input>
+                  </div>
+                </ion-item>
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Town
+                    <ion-input name="ville" [(ngModel)]="user.userInfo.address.town"
+                               formControlName="ville"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Postal Code
+                    <ion-input name="postalCode" [(ngModel)]="user.userInfo.address.postalCode"
+                               formControlName="postalCode"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Region
+                    <ion-input name="region" [(ngModel)]="user.userInfo.address.region"
+                               formControlName="region"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-item lines="none">
+                  <div class="itemInput ion-padding">
+                    Country
+                    <ion-input name="pays" [(ngModel)]="user.userInfo.address.country"
+                               formControlName="pays"></ion-input>
+                  </div>
+                </ion-item>
+                <ion-row>
+                  <ion-col size="4"></ion-col>
+                  <ion-col size="4">
+                    <ion-button color="color1" fill="outline" expand="block" type="submit" [disabled]="!addressInfoForm.valid"
+                                (click)="register()">
+                      Save
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="4"></ion-col>
+                </ion-row>
+              </form>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
