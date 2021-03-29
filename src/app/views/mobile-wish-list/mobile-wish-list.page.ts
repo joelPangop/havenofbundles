@@ -67,5 +67,4 @@ export class MobileWishListPage implements OnInit {
     await this.router.navigate(['tabs/mobile-bundle-set/'+product._id]);
   }
 
-
 }
