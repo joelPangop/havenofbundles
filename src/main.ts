@@ -6,6 +6,8 @@ import { environment } from './environments/environment';
 
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
+import 'web-animations-js/web-animations.min';
+
 if (environment.production) {
   enableProdMode();
 }

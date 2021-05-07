@@ -59,7 +59,8 @@
               <ion-list>
                 <ion-item *ngFor="let item of colors; let i = index">
                   <span>{{item.color}}</span>
-                  <ion-checkbox color="color1"  [(ngModel)]="item.isChecked" slot="start" (ionChange)="checkColors($event, item)">
+                  <ion-checkbox color="color1" [(ngModel)]="item.isChecked" slot="start"
+                                (ionChange)="checkColors($event, item)">
                   </ion-checkbox>
                 </ion-item>
               </ion-list>
@@ -71,7 +72,8 @@
               <ion-list>
                 <ion-item *ngFor="let item of hairInfos; let i = index">
                   <span>{{item.hairInfo}}</span>
-                  <ion-checkbox color="color1"  [(ngModel)]="item.isChecked" slot="start" (ionChange)="checkHairInfos($event, item)">
+                  <ion-checkbox color="color1" [(ngModel)]="item.isChecked" slot="start"
+                                (ionChange)="checkHairInfos($event, item)">
                   </ion-checkbox>
                 </ion-item>
               </ion-list>
@@ -83,7 +85,8 @@
               <ion-list>
                 <ion-item *ngFor="let item of hairCategories; let i = index">
                   <span>{{item.hairCategory}}</span>
-                  <ion-checkbox color="color1"  [(ngModel)]="item.isChecked" slot="start" (ionChange)="checkHairCategories($event, item)">
+                  <ion-checkbox color="color1" [(ngModel)]="item.isChecked" slot="start"
+                                (ionChange)="checkHairCategories($event, item)">
                   </ion-checkbox>
                 </ion-item>
               </ion-list>
@@ -97,15 +100,21 @@
               <ion-col sizeLg="3" sizeMd="3" sizeXs="3"
                        *ngFor="let item of productService.products; let i = index"
                        class="grid">
-                <ion-card class="ion-no-margin" (click)="goToDetail(item._id)">
+                <ion-card class="ion-no-margin">
                   <!-- Product Image -->
                   <div class="card-img"
                        [style.background-image]="'url('+ip+'/file/image/'+item.pictures[0]+')'"></div>
                   <ion-card-header color="medium">
-                    <span style="color: #1e2023; font-size-adjust: inherit;">{{item.name}}</span>
-                    <br/>
-                    <span
-                      style="color: #1e2023; font-size-adjust: inherit;">Price: {{item.rates[0].price | currency}}</span>
+                    <ion-row>
+                      <ion-col size="12">
+                        <a style="color: #1e2023; font-size-adjust: inherit;" [routerLink]="'/product-view/'+item._id"
+                           routerDirection="root"
+                           (click)="goToDetail(item._id)">{{item.name}}</a>
+                        <br/>
+                        <span
+                          style="color: #1e2023; font-size-adjust: inherit;">Price: {{item.rates[0].price | currency}}</span>
+                      </ion-col>
+                    </ion-row>
                   </ion-card-header>
                 </ion-card>
               </ion-col>

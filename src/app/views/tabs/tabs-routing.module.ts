@@ -24,10 +24,6 @@ const routes: Routes = [
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
-        path: 'products',
-        loadChildren: () => import('../products/products.module').then( m => m.ProductsPageModule)
-      },
-      {
         path: 'product/:id',
         loadChildren: () => import('../product/product.module').then( m => m.ProductPageModule)
       },
@@ -84,19 +80,19 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
       },
       {
-        path: 'mobile-products-management',
+        path: 'tabs/mobile-products-management',
         loadChildren: () => import('../mobile-products-management/mobile-products-management.module').then( m => m.MobileProductsManagementPageModule)
       },
       {
-        path: 'mobile-home',
+        path: 'tabs/mobile-home',
         loadChildren: () => import('../mobile-home/mobile-home.module').then( m => m.MobileHomePageModule)
       },
       {
-        path: 'mobile-hair-bundles/:category',
+        path: 'tabs/mobile-hair-bundles/:category',
         loadChildren: () => import('../mobile-hair-bundles/mobile-hair-bundles.module').then( m => m.MobileHairBundlesPageModule)
       },
       {
-        path: 'mobile-product-view/:id',
+        path: 'tabs/mobile-product-view/:id',
         loadChildren: () => import('../mobile-product-view/mobile-product-view.module').then( m => m.MobileProductViewPageModule)
       },
       {
@@ -112,15 +108,15 @@ const routes: Routes = [
         loadChildren: () => import('../bundle-set-list/bundle-set-list.module').then( m => m.BundleSetListPageModule)
       },
       {
-        path: 'mobile-bundle-set/:id',
+        path: 'tabs/mobile-bundle-set/:id',
         loadChildren: () => import('../mobile-bundle-set/mobile-bundle-set.module').then( m => m.MobileBundleSetPageModule)
       },
       {
-        path: 'mobile-bundle-set-manager',
+        path: 'tabs/mobile-bundle-set-manager',
         loadChildren: () => import('../mobile-bundle-set-manager/mobile-bundle-set-manager.module').then( m => m.MobileBundleSetManagerPageModule)
       },
       {
-        path: 'mobile-add-edit-bundle-set/:action/:id',
+        path: 'tabs/mobile-add-edit-bundle-set/:action/:id',
         loadChildren: () => import('../mobile-add-edit-bundle-set/mobile-add-edit-bundle-set.module').then( m => m.MobileAddEditBundleSetPageModule)
       },
       {
@@ -128,14 +124,14 @@ const routes: Routes = [
         loadChildren: () => import('../bundle-set-manager/bundle-set-manager.module').then( m => m.BundleSetManagerPageModule)
       },
       {
-        path: 'mobile-bundle-set-list/:category',
+        path: 'tabs/mobile-bundle-set-list/:category',
         loadChildren: () => import('../mobile-bundle-set-list/mobile-bundle-set-list.module').then( m => m.MobileBundleSetListPageModule)
       },
       {
-        path: 'mobile-account',
+        path: 'tabs/mobile-account',
         loadChildren: () => import('../mobile-account/mobile-account.module').then( m => m.MobileAccountPageModule)
       }, {
-        path: 'mobile-personal-info/:category/:id',
+        path: 'tabs/mobile-personal-info/:category/:id',
         loadChildren: () => import('../mobile-personal-info/mobile-personal-info.module').then( m => m.MobilePersonalInfoPageModule)
       },
       {
@@ -165,6 +161,10 @@ const routes: Routes = [
       {
         path: 'wish-list',
         loadChildren: () => import('../wish-list/wish-list.module').then( m => m.WishListPageModule)
+      },
+      {
+        path: 'cart',
+        loadChildren: () => import('../cart/cart.module').then( m => m.CartPageModule)
       },
       {
         path: '',

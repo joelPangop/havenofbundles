@@ -1,24 +1,23 @@
-export class Product {
+import {Article} from './Article';
+
+export class Product extends Article {
   _id: string;
   name: string;
   description?: Description;
   hairInfo?: HairInfo;
   origin?: string;
   rates: Rate[];
-  category: string;
   bundle_category?: string;
   clos_front_category: string;
   style?: string;
-  pictures?: string[];
-  averageStar?: number;
   colors?: string[];
   sizes?: string[];
   available?: boolean;
   care?: Care;
-  likes?: string[];
   userId: string;
 
   constructor() {
+    super();
     this.care = new Care();
     this.rates = [] as Rate[];
     this.hairInfo = new HairInfo();
@@ -46,7 +45,7 @@ export class Rate {
   discountPrice?: number;
   price_discounted?: boolean;
   price_changed_date?: number;
-  length: string;
+  length: number;
   quantity: number;
   can_extra?: boolean;
   extra?: Extra = new Extra();

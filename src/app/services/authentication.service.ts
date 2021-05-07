@@ -87,7 +87,7 @@ export class AuthenticationService {
     );
   }
 
-  logout(load: any) {
+  logout(load?: any) {
     // return this.http.post(`${this.url}/users/auth/logout`, {}).pipe(
     //   switchMap(_ => {
     this.currentUser = undefined;

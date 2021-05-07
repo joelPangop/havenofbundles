@@ -60,11 +60,11 @@ export class WishListPage implements OnInit {
 
   async goToDetail(product: Product){
     this.pageService.productCategory = product.category;
-    await this.router.navigate(['tabs/mobile-product-view/'+product._id]);
+    await this.router.navigate(['product-view/'+product._id]);
   }
 
   async goToBundleSetDetail(product: BundleSet){
-    await this.router.navigate(['tabs/mobile-bundle-set/'+product._id]);
+    await this.router.navigate(['bundle-set/'+product._id]);
   }
 
 }

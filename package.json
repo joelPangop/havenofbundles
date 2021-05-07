@@ -38,6 +38,7 @@
     "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -48,6 +49,7 @@
     "@angular/language-service": "~11.0.5",
     "@capacitor/cli": "2.4.6",
     "@ionic/angular-toolkit": "^2.3.3",
+    "@ionic/lab": "^3.2.10",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",

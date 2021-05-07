@@ -17,6 +17,7 @@ h2 {
       color: #888888;
       font-weight: bolder;
     }
+
     p {
       color: #888888;
     }
@@ -89,6 +90,7 @@ div.ex3 {
   height: 100%;
   overflow: auto;
 }
+
 #myScrollDiv {
   height: 90%;
 }
@@ -106,4 +108,9 @@ div.ex3 {
 .texture ion-col .active {
   border: 3px solid rgba(171, 146, 77, 2);
   font-size: x-small;
+}
+
+.cart-buttons {
+  margin: 10px;
+  float: right;
 }

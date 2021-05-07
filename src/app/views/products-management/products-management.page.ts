@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {AlertController, LoadingController, Platform, ToastController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductsService} from '../../services/products.service';
@@ -10,6 +10,9 @@ import {ProductCategories} from '../../models/productCategories';
 import {Styles} from '../../models/styles';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ImageService} from '../../services/image.service';
+import {trigger, state, style, animate, transition} from '@angular/animations';
+import {ItemCart} from '../../models/ItemCart';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-products-management',
@@ -443,4 +446,5 @@ export class ProductsManagementPage implements OnInit {
       this.file_disposition = 'slide';
     }
   }
+
 }

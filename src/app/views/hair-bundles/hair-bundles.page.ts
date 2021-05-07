@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductsService} from '../../services/products.service';
 import {AlertController, LoadingController, ToastController} from '@ionic/angular';
@@ -11,6 +11,8 @@ import {Product} from '../../models/Product';
 import {Origins} from '../../models/Origins';
 import {BundleCategories} from '../../models/bundleCategories';
 import {PageService} from '../../services/page.service';
+import {ItemCart} from '../../models/ItemCart';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-hair-bundles',
@@ -85,7 +87,7 @@ export class HairBundlesPage implements OnInit {
 
   async goToDetail(id: string) {
     this.pageService.view = 'product-view';
-    await this.router.navigateByUrl("/product-view/"+id);
+    // await this.router.navigateByUrl("/product-view/"+id);
     this.pageService.parameter = id;
   }
 
@@ -205,6 +207,5 @@ export class HairBundlesPage implements OnInit {
       this.load();
     }
   }
-
 
 }

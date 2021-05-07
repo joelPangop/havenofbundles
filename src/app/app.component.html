@@ -11,16 +11,32 @@
                routerDirection="root">
               <span>Sign In</span>
             </a>
-            <p *ngIf="authService.currentUser">Hello, {{authService.currentUser.username}}</p>
+            <p *ngIf="authService.currentUser">Hello, <a style="color: #9d9fa6" routerLink="/"
+                                                         routerDirection="root">{{authService.currentUser.username}}</a>
+            </p>
           </ion-col>
           <ion-col size="6">
-            <a *ngIf="!authService.currentUser" routerLink="/sign-up"
-               routerDirection="root">
-              <span>or </span><u>Sign Up</u>
-            </a>
-            <a *ngIf="authService.currentUser" (click)="logOut()">
-              <u>Sign Out</u>
-            </a>
+            <ion-row>
+              <ion-col size="6"></ion-col>
+              <ion-col size="3">
+                <a *ngIf="!authService.currentUser" routerLink="/sign-up"
+                   routerDirection="root">
+                  <span>or </span><u>Sign Up</u>
+                </a>
+                <a *ngIf="authService.currentUser" (click)="logOut()">
+                  <u>Sign Out</u>
+                </a>
+              </ion-col>
+              <ion-col size="3">
+                <ion-button (click)="openCart()" color="color1" fill="outline">
+                  <div class="cart-length" *ngIf="cartService.itemsInCart.length > 0"
+                       [@cartBadge]="cartService.cartBadgeState">
+                    {{cartService.itemsInCart.length}}</div>
+                  <!--                <div class="cart-length">{{ cartService.cartItemCount | async }}</div>-->
+                  <ion-icon name="cart" class="cart-icon" [@cartBadge]="cartService.cartBadgeState"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -32,7 +48,144 @@
     <!--          <img src="assets/images/logo2.png" alt="logo">-->
     <!--        </div>-->
   </ion-header>
-  <ion-content>
+  <ion-content *ngIf="platform.is('ios') || platform.is('android')">
     <ion-router-outlet></ion-router-outlet>
+  </ion-content>
+  <ion-content *ngIf="!platform.is('ios') && !platform.is('android')">
+    <!--    <ion-split-pane contentId="main-content">-->
+    <ion-menu contentId="main-content" side="end" menuId="cart" class="custom">
+      <ion-list>
+        <ion-list-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button fill="clear" color="color1" (click)="closeCart()">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
+              <ion-title><span>Your Shopping cart ({{cartService.itemsInCart.length}})</span></ion-title>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-list-header>
+        <!--        <ion-menu-toggle auto-hide='false'>-->
+        <ion-grid auto-hide='false' class="ion-padding" id="empty" *ngIf="cartService.itemsInCart.length == 0"
+                  style="height: 100%">
+          <ion-row auto-hide='false' class="ion-align-items-center ion-justify-content-center"
+                   style="height: 100%; flex-direction: column">
+            <div class="ion-text-center ion-padding" auto-hide='false'>
+              <ion-icon name="cart" style="zoom:5.0;" color="medium"></ion-icon>
+              <h4>Your Cart is Empty</h4>
+              <p>Looks like you haven't added anything to your cart yet</p>
+            </div>
+          </ion-row>
+        </ion-grid>
+        <ion-card *ngFor="let item of cartService.itemsInCart; let i = index" auto-hide='false'>
+          <ion-list lines="none">
+            <ion-item>
+              <!-- Product Image -->
+              <ion-thumbnail slot="start">
+                <img style="vertical-align: middle;"
+                     [src]="ip+'/file/image/'+item.product.pictures[0]">
+              </ion-thumbnail>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-label class="ion-text-wrap">
+                    <!-- Product Name -->
+                    <ion-text color="dark" style="font-size: small;">
+                      <span> {{ item.product.name }}</span>
+                    </ion-text>
+                    <ion-text *ngIf="item.qty > 0" style="font-size: x-small; color: #00c06d">
+                      (In stock)
+                    </ion-text>
+                    <ion-row>
+                      <ion-col size="6">
+                        <ion-item lines="none">
+                          <span slot="start">Color</span>&#160;
+                          <select slot="end" [(ngModel)]="item.color" class="list1"
+                                  (change)="changePriceByColor(item,'color')">
+                            <option *ngFor="let c of item.product.colors" [value]="c" class="option2">
+                              {{c}}
+                            </option>
+                          </select>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col size="6">
+                        <ion-item lines="none">
+                          <span slot="start">Length</span>
+                          <select slot="end" [(ngModel)]="item.length" class="list1"
+                                  (change)="changePriceByColor(item,'length')">
+                            <option *ngFor="let r of getLengths(item)" [ngValue]="r" class="option2">
+                              {{r}}
+                            </option>
+                          </select>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col size="12">
+                        <ion-item lines="none">
+                          <span slot="start">QTY</span>&#160;&#160;
+                          <select [(ngModel)]="item.qty" class="list1" (change)="changePriceQty(item)">
+                            <option *ngFor="let qty of quantities" [value]="qty" class="option2">
+                              {{qty}}
+                            </option>
+                          </select>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col size="6">
+                        <ion-item lines="none">
+                          <span slot="start">Price</span>&#160;&#160;
+                          <ion-text color="color1">
+                            <p>{{item.qty === 1 ? item.amount : getPriceForOne(item) | currency}}</p><p> {{item.qty === 1 ? "" : " x "+ item.qty}}</p>
+                          </ion-text>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col size="6">
+                        <ion-button fill="outline" color="color1" (click)="removeProduct(item, i)">
+                          Remove
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label>Sub Total</ion-label>
+            <ion-text slot="end">{{getSubTotal() | currency}}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>Shipping</ion-label>
+            <ion-text slot="end">{{shippingPrice | currency}}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>Tax(15%)</ion-label>
+            <ion-text slot="end">{{getTotalWithTax() | currency}}</ion-text>
+          </ion-item>
+          <ion-item-divider></ion-item-divider>
+          <ion-item lines="none">
+            <span>Total</span>
+            <ion-text slot="end">{{getTotal() | currency}}</ion-text>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-row>
+              <ion-col size="12">
+                <div align="center">
+                  <ion-button fill="outline" color="color1" expand="block" (click)="goToCart()">
+                    Checkout
+                  </ion-button>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-list>
+      </ion-list>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-content>
 </ion-app>

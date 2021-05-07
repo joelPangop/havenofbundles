@@ -1,8 +1,7 @@
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
-import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -11,13 +10,15 @@ import {FilterViewPageModule} from './views/filter-view/filter-view.module';
 import {RateViewPage} from './views/rate-view/rate-view.page';
 import {RateViewPageModule} from './views/rate-view/rate-view.module';
 import {environment} from './models/environments';
-import {StorageService} from './services/storage.service';
 import {Plugins} from '@capacitor/core';
-const { Storage } = Plugins;
 import {JwtInterceptors} from './services/interceptors/jwt.interceptors';
-import { FileValidatorDirective } from './services/file-validator.directive';
-import { FileValueAccessorDirective } from './services/file-value-accessor.directive';
-import { PasswordValidatorDirective } from './services/password-validator.directive';
+import {FileValidatorDirective} from './services/file-validator.directive';
+import {FileValueAccessorDirective} from './services/file-value-accessor.directive';
+import {PasswordValidatorDirective} from './services/password-validator.directive';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule} from '@angular/forms';
+
+const { Storage } = Plugins;
 
 export function jwtOptionsFactory(storage) {
   return {
@@ -33,11 +34,13 @@ export function jwtOptionsFactory(storage) {
   entryComponents: [FilterViewPage, RateViewPage],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FilterViewPageModule,
     RateViewPageModule,
+    FormsModule,
     // JwtModule.forRoot({
     //   jwtOptionsProvider: {
     //     provide: JWT_OPTIONS,

@@ -31,7 +31,7 @@ export class PageService {
     return [
       {
         title: 'Home',
-        url: '/mobile-home',
+        url: '/home',
         icon: 'home'
       },
       {

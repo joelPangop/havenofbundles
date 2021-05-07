@@ -1,9 +1,11 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {IonSlides, LoadingController, Platform, PopoverController} from '@ionic/angular';
+import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AlertController, IonSlides, LoadingController, Platform, PopoverController} from '@ionic/angular';
 import {ProductsService} from '../../services/products.service';
 import {ActivatedRoute} from '@angular/router';
 import {Product, Rate} from '../../models/Product';
 import {environment} from '../../models/environments';
+import {CartService} from '../../services/cart.service';
+import {ItemCart} from '../../models/ItemCart';
 
 @Component({
   selector: 'app-product-view',
@@ -42,7 +44,8 @@ export class ProductViewPage implements OnInit {
   public quantities = [];
 
   constructor(public platform: Platform, public productService: ProductsService, private activatedRoute: ActivatedRoute,
-              private popoverController: PopoverController, private loadingCtrl: LoadingController) {
+              private popoverController: PopoverController, private loadingCtrl: LoadingController, private changeDetector: ChangeDetectorRef,
+              private cartService: CartService) {
     this.product = new Product();
     // this.rate = {} as Rate;
     // this.color = "";
@@ -152,7 +155,18 @@ export class ProductViewPage implements OnInit {
     event.currentTarget.className += ' active';
   }
 
-  addToCart() {
+  async addToCart(product: Product){
+    let item: ItemCart = new ItemCart();
+    item.product = product;
+    item.amount = this.price;
+    item.length = this.rate.length;
+    item.extra = this.rate.extra;
+    item.can_extra = this.rate.can_extra;
+    item.qty = this.quantity;
+    item.color = this.color;
 
+    if(await this.cartService.addToCart(item)){
+      this.changeDetector.detectChanges();
+    }
   }
 }

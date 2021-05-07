@@ -52,7 +52,7 @@
               <ion-col size="6">
                 <ion-item lines="none">
                   <ion-label>QTY</ion-label>
-                  <select [(ngModel)]="quantity" class="list1">
+                  <select [(ngModel)]="quantity" class="list1" >
                     <option *ngFor="let qty of quantities" [value]="qty" class="option2">
                       {{qty}}
                     </option>
@@ -76,7 +76,7 @@
             </ion-item>
             <hr/>
             <!--            <ion-item lines="none">-->
-            <ion-button fill="outline" (click)="addToCart()"
+            <ion-button fill="outline" (click)="addToCart(product)"
                         style="--ion-background-color: #222222; color: #ab924d; --border-color: #ab924d" expand="block">
               Add to Bag
             </ion-button>

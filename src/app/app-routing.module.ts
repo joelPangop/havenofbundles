@@ -70,7 +70,16 @@ const routes: Routes = [
   {
     path: 'modify-profile-image',
     loadChildren: () => import('./views/modify-profile-image/modify-profile-image.module').then( m => m.ModifyProfileImagePageModule)
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./views/products/products.module').then( m => m.ProductsPageModule)
+  },
+  {
+    path: 'cart-view',
+    loadChildren: () => import('./views/cart-view/cart-view.module').then( m => m.CartViewPageModule)
   }
+
 ];
 @NgModule({
   imports: [

@@ -54,6 +54,12 @@ u {
   color: aliceblue;
 }
 
+select.list1 {
+  background-color: #1e1e1e;
+  color: #ab924d;
+  border: 3px solid #ab924d;
+}
+
 ion-tab-button {
   --background-focused: #ab924d;
   --color-selected: #ab924d;

@@ -1,17 +1,16 @@
 import {Product, Rate} from './Product';
+import {Article} from './Article';
 
-export class BundleSet {
+export class BundleSet extends Article{
   _id: string;
   title: string;
   features: BundleSetRate[];
-  pictures?: string[];
   product: Product;
-  category: string;
   price: number;
   supplement: Supplement;
-  likes?: string[];
 
   constructor() {
+    super();
     this.features = [];
     this.supplement = {} as Supplement;
   }
